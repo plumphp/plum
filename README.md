@@ -3,6 +3,9 @@ Plum
 
 > Plum is a data processing pipeline that helps you to write structured, reusable and well tested data processing code.
 
+[![Test Coverage](https://codeclimate.com/github/florianeckerstorfer/plum/badges/coverage.svg)](https://codeclimate.com/github/florianeckerstorfer/plum)
+[![Code Climate](https://codeclimate.com/github/florianeckerstorfer/plum/badges/gpa.svg)](https://codeclimate.com/github/florianeckerstorfer/plum)
+
 Developed by [Florian Eckerstorfer](https://florian.ec) in Vienna, Europe.
 
 

@@ -1,0 +1,24 @@
+language: php
+
+php:
+  - 5.4
+  - 5.5
+  - 5.6
+  - hhvm
+
+addons:
+  code_climate:
+    repo_token: 6299408c7d78e9c74cdbfd31e85e7abd519390a189a3a4882b9f5f3305376d2a
+
+before_script:
+  - wget http://getcomposer.org/composer.phar
+  - php composer.phar --prefer-source --dev install
+  - cp phpunit.xml.dist phpunit.xml
+
+script:
+  - mkdir -p build/logs
+  - ./vendor/bin/phpunit -c ./
+
+after_script:
+  - php vendor/bin/coveralls -v
+  - php vendor/bin/test-reporter
