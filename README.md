@@ -18,11 +18,17 @@ Plum is a data processing pipeline, that means it reads data, filters and conver
 - Filters, converters and even writers are pipeline elements that can be attached to a workflow in arbitrary order
 - Readers are iterators that can return values of arbitrary type: arrays, objects or scalars, it doesn't matter to Plum
 
+*Plum has been greatly inspired by [ddeboer/data-import](https://github.com/ddeboer/data-import).*
+
 
 Installation
 ------------
 
-*tbd*
+You can install Plum using [Composer](http://getcomposer.org).
+
+```shell
+$ composer require florianeckerstorfer/plum:dev-master
+```
 
 
 Usage
