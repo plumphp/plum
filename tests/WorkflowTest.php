@@ -54,7 +54,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
         $this->workflow->addFilter($filter);
         $this->workflow->addConverter($converter);
 
-        $this->assertCount(1, $this->workflow->getPipeline('FlorianEc\Plum\Filter\FilterInterface'));
+        $this->assertCount(1, $this->workflow->getPipeline(Workflow::PIPELINE_TYPE_FILTER));
     }
 
     /**

@@ -15,11 +15,11 @@ use FlorianEc\Plum\Writer\WriterInterface;
  */
 class Workflow
 {
-    const CONVERTER_INTERFACE = 'FlorianEc\Plum\Converter\ConverterInterface';
-    const FILTER_INTERFACE    = 'FlorianEc\Plum\Filter\FilterInterface';
-    const WRITER_INTERFACE    = 'FlorianEc\Plum\Writer\WriterInterface';
+    const PIPELINE_TYPE_FILTER    = 1;
+    const PIPELINE_TYPE_CONVERTER = 2;
+    const PIPELINE_TYPE_WRITER    = 3;
 
-    /** @var PipelineInterface[] */
+    /** @var PipelineInterface[][] */
     private $pipeline = [];
 
     /**
@@ -32,8 +32,8 @@ class Workflow
         $pipeline = [];
 
         foreach ($this->pipeline as $element) {
-            if (!$type || is_a($element, $type)) {
-                $pipeline[] = $element;
+            if (!$type || $element[0] === $type) {
+                $pipeline[] = $element[1];
             }
         }
 
@@ -47,7 +47,7 @@ class Workflow
      */
     public function addFilter(FilterInterface $filter)
     {
-        $this->pipeline[] = $filter;
+        $this->pipeline[] = [self::PIPELINE_TYPE_FILTER, $filter];
 
         return $this;
     }
@@ -57,7 +57,7 @@ class Workflow
      */
     public function getFilters()
     {
-        return $this->getPipeline(self::FILTER_INTERFACE);
+        return $this->getPipeline(self::PIPELINE_TYPE_FILTER);
     }
 
     /**
@@ -67,7 +67,7 @@ class Workflow
      */
     public function addConverter(ConverterInterface $converter)
     {
-        $this->pipeline[] = $converter;
+        $this->pipeline[] = [self::PIPELINE_TYPE_CONVERTER, $converter];
 
         return $this;
     }
@@ -77,7 +77,7 @@ class Workflow
      */
     public function getConverters()
     {
-        return $this->getPipeline(self::CONVERTER_INTERFACE);
+        return $this->getPipeline(self::PIPELINE_TYPE_CONVERTER);
     }
 
     /**
@@ -87,7 +87,7 @@ class Workflow
      */
     public function addWriter(WriterInterface $writer)
     {
-        $this->pipeline[] = $writer;
+        $this->pipeline[] = [self::PIPELINE_TYPE_WRITER, $writer];
 
         return $this;
     }
@@ -97,7 +97,7 @@ class Workflow
      */
     public function getWriters()
     {
-        return $this->getPipeline(self::WRITER_INTERFACE);
+        return $this->getPipeline(self::PIPELINE_TYPE_WRITER);
     }
 
     /**
@@ -124,14 +124,14 @@ class Workflow
     protected function processItem($item)
     {
         foreach ($this->pipeline as $element) {
-            if (is_a($element, self::FILTER_INTERFACE)) {
-                if (!$element->filter($item)) {
+            if ($element[0] === self::PIPELINE_TYPE_FILTER) {
+                if (!$element[1]->filter($item)) {
                     return;
                 }
-            } else if (is_a($element, self::CONVERTER_INTERFACE)) {
-                $item = $element->convert($item);
-            } else if (is_a($element, self::WRITER_INTERFACE)) {
-                $element->writeItem($item);
+            } else if ($element[0] === self::PIPELINE_TYPE_CONVERTER) {
+                $item = $element[1]->convert($item);
+            } else if ($element[0] === self::PIPELINE_TYPE_WRITER) {
+                $element[1]->writeItem($item);
             }
         }
     }
