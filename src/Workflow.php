@@ -3,6 +3,8 @@
 namespace FlorianEc\Plum;
 use FlorianEc\Plum\Converter\ConverterInterface;
 use FlorianEc\Plum\Filter\FilterInterface;
+use FlorianEc\Plum\Reader\ReaderInterface;
+use FlorianEc\Plum\Writer\WriterInterface;
 
 /**
  * Workflow
@@ -13,6 +15,10 @@ use FlorianEc\Plum\Filter\FilterInterface;
  */
 class Workflow
 {
+    const CONVERTER_INTERFACE = 'FlorianEc\Plum\Converter\ConverterInterface';
+    const FILTER_INTERFACE    = 'FlorianEc\Plum\Filter\FilterInterface';
+    const WRITER_INTERFACE    = 'FlorianEc\Plum\Writer\WriterInterface';
+
     /** @var PipelineInterface[] */
     private $pipeline = [];
 
@@ -51,7 +57,7 @@ class Workflow
      */
     public function getFilters()
     {
-        return $this->getPipeline('FlorianEc\Plum\Filter\FilterInterface');
+        return $this->getPipeline(self::FILTER_INTERFACE);
     }
 
     /**
@@ -71,6 +77,62 @@ class Workflow
      */
     public function getConverters()
     {
-        return $this->getPipeline('FlorianEc\Plum\Converter\ConverterInterface');
+        return $this->getPipeline(self::CONVERTER_INTERFACE);
+    }
+
+    /**
+     * @param WriterInterface $writer
+     *
+     * @return Workflow
+     */
+    public function addWriter(WriterInterface $writer)
+    {
+        $this->pipeline[] = $writer;
+
+        return $this;
+    }
+
+    /**
+     * @return WriterInterface[]
+     */
+    public function getWriters()
+    {
+        return $this->getPipeline(self::WRITER_INTERFACE);
+    }
+
+    /**
+     * @param ReaderInterface $reader
+     */
+    public function process(ReaderInterface $reader)
+    {
+        foreach ($this->getWriters() as $writer) {
+            $writer->prepare();
+        }
+
+        foreach ($reader as $item) {
+            $this->processItem($item);
+        }
+
+        foreach ($this->getWriters() as $writer) {
+            $writer->finish();
+        }
+    }
+
+    /**
+     * @param $item
+     */
+    protected function processItem($item)
+    {
+        foreach ($this->pipeline as $element) {
+            if (is_a($element, self::FILTER_INTERFACE)) {
+                if (!$element->filter($item)) {
+                    return;
+                }
+            } else if (is_a($element, self::CONVERTER_INTERFACE)) {
+                $item = $element->convert($item);
+            } else if (is_a($element, self::WRITER_INTERFACE)) {
+                $element->writeItem($item);
+            }
+        }
     }
 }
