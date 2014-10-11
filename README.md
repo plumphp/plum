@@ -137,3 +137,5 @@ Change Log
 License
 -------
 
+The MIT license applies to florianeckerstorfer/plum. For the full copyright and license information,
+please view the LICENSE file distributed with this source code.
