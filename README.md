@@ -70,6 +70,20 @@ $reader = new ArrayReader(['Stark', 'Lannister', 'Targaryen', ...]);
 $reader->getData(); // -> ['Stark', 'Lannister', 'Targaryen', ...]
 ```
 
+###+ FinderReader
+
+You can read directories and files using the Symfony Finder component and `FinderReader`.
+
+```php
+use FlorianEc\Plum\Reader\FinderReader;
+use Symfony\Component\Finder\Finder;
+
+$finder = new Finder();
+// Further configuration of Finder
+
+$reader = new FinderReader($finder);
+```
+
 ### Writers
 
 Use writers to write the result of the workflow. The target doesn't necessarily have to write to a persistent storage,
