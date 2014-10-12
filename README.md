@@ -70,7 +70,7 @@ $reader = new ArrayReader(['Stark', 'Lannister', 'Targaryen', ...]);
 $reader->getData(); // -> ['Stark', 'Lannister', 'Targaryen', ...]
 ```
 
-###+ FinderReader
+#### FinderReader
 
 You can read directories and files using the Symfony Finder component and `FinderReader`.
 
