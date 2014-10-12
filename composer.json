@@ -11,7 +11,8 @@
     "require-dev": {
         "phpunit/phpunit":               "~4.3",
         "mockery/mockery":               "~0.9",
-        "codeclimate/php-test-reporter": "dev-master"
+        "codeclimate/php-test-reporter": "dev-master",
+        "symfony/finder":                "~2.5"
     },
     "autoload": {
         "psr-4": {
