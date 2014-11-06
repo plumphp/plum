@@ -31,7 +31,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
     {
         $this->workflow = new Workflow();
     }
-    
+
     /**
      * @test
      * @covers FlorianEc\Plum\Workflow::getPipeline()
@@ -112,14 +112,17 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
      * @test
      * @covers FlorianEc\Plum\Workflow::process()
      */
-    public function processShouldDoNothingIsRead()
+    public function processShouldDoNothingWhenNothingIsRead()
     {
         /** @var \FlorianEc\Plum\Reader\ReaderInterface|\Mockery\MockInterface $reader */
         $reader = m::mock('FlorianEc\Plum\Reader\ReaderInterface');
         $reader->shouldReceive('rewind');
         $reader->shouldReceive('valid')->andReturn(false);
 
-        $this->workflow->process($reader);
+        $result = $this->workflow->process($reader);
+
+        $this->assertEquals(0, $result->getReadCount());
+        $this->assertEquals(0, $result->getWriteCount());
     }
 
     /**
@@ -142,7 +145,10 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
         $filter->shouldReceive('filter')->with('foobar')->once();
         $this->workflow->addFilter($filter);
 
-        $this->workflow->process($reader);
+        $result = $this->workflow->process($reader);
+
+        $this->assertEquals(1, $result->getReadCount());
+        $this->assertEquals(0, $result->getWriteCount());
     }
 
     /**
@@ -165,7 +171,10 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
         $converter->shouldReceive('convert')->with('foobar')->once()->andReturn('FOOBAR');
         $this->workflow->addConverter($converter);
 
-        $this->workflow->process($reader);
+        $result = $this->workflow->process($reader);
+
+        $this->assertEquals(1, $result->getReadCount());
+        $this->assertEquals(0, $result->getWriteCount());
     }
 
     /**
@@ -190,7 +199,9 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
         $writer->shouldReceive('writeItem')->with('foobar')->once();
         $this->workflow->addWriter($writer);
 
-        $this->workflow->process($reader);
+        $result = $this->workflow->process($reader);
+
+        $this->assertEquals(1, $result->getReadCount());
+        $this->assertEquals(1, $result->getWriteCount());
     }
 }
- 

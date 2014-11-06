@@ -112,27 +112,39 @@ class Workflow
 
     /**
      * @param ReaderInterface $reader
+     *
+     * @return Result
      */
     public function process(ReaderInterface $reader)
     {
+        $readCount  = 0;
+        $writeCount = 0;
+
         foreach ($this->getWriters() as $writer) {
             $writer->prepare();
         }
 
         foreach ($reader as $item) {
-            $this->processItem($item);
+            $readCount++;
+            $writeCount += $this->processItem($item);
         }
 
         foreach ($this->getWriters() as $writer) {
             $writer->finish();
         }
+
+        return new Result($readCount, $writeCount);
     }
 
     /**
      * @param $item
+     *
+     * @return int
      */
     protected function processItem($item)
     {
+        $writeCount = 0;
+
         foreach ($this->pipeline as $element) {
             if ($element[0] === self::PIPELINE_TYPE_FILTER) {
                 if (!$element[1]->filter($item)) {
@@ -142,7 +154,10 @@ class Workflow
                 $item = $element[1]->convert($item);
             } else if ($element[0] === self::PIPELINE_TYPE_WRITER) {
                 $element[1]->writeItem($item);
+                $writeCount = 1;
             }
         }
+
+        return $writeCount;
     }
 }
