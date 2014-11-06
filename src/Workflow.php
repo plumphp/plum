@@ -71,13 +71,14 @@ class Workflow
     }
 
     /**
-     * @param ConverterInterface $converter
+     * @param ConverterInterface   $converter
+     * @param FilterInterface|null $filter
      *
      * @return Workflow $this
      */
-    public function addConverter(ConverterInterface $converter)
+    public function addConverter(ConverterInterface $converter, FilterInterface $filter = null)
     {
-        $this->pipeline[] = [self::PIPELINE_TYPE_CONVERTER, $converter];
+        $this->pipeline[] = [self::PIPELINE_TYPE_CONVERTER, $converter, $filter];
 
         return $this;
     }
@@ -148,10 +149,10 @@ class Workflow
         foreach ($this->pipeline as $element) {
             if ($element[0] === self::PIPELINE_TYPE_FILTER) {
                 if (!$element[1]->filter($item)) {
-                    return;
+                    return 0;
                 }
             } else if ($element[0] === self::PIPELINE_TYPE_CONVERTER) {
-                $item = $element[1]->convert($item);
+                $item = $this->applyConverter($item, $element[1], $element[2]);
             } else if ($element[0] === self::PIPELINE_TYPE_WRITER) {
                 $element[1]->writeItem($item);
                 $writeCount = 1;
@@ -159,5 +160,23 @@ class Workflow
         }
 
         return $writeCount;
+    }
+
+    /**
+     * Applies the given converter to the given item either if no filter is given or if the filter returns `true`.
+     *
+     * @param mixed                $item
+     * @param ConverterInterface   $converter
+     * @param FilterInterface|null $filter
+     *
+     * @return mixed
+     */
+    protected function applyConverter($item, ConverterInterface $converter, FilterInterface $filter = null)
+    {
+        if (!$filter || $filter->filter($item)) {
+            return $converter->convert($item);
+        }
+
+        return $item;
     }
 }

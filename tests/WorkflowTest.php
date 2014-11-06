@@ -155,6 +155,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
      * @test
      * @covers FlorianEc\Plum\Workflow::process()
      * @covers FlorianEc\Plum\Workflow::processItem()
+     * @covers FlorianEc\Plum\Workflow::applyConverter()
      */
     public function processShouldApplyConverterToReadItems()
     {
@@ -174,7 +175,68 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
         $result = $this->workflow->process($reader);
 
         $this->assertEquals(1, $result->getReadCount());
-        $this->assertEquals(0, $result->getWriteCount());
+    }
+
+    /**
+     * @test
+     * @covers FlorianEc\Plum\Workflow::process()
+     * @covers FlorianEc\Plum\Workflow::processItem()
+     * @covers FlorianEc\Plum\Workflow::applyConverter()
+     */
+    public function processShouldApplyConverterIfFilterReturnsTrueToReadItems()
+    {
+        /** @var \FlorianEc\Plum\Reader\ReaderInterface|\Mockery\MockInterface $reader */
+        $reader = m::mock('FlorianEc\Plum\Reader\ReaderInterface');
+        $reader->shouldReceive('rewind');
+        $reader->shouldReceive('valid')->andReturn(true)->once();
+        $reader->shouldReceive('current')->andReturn('foobar');
+        $reader->shouldReceive('next');
+        $reader->shouldReceive('valid')->andReturn(false)->once();
+
+        /** @var \FlorianEc\Plum\Converter\ConverterInterface|\Mockery\MockInterface $converter */
+        $converter = m::mock('FlorianEc\Plum\Converter\ConverterInterface');
+        $converter->shouldReceive('convert')->with('foobar')->once()->andReturn('FOOBAR');
+
+        /** @var \FlorianEc\Plum\Filter\FilterInterface|\Mockery\MockInterface $filter */
+        $filter = m::mock('FlorianEc\Plum\Filter\FilterInterface');
+        $filter->shouldReceive('filter')->with('foobar')->once()->andReturn(true);
+
+        $this->workflow->addConverter($converter, $filter);
+
+        $result = $this->workflow->process($reader);
+
+        $this->assertEquals(1, $result->getReadCount());
+    }
+
+    /**
+     * @test
+     * @covers FlorianEc\Plum\Workflow::process()
+     * @covers FlorianEc\Plum\Workflow::processItem()
+     * @covers FlorianEc\Plum\Workflow::applyConverter()
+     */
+    public function processShouldNotApplyConverterIfFilterReturnsFalseToReadItems()
+    {
+        /** @var \FlorianEc\Plum\Reader\ReaderInterface|\Mockery\MockInterface $reader */
+        $reader = m::mock('FlorianEc\Plum\Reader\ReaderInterface');
+        $reader->shouldReceive('rewind');
+        $reader->shouldReceive('valid')->andReturn(true)->once();
+        $reader->shouldReceive('current')->andReturn('foobar');
+        $reader->shouldReceive('next');
+        $reader->shouldReceive('valid')->andReturn(false)->once();
+
+        /** @var \FlorianEc\Plum\Converter\ConverterInterface|\Mockery\MockInterface $converter */
+        $converter = m::mock('FlorianEc\Plum\Converter\ConverterInterface');
+        $converter->shouldReceive('convert')->never();
+
+        /** @var \FlorianEc\Plum\Filter\FilterInterface|\Mockery\MockInterface $filter */
+        $filter = m::mock('FlorianEc\Plum\Filter\FilterInterface');
+        $filter->shouldReceive('filter')->with('foobar')->once()->andReturn(false);
+
+        $this->workflow->addConverter($converter, $filter);
+
+        $result = $this->workflow->process($reader);
+
+        $this->assertEquals(1, $result->getReadCount());
     }
 
     /**
