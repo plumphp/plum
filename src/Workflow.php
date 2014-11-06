@@ -42,7 +42,7 @@ class Workflow
         $pipeline = [];
 
         foreach ($this->pipeline as $element) {
-            if ($type = null || $element[0] === $type) {
+            if ($type === null || $element[0] === $type) {
                 $pipeline[] = $element[1];
             }
         }
