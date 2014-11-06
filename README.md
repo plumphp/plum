@@ -68,6 +68,19 @@ $workflow->addConverter($converter, $filter);
 // "bazbar" -> "bazbar"
 ```
 
+#### Result
+
+The `process()` method returns an instance of `FlorianEc\Plum\Result`. This object contains information and errors
+collected during the processing. 
+
+```php
+$result = $workflow->process($reader);
+$result->getReadCount(); // -> int
+$result->getWriteCount(); // -> int
+$result->getErrorCount(); // -> int
+$result->getExceptions(); // -> \Exception[]
+```
+
 ### Readers
 
 You read data using an object that implements `ReaderInterface`. This interface extends `\Iterator` interface and
