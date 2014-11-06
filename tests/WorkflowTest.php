@@ -38,10 +38,8 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
      */
     public function getPipelineShouldReturnAllPipelineElements()
     {
-        /** @var \FlorianEc\Plum\Filter\FilterInterface $filter */
-        $filter = m::mock('FlorianEc\Plum\Filter\FilterInterface');
-        /** @var \FlorianEc\Plum\Converter\ConverterInterface $converter */
-        $converter = m::mock('FlorianEc\Plum\Converter\ConverterInterface');
+        $filter    = $this->getMockFilter();
+        $converter = $this->getMockConverter();
 
         $this->workflow->addFilter($filter);
         $this->workflow->addConverter($converter);
@@ -55,10 +53,8 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
      */
     public function getPipelineShouldReturnOnlyElementsOfGivenType()
     {
-        /** @var \FlorianEc\Plum\Filter\FilterInterface $filter */
-        $filter = m::mock('FlorianEc\Plum\Filter\FilterInterface');
-        /** @var \FlorianEc\Plum\Converter\ConverterInterface $converter */
-        $converter = m::mock('FlorianEc\Plum\Converter\ConverterInterface');
+        $filter    = $this->getMockFilter();
+        $converter = $this->getMockConverter();
 
         $this->workflow->addFilter($filter);
         $this->workflow->addConverter($converter);
@@ -73,8 +69,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
      */
     public function addFilterShouldAddFilterToWorkflow()
     {
-        /** @var \FlorianEc\Plum\Filter\FilterInterface $filter */
-        $filter = m::mock('FlorianEc\Plum\Filter\FilterInterface');
+        $filter = $this->getMockFilter();
         $this->workflow->addFilter($filter);
 
         $this->assertContains($filter, $this->workflow->getFilters());
@@ -87,8 +82,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
      */
     public function addConverterShouldAddConverterToWorkflow()
     {
-        /** @var \FlorianEc\Plum\Converter\ConverterInterface $converter */
-        $converter = m::mock('FlorianEc\Plum\Converter\ConverterInterface');
+        $converter = $this->getMockConverter();
         $this->workflow->addConverter($converter);
 
         $this->assertContains($converter, $this->workflow->getConverters());
@@ -101,8 +95,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
      */
     public function addWriterShouldAddWriterToWorkflow()
     {
-        /** @var \FlorianEc\Plum\Writer\WriterInterface $writer */
-        $writer = m::mock('FlorianEc\Plum\Writer\WriterInterface');
+        $writer = $this->getMockWriter();
         $this->workflow->addWriter($writer);
 
         $this->assertContains($writer, $this->workflow->getWriters());
@@ -114,8 +107,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
      */
     public function processShouldDoNothingWhenNothingIsRead()
     {
-        /** @var \FlorianEc\Plum\Reader\ReaderInterface|\Mockery\MockInterface $reader */
-        $reader = m::mock('FlorianEc\Plum\Reader\ReaderInterface');
+        $reader = $this->getMockReader();
         $reader->shouldReceive('rewind');
         $reader->shouldReceive('valid')->andReturn(false);
 
@@ -132,16 +124,14 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
      */
     public function processShouldApplyFilterToReadItems()
     {
-        /** @var \FlorianEc\Plum\Reader\ReaderInterface|\Mockery\MockInterface $reader */
-        $reader = m::mock('FlorianEc\Plum\Reader\ReaderInterface');
+        $reader = $this->getMockReader();
         $reader->shouldReceive('rewind');
         $reader->shouldReceive('valid')->andReturn(true)->once();
         $reader->shouldReceive('current')->andReturn('foobar');
         $reader->shouldReceive('next');
         $reader->shouldReceive('valid')->andReturn(false)->once();
 
-        /** @var \FlorianEc\Plum\Filter\FilterInterface|\Mockery\MockInterface $filter */
-        $filter = m::mock('FlorianEc\Plum\Filter\FilterInterface');
+        $filter = $this->getMockFilter();
         $filter->shouldReceive('filter')->with('foobar')->once();
         $this->workflow->addFilter($filter);
 
@@ -159,16 +149,14 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
      */
     public function processShouldApplyConverterToReadItems()
     {
-        /** @var \FlorianEc\Plum\Reader\ReaderInterface|\Mockery\MockInterface $reader */
-        $reader = m::mock('FlorianEc\Plum\Reader\ReaderInterface');
+        $reader = $this->getMockReader();
         $reader->shouldReceive('rewind');
         $reader->shouldReceive('valid')->andReturn(true)->once();
         $reader->shouldReceive('current')->andReturn('foobar');
         $reader->shouldReceive('next');
         $reader->shouldReceive('valid')->andReturn(false)->once();
 
-        /** @var \FlorianEc\Plum\Converter\ConverterInterface|\Mockery\MockInterface $converter */
-        $converter = m::mock('FlorianEc\Plum\Converter\ConverterInterface');
+        $converter = $this->getMockConverter();
         $converter->shouldReceive('convert')->with('foobar')->once()->andReturn('FOOBAR');
         $this->workflow->addConverter($converter);
 
@@ -185,20 +173,17 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
      */
     public function processShouldApplyConverterIfFilterReturnsTrueToReadItems()
     {
-        /** @var \FlorianEc\Plum\Reader\ReaderInterface|\Mockery\MockInterface $reader */
-        $reader = m::mock('FlorianEc\Plum\Reader\ReaderInterface');
+        $reader = $this->getMockReader();
         $reader->shouldReceive('rewind');
         $reader->shouldReceive('valid')->andReturn(true)->once();
         $reader->shouldReceive('current')->andReturn('foobar');
         $reader->shouldReceive('next');
         $reader->shouldReceive('valid')->andReturn(false)->once();
 
-        /** @var \FlorianEc\Plum\Converter\ConverterInterface|\Mockery\MockInterface $converter */
-        $converter = m::mock('FlorianEc\Plum\Converter\ConverterInterface');
+        $converter = $this->getMockConverter();
         $converter->shouldReceive('convert')->with('foobar')->once()->andReturn('FOOBAR');
 
-        /** @var \FlorianEc\Plum\Filter\FilterInterface|\Mockery\MockInterface $filter */
-        $filter = m::mock('FlorianEc\Plum\Filter\FilterInterface');
+        $filter = $this->getMockFilter();
         $filter->shouldReceive('filter')->with('foobar')->once()->andReturn(true);
 
         $this->workflow->addConverter($converter, $filter);
@@ -216,20 +201,17 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
      */
     public function processShouldNotApplyConverterIfFilterReturnsFalseToReadItems()
     {
-        /** @var \FlorianEc\Plum\Reader\ReaderInterface|\Mockery\MockInterface $reader */
-        $reader = m::mock('FlorianEc\Plum\Reader\ReaderInterface');
+        $reader = $this->getMockReader();
         $reader->shouldReceive('rewind');
         $reader->shouldReceive('valid')->andReturn(true)->once();
         $reader->shouldReceive('current')->andReturn('foobar');
         $reader->shouldReceive('next');
         $reader->shouldReceive('valid')->andReturn(false)->once();
 
-        /** @var \FlorianEc\Plum\Converter\ConverterInterface|\Mockery\MockInterface $converter */
-        $converter = m::mock('FlorianEc\Plum\Converter\ConverterInterface');
+        $converter = $this->getMockConverter();
         $converter->shouldReceive('convert')->never();
 
-        /** @var \FlorianEc\Plum\Filter\FilterInterface|\Mockery\MockInterface $filter */
-        $filter = m::mock('FlorianEc\Plum\Filter\FilterInterface');
+        $filter = $this->getMockFilter();
         $filter->shouldReceive('filter')->with('foobar')->once()->andReturn(false);
 
         $this->workflow->addConverter($converter, $filter);
@@ -246,16 +228,14 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
      */
     public function processShouldApplyWriterToReadItems()
     {
-        /** @var \FlorianEc\Plum\Reader\ReaderInterface|\Mockery\MockInterface $reader */
-        $reader = m::mock('FlorianEc\Plum\Reader\ReaderInterface');
+        $reader = $this->getMockReader();
         $reader->shouldReceive('rewind');
         $reader->shouldReceive('valid')->andReturn(true)->once();
         $reader->shouldReceive('current')->andReturn('foobar');
         $reader->shouldReceive('next');
         $reader->shouldReceive('valid')->andReturn(false)->once();
 
-        /** @var \FlorianEc\Plum\Writer\WriterInterface|\Mockery\MockInterface $writer */
-        $writer = m::mock('FlorianEc\Plum\Writer\WriterInterface');
+        $writer = $this->getMockWriter();
         $writer->shouldReceive('prepare')->once();
         $writer->shouldReceive('finish')->once();
         $writer->shouldReceive('writeItem')->with('foobar')->once();
@@ -265,5 +245,37 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(1, $result->getReadCount());
         $this->assertEquals(1, $result->getWriteCount());
+    }
+
+    /**
+     * @return \FlorianEc\Plum\Reader\ReaderInterface|\Mockery\MockInterface
+     */
+    protected function getMockReader()
+    {
+        return m::mock('FlorianEc\Plum\Reader\ReaderInterface');
+    }
+
+    /**
+     * @return \FlorianEc\Plum\Writer\WriterInterface|\Mockery\MockInterface
+     */
+    protected function getMockWriter()
+    {
+        return m::mock('FlorianEc\Plum\Writer\WriterInterface');
+    }
+
+    /**
+     * @return \FlorianEc\Plum\Converter\ConverterInterface|\Mockery\MockInterface
+     */
+    protected function getMockConverter()
+    {
+        return m::mock('FlorianEc\Plum\Converter\ConverterInterface');
+    }
+
+    /**
+     * @return \FlorianEc\Plum\Filter\FilterInterface|\Mockery\MockInterface
+     */
+    protected function getMockFilter()
+    {
+        return m::mock('FlorianEc\Plum\Filter\FilterInterface');
     }
 }
