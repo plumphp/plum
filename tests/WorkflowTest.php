@@ -248,6 +248,33 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @test
+     * @covers FlorianEc\Plum\Workflow::process()
+     * @covers FlorianEc\Plum\Workflow::processItem()
+     */
+    public function processShouldCollectExceptions()
+    {
+        $reader = $this->getMockReader();
+        $reader->shouldReceive('rewind');
+        $reader->shouldReceive('valid')->andReturn(true)->once();
+        $reader->shouldReceive('current')->andReturn('foobar');
+        $reader->shouldReceive('next');
+        $reader->shouldReceive('valid')->andReturn(false)->once();
+
+        $exception = new \Exception();
+
+        $converter = $this->getMockConverter();
+        $converter->shouldReceive('convert')->with('foobar')->once()->andThrow($exception);
+        $this->workflow->addConverter($converter);
+
+        $result = $this->workflow->process($reader);
+
+        $this->assertEquals(1, $result->getReadCount());
+        $this->assertEquals(1, $result->getErrorCount());
+        $this->assertContains($exception, $result->getExceptions());
+    }
+
+    /**
      * @return \FlorianEc\Plum\Reader\ReaderInterface|\Mockery\MockInterface
      */
     protected function getMockReader()

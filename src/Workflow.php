@@ -120,6 +120,7 @@ class Workflow
     {
         $readCount  = 0;
         $writeCount = 0;
+        $exceptions = [];
 
         foreach ($this->getWriters() as $writer) {
             $writer->prepare();
@@ -127,14 +128,18 @@ class Workflow
 
         foreach ($reader as $item) {
             $readCount++;
-            $writeCount += $this->processItem($item);
+            try {
+                $writeCount += $this->processItem($item);
+            } catch (\Exception $e) {
+                $exceptions[] = $e;
+            }
         }
 
         foreach ($this->getWriters() as $writer) {
             $writer->finish();
         }
 
-        return new Result($readCount, $writeCount);
+        return new Result($readCount, $writeCount, $exceptions);
     }
 
     /**

@@ -11,6 +11,8 @@
 
 namespace FlorianEc\Plum;
 
+use \Mockery as m;
+
 /**
  * ResultTest
  *
@@ -42,5 +44,35 @@ class ResultTest extends \PHPUnit_Framework_TestCase
         $result = new Result(null, 42);
 
         $this->assertEquals(42, $result->getWriteCount());
+    }
+
+    /**
+     * @test
+     * @covers FlorianEc\Plum\Result::__construct()
+     * @covers FlorianEc\Plum\Result::getExceptions()
+     */
+    public function getExceptionsReturnsExceptions()
+    {
+        $exception1 = m::mock('\Exceptions');
+        $exception2 = m::mock('\Exceptions');
+        $result = new Result(null, null, [$exception1, $exception2]);
+
+        $this->assertCount(2, $result->getExceptions());
+        $this->assertContains($exception1, $result->getExceptions());
+        $this->assertContains($exception2, $result->getExceptions());
+    }
+
+    /**
+     * @test
+     * @covers FlorianEc\Plum\Result::__construct()
+     * @covers FlorianEc\Plum\Result::getErrorCount()
+     */
+    public function getErrorCountReturnsNumberOfExceptions()
+    {
+        $exception1 = m::mock('\Exceptions');
+        $exception2 = m::mock('\Exceptions');
+        $result = new Result(null, null, [$exception1, $exception2]);
+
+        $this->assertEquals(2, $result->getErrorCount());
     }
 }

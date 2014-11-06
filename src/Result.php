@@ -26,14 +26,19 @@ class Result
     /** @var int */
     private $writeCount;
 
+    /** @var \Exception[] */
+    private $exceptions;
+
     /**
-     * @param int $readCount
-     * @param int $writeCount
+     * @param int          $readCount
+     * @param int          $writeCount
+     * @param \Exception[] $exceptions
      */
-    public function __construct($readCount, $writeCount)
+    public function __construct($readCount, $writeCount, array $exceptions = [])
     {
         $this->readCount  = $readCount;
         $this->writeCount = $writeCount;
+        $this->exceptions = $exceptions;
     }
 
     /**
@@ -50,5 +55,21 @@ class Result
     public function getWriteCount()
     {
         return $this->writeCount;
+    }
+
+    /**
+     * @return int
+     */
+    public function getErrorCount()
+    {
+        return count($this->exceptions);
+    }
+
+    /**
+     * @return \Exception[]
+     */
+    public function getExceptions()
+    {
+        return $this->exceptions;
     }
 }
