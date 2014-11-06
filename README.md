@@ -146,7 +146,7 @@ $converter->convert('foo'); // -> FOO
 The `FileGetContentsConverter` takes a `SplFileInfo` object or a filename and returns both the `SplFileInfo` object
 and the contents of the file.
 
-```
+```php
 use FlorianEc\Plum\Converter\FileGetContentsConverter;
 
 $converter = new FileGetContentsConverter();
