@@ -10,7 +10,6 @@
  */
 
 namespace FlorianEc\Plum\Filter;
-use FlorianEc\Plum\Filter\FileExtensionFilter;
 
 /**
  * FileExtensionFilterTest
@@ -53,7 +52,7 @@ class FileExtensionFilterTest extends \PHPUnit_Framework_TestCase
      */
     public function convertShouldReturnTrueIfFileExtensionInArrayMatches()
     {
-        $converter = new FileExtensionFilter('md', ['filename']);
+        $converter = new FileExtensionFilter('md', '[filename]');
 
         $this->assertTrue($converter->filter(['filename' => 'test.md']));
     }
@@ -65,7 +64,7 @@ class FileExtensionFilterTest extends \PHPUnit_Framework_TestCase
      */
     public function convertShouldReturnFalseIfFileExtensionInArrayNotMatches()
     {
-        $converter = new FileExtensionFilter('md', ['filename']);
+        $converter = new FileExtensionFilter('md', '[filename]');
 
         $this->assertFalse($converter->filter(['filename' => 'test.txt']));
     }

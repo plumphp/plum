@@ -12,6 +12,8 @@
 namespace FlorianEc\Plum\Filter;
 
 use FlorianEc\Plum\Filter\FilterInterface;
+use Symfony\Component\PropertyAccess\PropertyAccess;
+use Symfony\Component\PropertyAccess\PropertyAccessor;
 
 /**
  * FileExtensionFilter
@@ -25,17 +27,21 @@ class FileExtensionFilter implements FilterInterface
     /** @var string */
     private $extension;
 
-    /** @var string[]|null */
+    /** @var string|null */
     private $property;
+
+    /** @var PropertyAccessor */
+    private $accessor;
 
     /**
      * @param string        $extension
-     * @param string[]|null $property
+     * @param string|null $property
      */
     public function __construct($extension, $property = null)
     {
         $this->extension = $extension;
         $this->property  = $property;
+        $this->accessor  = PropertyAccess::createPropertyAccessor();
     }
 
     /**
@@ -45,16 +51,8 @@ class FileExtensionFilter implements FilterInterface
      */
     public function filter($item)
     {
-        if ($this->property === null) {
-            $filename = $item;
-        } else {
-            $filename = \igorw\get_in($item, $this->property);
-        }
+        $filename = $this->property === null ? $item : $this->accessor->getValue($item, $this->property);
 
-        if (preg_match(sprintf('/\.%s/', $this->extension), $filename) === 1) {
-            return true;
-        }
-
-        return false;
+        return preg_match(sprintf('/\.%s/', $this->extension), $filename) === 1;
     }
 }

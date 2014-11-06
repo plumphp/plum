@@ -9,7 +9,7 @@
         }
     ],
     "require": {
-        "igorw/get-in": "~1.0"
+        "symfony/property-access": "~2.5"
     },
     "require-dev": {
         "phpunit/phpunit":               "~4.3",
