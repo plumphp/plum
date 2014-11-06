@@ -24,7 +24,7 @@ use Symfony\Component\Console\Helper\ProgressBar;
 class ConsoleProgressWriter implements WriterInterface
 {
     /** @var ProgressBar */
-    private $progressBar;
+    protected $progressBar;
 
     /**
      * @param ProgressBar $progressBar
