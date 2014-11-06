@@ -52,6 +52,21 @@ $workflow->addFilter($filter)
 $workflow->process($reader);
 ```
 
+#### Conditional Converters
+
+The `addConverter()` method accepts an optional second parameter of type `FlorianEc\Plum\Filter\FilterInterface`. If a
+filter is provided the converter is only applied to an item if the filter returns `true` for the given item. Otherwise
+the original item is returned by the converter.
+
+```php
+$converter = new CallbackConverter(function ($item) { return strtoupper($item); });
+$filter    = new CallbackFilter(function ($item) { return preg_match('/foo/', $item); });
+$workflow->addConverter($converter, $filter);
+
+// "foobar" -> "FOOBAR"
+// "bazbar" -> "bazbar"
+```
+
 ### Readers
 
 You read data using an object that implements `ReaderInterface`. This interface extends `\Iterator` interface and
