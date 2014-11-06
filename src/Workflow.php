@@ -122,9 +122,7 @@ class Workflow
         $writeCount = 0;
         $exceptions = [];
 
-        foreach ($this->getWriters() as $writer) {
-            $writer->prepare();
-        }
+        $this->prepareWriters($this->getWriters());
 
         foreach ($reader as $item) {
             $readCount++;
@@ -135,11 +133,33 @@ class Workflow
             }
         }
 
-        foreach ($this->getWriters() as $writer) {
-            $writer->finish();
-        }
+        $this->finishWriters($this->getWriters());
 
         return new Result($readCount, $writeCount, $exceptions);
+    }
+
+    /**
+     * @param WriterInterface[] $writers
+     *
+     * @return void
+     */
+    protected function prepareWriters($writers)
+    {
+        foreach ($writers as $writer) {
+            $writer->prepare();
+        }
+    }
+
+    /**
+     * @param WriterInterface[] $writers
+     *
+     * @return void
+     */
+    protected function finishWriters($writers)
+    {
+        foreach ($writers as $writer) {
+            $writer->finish();
+        }
     }
 
     /**

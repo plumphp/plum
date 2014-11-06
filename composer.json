@@ -15,7 +15,8 @@
         "phpunit/phpunit":               "~4.3",
         "mockery/mockery":               "~0.9",
         "symfony/finder":                "~2.5",
-        "mikey179/vfsStream":            "~1.4"
+        "mikey179/vfsStream":            "~1.4",
+        "symfony/console":               "~2.5"
     },
     "autoload": {
         "psr-4": {

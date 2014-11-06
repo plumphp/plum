@@ -225,6 +225,8 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
      * @test
      * @covers FlorianEc\Plum\Workflow::process()
      * @covers FlorianEc\Plum\Workflow::processItem()
+     * @covers FlorianEc\Plum\Workflow::prepareWriters()
+     * @covers FlorianEc\Plum\Workflow::finishWriters()
      */
     public function processShouldApplyWriterToReadItems()
     {
