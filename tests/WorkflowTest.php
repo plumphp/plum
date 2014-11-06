@@ -132,7 +132,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
         $reader->shouldReceive('valid')->andReturn(false)->once();
 
         $filter = $this->getMockFilter();
-        $filter->shouldReceive('filter')->with('foobar')->once();
+        $filter->shouldReceive('filter')->with('foobar')->once()->andReturn(false);
         $this->workflow->addFilter($filter);
 
         $result = $this->workflow->process($reader);
