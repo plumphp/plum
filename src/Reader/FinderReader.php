@@ -22,6 +22,9 @@ use Symfony\Component\Finder\Finder;
  */
 class FinderReader implements ReaderInterface
 {
+    /** @var Finder */
+    private $finder;
+
     /** @var \Iterator */
     private $iterator;
 
@@ -32,6 +35,7 @@ class FinderReader implements ReaderInterface
      */
     public function __construct(Finder $finder)
     {
+        $this->finder   = $finder;
         $this->iterator = $finder->getIterator();
     }
 
@@ -79,5 +83,15 @@ class FinderReader implements ReaderInterface
     public function rewind()
     {
         $this->iterator->rewind();
+    }
+
+    /**
+     * Returns the number of files that are read.
+     *
+     * @return int
+     */
+    public function count()
+    {
+        return $this->finder->count();
     }
 }

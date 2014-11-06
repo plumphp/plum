@@ -87,4 +87,14 @@ class ArrayReader implements ReaderInterface
     {
         $this->position = 0;
     }
+
+    /**
+     * Returns the number of elements in the array.
+     *
+     * @return int
+     */
+    public function count()
+    {
+        return count($this->data);
+    }
 }
