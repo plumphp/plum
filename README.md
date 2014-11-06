@@ -141,6 +141,18 @@ $converter = new CallbackConverter(function ($item) { return strtoupper($item); 
 $converter->convert('foo'); // -> FOO
 ```
 
+#### FileGetContentsConverter
+
+The `FileGetContentsConverter` takes a `SplFileInfo` object or a filename and returns both the `SplFileInfo` object
+and the contents of the file.
+
+```
+use FlorianEc\Plum\Converter\FileGetContentsConverter;
+
+$converter = new FileGetContentsConverter();
+$converter->convert('foo.txt'); // -> ['file' => \SplFileInfo Object, 'content' => '...'] 
+```
+
 
 Change Log
 ----------
