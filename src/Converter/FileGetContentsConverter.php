@@ -23,19 +23,19 @@ class FileGetContentsConverter implements ConverterInterface
     /**
      * @param mixed $item
      *
-     * @return mixed
+     * @return array<\SplFileInfo, string>
      */
     public function convert($item)
     {
-        if (!$item instanceof \SplFileInfo) {
+        if ($item instanceof \SplFileInfo === false) {
             $item = new \SplFileInfo($item);
         }
-        if (!$item->isReadable()) {
+        if ($item->isReadable() === false) {
             throw new \InvalidArgumentException(sprintf('The given file "%s" is not readable.', $item->getPathname()));
         }
 
         return [
-            'file'    => $item,
+            'file' => $item,
             'content' => file_get_contents($item->getPathname())
         ];
     }

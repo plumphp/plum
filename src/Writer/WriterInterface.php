@@ -24,16 +24,22 @@ interface WriterInterface
      * Write the given item.
      *
      * @param mixed $item
+     *
+     * @return void
      */
     public function writeItem($item);
 
     /**
      * Prepare the writer.
+     *
+     * @return void
      */
     public function prepare();
 
     /**
      * Finish the writer.
+     *
+     * @return void
      */
     public function finish();
 }

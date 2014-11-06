@@ -42,7 +42,7 @@ class Workflow
         $pipeline = [];
 
         foreach ($this->pipeline as $element) {
-            if (!$type || $element[0] === $type) {
+            if ($type = null || $element[0] === $type) {
                 $pipeline[] = $element[1];
             }
         }
@@ -148,7 +148,7 @@ class Workflow
 
         foreach ($this->pipeline as $element) {
             if ($element[0] === self::PIPELINE_TYPE_FILTER) {
-                if (!$element[1]->filter($item)) {
+                if ($element[1]->filter($item) === false) {
                     return 0;
                 }
             } else if ($element[0] === self::PIPELINE_TYPE_CONVERTER) {
@@ -173,7 +173,7 @@ class Workflow
      */
     protected function applyConverter($item, ConverterInterface $converter, FilterInterface $filter = null)
     {
-        if (!$filter || $filter->filter($item)) {
+        if ($filter === null || $filter->filter($item) === true) {
             return $converter->convert($item);
         }
 

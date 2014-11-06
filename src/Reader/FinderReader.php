@@ -56,7 +56,7 @@ class FinderReader implements ReaderInterface
     /**
      * Return the key of the current element.
      *
-     * @return mixed scalar on success, or null on failure.
+     * @return int|null scalar on success, or null on failure.
      */
     public function key()
     {
