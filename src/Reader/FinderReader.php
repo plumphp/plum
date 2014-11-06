@@ -22,9 +22,6 @@ use Symfony\Component\Finder\Finder;
  */
 class FinderReader implements ReaderInterface
 {
-    /** @var Finder */
-    private $finder;
-
     /** @var \Iterator */
     private $iterator;
 
@@ -35,7 +32,6 @@ class FinderReader implements ReaderInterface
      */
     public function __construct(Finder $finder)
     {
-        $this->finder   = $finder;
         $this->iterator = $finder->getIterator();
     }
 
@@ -85,4 +81,3 @@ class FinderReader implements ReaderInterface
         $this->iterator->rewind();
     }
 }
- 

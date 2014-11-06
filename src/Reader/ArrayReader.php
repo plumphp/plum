@@ -88,4 +88,3 @@ class ArrayReader implements ReaderInterface
         $this->position = 0;
     }
 }
- 

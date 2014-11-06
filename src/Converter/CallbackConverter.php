@@ -41,4 +41,3 @@ class CallbackConverter implements ConverterInterface
         return call_user_func($this->callback, $item);
     }
 }
- 
