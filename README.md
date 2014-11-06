@@ -141,6 +141,18 @@ $filter = new CallbackFilter(function ($item) {
 $filter->filter('https://florian.ec'); // -> true
 ```
 
+#### FileExtensionFilter
+
+Checks if the file extension of a file name matches.
+
+```
+use FlorianEc\Plum\Filter\FileExtensionFilter;
+
+$filter = new FileExtensionFilter('md');
+$filter->filter('README.md'); // -> true
+$filter->filter('README.html'); // -> false
+```
+
 ### Converters
 
 Converters take an item and convert it into something else. They must implement `ConverterInterface` which has a single
