@@ -4,6 +4,8 @@
 > Plum is a data processing pipeline that helps you to write structured, reusable and well tested data processing code.
 
 [![Build Status](https://travis-ci.org/florianeckerstorfer/plum.svg?branch=master)](https://travis-ci.org/florianeckerstorfer/plum)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/florianeckerstorfer/plum/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/florianeckerstorfer/plum/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/florianeckerstorfer/plum/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/florianeckerstorfer/plum/?branch=master)
 
 Developed by [Florian Eckerstorfer](https://florian.ec) in Vienna, Europe.
 
