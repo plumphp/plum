@@ -4,8 +4,6 @@
 > Plum is a data processing pipeline that helps you to write structured, reusable and well tested data processing code.
 
 [![Build Status](https://travis-ci.org/florianeckerstorfer/plum.svg?branch=master)](https://travis-ci.org/florianeckerstorfer/plum)
-[![Test Coverage](https://codeclimate.com/github/florianeckerstorfer/plum/badges/coverage.svg)](https://codeclimate.com/github/florianeckerstorfer/plum)
-[![Code Climate](https://codeclimate.com/github/florianeckerstorfer/plum/badges/gpa.svg)](https://codeclimate.com/github/florianeckerstorfer/plum)
 
 Developed by [Florian Eckerstorfer](https://florian.ec) in Vienna, Europe.
 
@@ -17,6 +15,7 @@ Plum is a data processing pipeline, that means it reads data, filters and conver
 
 - Filters, converters and even writers are pipeline elements that can be attached to a workflow in arbitrary order
 - Readers are iterators that can return values of arbitrary type: arrays, objects or scalars, it doesn't matter to Plum
+- Conditional converters that are only applied to an item if it passes a filter
 
 *Plum has been greatly inspired by [ddeboer/data-import](https://github.com/ddeboer/data-import).*
 
