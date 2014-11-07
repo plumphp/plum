@@ -97,5 +97,13 @@ class ArrayReaderTest extends \PHPUnit_Framework_TestCase
         $this->reader->rewind();
         $this->assertEquals(0, $this->reader->key());
     }
+
+    /**
+     * @test
+     * @covers FlorianEc\Plum\Reader\ArrayReader::count()
+     */
+    public function countShouldReturnNumberOfElements()
+    {
+        $this->assertEquals(1, $this->reader->count());
+    }
 }
- 

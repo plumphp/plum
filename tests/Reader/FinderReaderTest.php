@@ -24,7 +24,7 @@ use \Mockery as m;
  */
 class FinderReaderTest extends \PHPUnit_Framework_TestCase
 {
-    /** @var \Symfony\Component\Finder\Finder */
+    /** @var \Symfony\Component\Finder\Finder|\Mockery\MockInterface */
     private $finder;
 
     /** @var \Iterator|\Mockery\MockInterface */
@@ -101,5 +101,16 @@ class FinderReaderTest extends \PHPUnit_Framework_TestCase
         $reader = new FinderReader($this->finder);
         $reader->rewind();
     }
+
+    /**
+     * @test
+     * @covers FlorianEc\Plum\Reader\FinderReader::count()
+     */
+    public function countShouldReturnNumberOfFiles()
+    {
+        $this->finder->shouldReceive('count')->once()->andReturn(2);
+        $reader = new FinderReader($this->finder);
+
+        $this->assertEquals(2, $reader->count());
+    }
 }
- 
