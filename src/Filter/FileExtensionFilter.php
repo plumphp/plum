@@ -11,7 +11,6 @@
 
 namespace FlorianEc\Plum\Filter;
 
-use FlorianEc\Plum\Filter\FilterInterface;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\PropertyAccess\PropertyAccessor;
 

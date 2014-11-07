@@ -11,7 +11,6 @@
 
 namespace FlorianEc\Plum\Writer;
 
-use FlorianEc\Plum\Reader\ReaderInterface;
 use Symfony\Component\Console\Helper\ProgressBar;
 
 /**
