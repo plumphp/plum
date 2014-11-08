@@ -34,11 +34,21 @@ class Result
      * @param int          $writeCount
      * @param \Exception[] $exceptions
      */
-    public function __construct($readCount, $writeCount, array $exceptions = [])
+    public function __construct($readCount = 0, $writeCount = 0, array $exceptions = [])
     {
         $this->readCount  = $readCount;
         $this->writeCount = $writeCount;
         $this->exceptions = $exceptions;
+    }
+
+    /**
+     * @return Result
+     */
+    public function incReadCount()
+    {
+        $this->readCount++;
+
+        return $this;
     }
 
     /**
@@ -50,11 +60,33 @@ class Result
     }
 
     /**
+     * @return Result
+     */
+    public function incWriteCount()
+    {
+        $this->writeCount++;
+
+        return $this;
+    }
+
+    /**
      * @return int
      */
     public function getWriteCount()
     {
         return $this->writeCount;
+    }
+
+    /**
+     * @param \Exception $exception
+     *
+     * @return Result
+     */
+    public function addException(\Exception $exception)
+    {
+        $this->exceptions[] = $exception;
+
+        return $this;
     }
 
     /**

@@ -118,24 +118,22 @@ class Workflow
      */
     public function process(ReaderInterface $reader)
     {
-        $readCount  = 0;
-        $writeCount = 0;
-        $exceptions = [];
+        $result = new Result();
 
         $this->prepareWriters($this->getWriters());
 
         foreach ($reader as $item) {
-            $readCount++;
+            $result->incReadCount();
             try {
-                $writeCount += $this->processItem($item);
+                $this->processItem($item, $result);
             } catch (\Exception $e) {
-                $exceptions[] = $e;
+                $result->addException($e);
             }
         }
 
         $this->finishWriters($this->getWriters());
 
-        return new Result($readCount, $writeCount, $exceptions);
+        return $result;
     }
 
     /**
@@ -163,28 +161,25 @@ class Workflow
     }
 
     /**
-     * @param $item
+     * @param mixed  $item
+     * @param Result $result
      *
-     * @return int
+     * @return void
      */
-    protected function processItem($item)
+    protected function processItem($item, Result $result)
     {
-        $writeCount = 0;
-
         foreach ($this->pipeline as $element) {
             if ($element[0] === self::PIPELINE_TYPE_FILTER) {
                 if ($element[1]->filter($item) === false) {
-                    return 0;
+                    return;
                 }
             } else if ($element[0] === self::PIPELINE_TYPE_CONVERTER) {
                 $item = $this->applyConverter($item, $element[1], $element[2]);
             } else if ($element[0] === self::PIPELINE_TYPE_WRITER) {
                 $element[1]->writeItem($item);
-                $writeCount = 1;
+                $result->incWriteCount();
             }
         }
-
-        return $writeCount;
     }
 
     /**
