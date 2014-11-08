@@ -9,12 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace FlorianEc\Plum\Filter;
+namespace Cocur\Plum\Filter;
 
 /**
  * CallbackFilterTest
  *
- * @package   FlorianEc\Plum\Filter
+ * @package   Cocur\Plum\Filter
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
  * @copyright 2014 Florian Eckerstorfer
  *
@@ -24,8 +24,8 @@ class CallbackFilterTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @test
-     * @covers FlorianEc\Plum\Filter\CallbackFilter::__construct()
-     * @covers FlorianEc\Plum\Filter\CallbackFilter::filter()
+     * @covers Cocur\Plum\Filter\CallbackFilter::__construct()
+     * @covers Cocur\Plum\Filter\CallbackFilter::filter()
      */
     public function filterShouldCallCallback()
     {

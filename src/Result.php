@@ -9,12 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace FlorianEc\Plum;
+namespace Cocur\Plum;
 
 /**
  * Result
  *
- * @package   FlorianEc\Plum
+ * @package   Cocur\Plum
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
  * @copyright 2014 Florian Eckerstorfer
  */

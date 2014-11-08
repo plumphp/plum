@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace FlorianEc\Plum\Writer;
+namespace Cocur\Plum\Writer;
 
 use Symfony\Component\Console\Helper\ProgressBar;
 
 /**
  * ConsoleProgressWriter
  *
- * @package   FlorianEc\Plum\Writer
+ * @package   Cocur\Plum\Writer
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
  * @copyright 2014 Florian Eckerstorfer
  */

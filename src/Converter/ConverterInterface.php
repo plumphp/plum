@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace FlorianEc\Plum\Converter;
+namespace Cocur\Plum\Converter;
 
-use FlorianEc\Plum\PipelineInterface;
+use Cocur\Plum\PipelineInterface;
 
 /**
  * ConverterInterface
  *
- * @package   FlorianEc\Plum\Converter
+ * @package   Cocur\Plum\Converter
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
  * @copyright 2014 Florian Eckerstorfer
  */

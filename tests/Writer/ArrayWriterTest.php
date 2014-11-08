@@ -9,12 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace FlorianEc\Plum\Writer;
+namespace Cocur\Plum\Writer;
 
 /**
  * ArrayWriterTest
  *
- * @package   FlorianEc\Plum\Writer
+ * @package   Cocur\Plum\Writer
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
  * @copyright 2014 Florian Eckerstorfer
  *
@@ -32,8 +32,8 @@ class ArrayWriterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers FlorianEc\Plum\Writer\ArrayWriter::writeItem()
-     * @covers FlorianEc\Plum\Writer\ArrayWriter::getData()
+     * @covers Cocur\Plum\Writer\ArrayWriter::writeItem()
+     * @covers Cocur\Plum\Writer\ArrayWriter::getData()
      */
     public function writeItemShouldWriteItemToArray()
     {
@@ -44,7 +44,7 @@ class ArrayWriterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers FlorianEc\Plum\Writer\ArrayWriter::prepare()
+     * @covers Cocur\Plum\Writer\ArrayWriter::prepare()
      */
     public function prepareShouldDoNothing()
     {
@@ -53,11 +53,10 @@ class ArrayWriterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers FlorianEc\Plum\Writer\ArrayWriter::finish()
+     * @covers Cocur\Plum\Writer\ArrayWriter::finish()
      */
     public function finishShouldDoNothing()
     {
         $this->writer->finish();
     }
 }
- 

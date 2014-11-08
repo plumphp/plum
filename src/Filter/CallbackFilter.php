@@ -9,12 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace FlorianEc\Plum\Filter;
+namespace Cocur\Plum\Filter;
 
 /**
  * CallbackFilter
  *
- * @package   FlorianEc\Plum\Filter
+ * @package   Cocur\Plum\Filter
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
  * @copyright 2014 Florian Eckerstorfer
  */

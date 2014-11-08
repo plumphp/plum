@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace FlorianEc\Plum;
+namespace Cocur\Plum;
 
 use \Mockery as m;
 
 /**
  * WorkflowTest
  *
- * @package   FlorianEc\Plum
+ * @package   Cocur\Plum
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
  * @copyright 2014 Florian Eckerstorfer
  *
@@ -34,7 +34,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers FlorianEc\Plum\Workflow::getPipeline()
+     * @covers Cocur\Plum\Workflow::getPipeline()
      */
     public function getPipelineShouldReturnAllPipelineElements()
     {
@@ -49,7 +49,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers FlorianEc\Plum\Workflow::getPipeline()
+     * @covers Cocur\Plum\Workflow::getPipeline()
      */
     public function getPipelineShouldReturnOnlyElementsOfGivenType()
     {
@@ -64,8 +64,8 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers FlorianEc\Plum\Workflow::addFilter()
-     * @covers FlorianEc\Plum\Workflow::getFilters()
+     * @covers Cocur\Plum\Workflow::addFilter()
+     * @covers Cocur\Plum\Workflow::getFilters()
      */
     public function addFilterShouldAddFilterToWorkflow()
     {
@@ -77,8 +77,8 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers FlorianEc\Plum\Workflow::addConverter()
-     * @covers FlorianEc\Plum\Workflow::getConverters()
+     * @covers Cocur\Plum\Workflow::addConverter()
+     * @covers Cocur\Plum\Workflow::getConverters()
      */
     public function addConverterShouldAddConverterToWorkflow()
     {
@@ -90,8 +90,8 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers FlorianEc\Plum\Workflow::addWriter()
-     * @covers FlorianEc\Plum\Workflow::getWriters()
+     * @covers Cocur\Plum\Workflow::addWriter()
+     * @covers Cocur\Plum\Workflow::getWriters()
      */
     public function addWriterShouldAddWriterToWorkflow()
     {
@@ -103,7 +103,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers FlorianEc\Plum\Workflow::process()
+     * @covers Cocur\Plum\Workflow::process()
      */
     public function processShouldDoNothingWhenNothingIsRead()
     {
@@ -119,8 +119,8 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers FlorianEc\Plum\Workflow::process()
-     * @covers FlorianEc\Plum\Workflow::processItem()
+     * @covers Cocur\Plum\Workflow::process()
+     * @covers Cocur\Plum\Workflow::processItem()
      */
     public function processShouldApplyFilterToReadItems()
     {
@@ -143,9 +143,9 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers FlorianEc\Plum\Workflow::process()
-     * @covers FlorianEc\Plum\Workflow::processItem()
-     * @covers FlorianEc\Plum\Workflow::applyConverter()
+     * @covers Cocur\Plum\Workflow::process()
+     * @covers Cocur\Plum\Workflow::processItem()
+     * @covers Cocur\Plum\Workflow::applyConverter()
      */
     public function processShouldApplyConverterToReadItems()
     {
@@ -167,9 +167,9 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers FlorianEc\Plum\Workflow::process()
-     * @covers FlorianEc\Plum\Workflow::processItem()
-     * @covers FlorianEc\Plum\Workflow::applyConverter()
+     * @covers Cocur\Plum\Workflow::process()
+     * @covers Cocur\Plum\Workflow::processItem()
+     * @covers Cocur\Plum\Workflow::applyConverter()
      */
     public function processShouldApplyConverterIfFilterReturnsTrueToReadItems()
     {
@@ -195,9 +195,9 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers FlorianEc\Plum\Workflow::process()
-     * @covers FlorianEc\Plum\Workflow::processItem()
-     * @covers FlorianEc\Plum\Workflow::applyConverter()
+     * @covers Cocur\Plum\Workflow::process()
+     * @covers Cocur\Plum\Workflow::processItem()
+     * @covers Cocur\Plum\Workflow::applyConverter()
      */
     public function processShouldNotApplyConverterIfFilterReturnsFalseToReadItems()
     {
@@ -223,10 +223,10 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers FlorianEc\Plum\Workflow::process()
-     * @covers FlorianEc\Plum\Workflow::processItem()
-     * @covers FlorianEc\Plum\Workflow::prepareWriters()
-     * @covers FlorianEc\Plum\Workflow::finishWriters()
+     * @covers Cocur\Plum\Workflow::process()
+     * @covers Cocur\Plum\Workflow::processItem()
+     * @covers Cocur\Plum\Workflow::prepareWriters()
+     * @covers Cocur\Plum\Workflow::finishWriters()
      */
     public function processShouldApplyWriterToReadItems()
     {
@@ -251,8 +251,8 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers FlorianEc\Plum\Workflow::process()
-     * @covers FlorianEc\Plum\Workflow::processItem()
+     * @covers Cocur\Plum\Workflow::process()
+     * @covers Cocur\Plum\Workflow::processItem()
      */
     public function processShouldCollectExceptions()
     {
@@ -277,34 +277,34 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @return \FlorianEc\Plum\Reader\ReaderInterface|\Mockery\MockInterface
+     * @return \Cocur\Plum\Reader\ReaderInterface|\Mockery\MockInterface
      */
     protected function getMockReader()
     {
-        return m::mock('FlorianEc\Plum\Reader\ReaderInterface');
+        return m::mock('Cocur\Plum\Reader\ReaderInterface');
     }
 
     /**
-     * @return \FlorianEc\Plum\Writer\WriterInterface|\Mockery\MockInterface
+     * @return \Cocur\Plum\Writer\WriterInterface|\Mockery\MockInterface
      */
     protected function getMockWriter()
     {
-        return m::mock('FlorianEc\Plum\Writer\WriterInterface');
+        return m::mock('Cocur\Plum\Writer\WriterInterface');
     }
 
     /**
-     * @return \FlorianEc\Plum\Converter\ConverterInterface|\Mockery\MockInterface
+     * @return \Cocur\Plum\Converter\ConverterInterface|\Mockery\MockInterface
      */
     protected function getMockConverter()
     {
-        return m::mock('FlorianEc\Plum\Converter\ConverterInterface');
+        return m::mock('Cocur\Plum\Converter\ConverterInterface');
     }
 
     /**
-     * @return \FlorianEc\Plum\Filter\FilterInterface|\Mockery\MockInterface
+     * @return \Cocur\Plum\Filter\FilterInterface|\Mockery\MockInterface
      */
     protected function getMockFilter()
     {
-        return m::mock('FlorianEc\Plum\Filter\FilterInterface');
+        return m::mock('Cocur\Plum\Filter\FilterInterface');
     }
 }

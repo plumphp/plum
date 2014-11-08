@@ -9,12 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace FlorianEc\Plum\Reader;
+namespace Cocur\Plum\Reader;
 
 /**
  * ArrayReaderTest
  *
- * @package   FlorianEc\Plum\Reader
+ * @package   Cocur\Plum\Reader
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
  * @copyright 2014 Florian Eckerstorfer
  *
@@ -32,8 +32,8 @@ class ArrayReaderTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers FlorianEc\Plum\Reader\ArrayReader::__construct()
-     * @covers FlorianEc\Plum\Reader\ArrayReader::getData()
+     * @covers Cocur\Plum\Reader\ArrayReader::__construct()
+     * @covers Cocur\Plum\Reader\ArrayReader::getData()
      */
     public function getDataShouldReturnData()
     {
@@ -42,7 +42,7 @@ class ArrayReaderTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers FlorianEc\Plum\Reader\ArrayReader::current()
+     * @covers Cocur\Plum\Reader\ArrayReader::current()
      */
     public function currentShouldReturnCurrentItem()
     {
@@ -51,7 +51,7 @@ class ArrayReaderTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers FlorianEc\Plum\Reader\ArrayReader::key()
+     * @covers Cocur\Plum\Reader\ArrayReader::key()
      */
     public function keyShouldReturnCurrentKey()
     {
@@ -60,7 +60,7 @@ class ArrayReaderTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers FlorianEc\Plum\Reader\ArrayReader::next()
+     * @covers Cocur\Plum\Reader\ArrayReader::next()
      */
     public function nextShouldMoveIteratorToNextPosition()
     {
@@ -70,7 +70,7 @@ class ArrayReaderTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers FlorianEc\Plum\Reader\ArrayReader::valid()
+     * @covers Cocur\Plum\Reader\ArrayReader::valid()
      */
     public function validShouldReturnTrueIfPositionIsValid()
     {
@@ -79,7 +79,7 @@ class ArrayReaderTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers FlorianEc\Plum\Reader\ArrayReader::valid()
+     * @covers Cocur\Plum\Reader\ArrayReader::valid()
      */
     public function validShouldReturnFalseIfPositionIsInvalid()
     {
@@ -89,7 +89,7 @@ class ArrayReaderTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers FlorianEc\Plum\Reader\ArrayReader::rewind()
+     * @covers Cocur\Plum\Reader\ArrayReader::rewind()
      */
     public function rewindShouldRewindIterator()
     {
@@ -100,7 +100,7 @@ class ArrayReaderTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers FlorianEc\Plum\Reader\ArrayReader::count()
+     * @covers Cocur\Plum\Reader\ArrayReader::count()
      */
     public function countShouldReturnNumberOfElements()
     {

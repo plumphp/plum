@@ -9,12 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace FlorianEc\Plum\Converter;
+namespace Cocur\Plum\Converter;
 
 /**
  * CallbackConverterTest
  *
- * @package   FlorianEc\Plum\Converter
+ * @package   Cocur\Plum\Converter
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
  * @copyright 2014 Florian Eckerstorfer
  *
@@ -24,8 +24,8 @@ class CallbackConverterTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @test
-     * @covers FlorianEc\Plum\Converter\CallbackConverter::__construct()
-     * @covers FlorianEc\Plum\Converter\CallbackConverter::convert()
+     * @covers Cocur\Plum\Converter\CallbackConverter::__construct()
+     * @covers Cocur\Plum\Converter\CallbackConverter::convert()
      */
     public function convertShouldCallCallback()
     {

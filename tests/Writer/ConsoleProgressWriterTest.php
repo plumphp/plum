@@ -1,14 +1,22 @@
 <?php
 
+/**
+ * This file is part of florianeckerstorfer/plum.
+ *
+ * (c) Florian Eckerstorfer <florian@eckerstorfer.co>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
-namespace FlorianEc\Plum\Writer;
+namespace Cocur\Plum\Writer;
 
 use \Mockery as m;
 
 /**
  * ConsoleProgressWriterTest
  *
- * @package   FlorianEc\Plum\Writer
+ * @package   Cocur\Plum\Writer
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
  * @copyright 2014 Florian Eckerstorfer
  * @group     unit
@@ -29,7 +37,7 @@ class ConsoleProgressWriterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers FlorianEc\Plum\Writer\ConsoleProgressWriter::writeItem()
+     * @covers Cocur\Plum\Writer\ConsoleProgressWriter::writeItem()
      */
     public function writeItemShouldCallAdvanceOnProgressBar()
     {
@@ -40,7 +48,7 @@ class ConsoleProgressWriterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers FlorianEc\Plum\Writer\ConsoleProgressWriter::prepare()
+     * @covers Cocur\Plum\Writer\ConsoleProgressWriter::prepare()
      */
     public function prepareShouldCallStartOnProgressBar()
     {
@@ -51,7 +59,7 @@ class ConsoleProgressWriterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers FlorianEc\Plum\Writer\ConsoleProgressWriter::finish()
+     * @covers Cocur\Plum\Writer\ConsoleProgressWriter::finish()
      */
     public function finishShouldCallFinishOnProgressBar()
     {

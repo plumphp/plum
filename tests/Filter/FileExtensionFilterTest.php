@@ -9,12 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace FlorianEc\Plum\Filter;
+namespace Cocur\Plum\Filter;
 
 /**
  * FileExtensionFilterTest
  *
- * @package   FlorianEc\Plum\Filter
+ * @package   Cocur\Plum\Filter
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
  * @copyright 2014 Florian Eckerstorfer
  * @group     unit
@@ -23,8 +23,8 @@ class FileExtensionFilterTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @test
-     * @covers FlorianEc\Plum\Filter\FileExtensionFilter::__construct()
-     * @covers FlorianEc\Plum\Filter\FileExtensionFilter::filter()
+     * @covers Cocur\Plum\Filter\FileExtensionFilter::__construct()
+     * @covers Cocur\Plum\Filter\FileExtensionFilter::filter()
      */
     public function convertShouldReturnTrueIfFileExtensionMatches()
     {
@@ -35,8 +35,8 @@ class FileExtensionFilterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers FlorianEc\Plum\Filter\FileExtensionFilter::__construct()
-     * @covers FlorianEc\Plum\Filter\FileExtensionFilter::filter()
+     * @covers Cocur\Plum\Filter\FileExtensionFilter::__construct()
+     * @covers Cocur\Plum\Filter\FileExtensionFilter::filter()
      */
     public function convertShouldReturnFalseIfFileExtensionNotMatches()
     {
@@ -47,8 +47,8 @@ class FileExtensionFilterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers FlorianEc\Plum\Filter\FileExtensionFilter::__construct()
-     * @covers FlorianEc\Plum\Filter\FileExtensionFilter::filter()
+     * @covers Cocur\Plum\Filter\FileExtensionFilter::__construct()
+     * @covers Cocur\Plum\Filter\FileExtensionFilter::filter()
      */
     public function convertShouldReturnTrueIfFileExtensionInArrayMatches()
     {
@@ -59,8 +59,8 @@ class FileExtensionFilterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers FlorianEc\Plum\Filter\FileExtensionFilter::__construct()
-     * @covers FlorianEc\Plum\Filter\FileExtensionFilter::filter()
+     * @covers Cocur\Plum\Filter\FileExtensionFilter::__construct()
+     * @covers Cocur\Plum\Filter\FileExtensionFilter::filter()
      */
     public function convertShouldReturnFalseIfFileExtensionInArrayNotMatches()
     {

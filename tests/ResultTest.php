@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace FlorianEc\Plum;
+namespace Cocur\Plum;
 
 use \Mockery as m;
 
 /**
  * ResultTest
  *
- * @package   FlorianEc\Plum
+ * @package   Cocur\Plum
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
  * @copyright 2014 Florian Eckerstorfer
  * @group     unit
@@ -25,8 +25,8 @@ class ResultTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @test
-     * @covers FlorianEc\Plum\Result::__construct()
-     * @covers FlorianEc\Plum\Result::getReadCount()
+     * @covers Cocur\Plum\Result::__construct()
+     * @covers Cocur\Plum\Result::getReadCount()
      */
     public function getReadCountShouldReturnReadCount()
     {
@@ -36,8 +36,8 @@ class ResultTest extends \PHPUnit_Framework_TestCase
     }
     /**
      * @test
-     * @covers FlorianEc\Plum\Result::__construct()
-     * @covers FlorianEc\Plum\Result::getWriteCount()
+     * @covers Cocur\Plum\Result::__construct()
+     * @covers Cocur\Plum\Result::getWriteCount()
      */
     public function getWriteCountShouldReturnWriteCount()
     {
@@ -48,8 +48,8 @@ class ResultTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers FlorianEc\Plum\Result::__construct()
-     * @covers FlorianEc\Plum\Result::getExceptions()
+     * @covers Cocur\Plum\Result::__construct()
+     * @covers Cocur\Plum\Result::getExceptions()
      */
     public function getExceptionsReturnsExceptions()
     {
@@ -64,8 +64,8 @@ class ResultTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers FlorianEc\Plum\Result::__construct()
-     * @covers FlorianEc\Plum\Result::getErrorCount()
+     * @covers Cocur\Plum\Result::__construct()
+     * @covers Cocur\Plum\Result::getErrorCount()
      */
     public function getErrorCountReturnsNumberOfExceptions()
     {

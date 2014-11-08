@@ -9,17 +9,17 @@
  * file that was distributed with this source code.
  */
 
-namespace FlorianEc\Plum;
+namespace Cocur\Plum;
 
-use FlorianEc\Plum\Converter\ConverterInterface;
-use FlorianEc\Plum\Filter\FilterInterface;
-use FlorianEc\Plum\Reader\ReaderInterface;
-use FlorianEc\Plum\Writer\WriterInterface;
+use Cocur\Plum\Converter\ConverterInterface;
+use Cocur\Plum\Filter\FilterInterface;
+use Cocur\Plum\Reader\ReaderInterface;
+use Cocur\Plum\Writer\WriterInterface;
 
 /**
  * Workflow
  *
- * @package   FlorianEc\Plum
+ * @package   Cocur\Plum
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
  * @copyright 2014 Florian Eckerstorfer
  */

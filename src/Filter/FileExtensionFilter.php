@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace FlorianEc\Plum\Filter;
+namespace Cocur\Plum\Filter;
 
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\PropertyAccess\PropertyAccessor;
@@ -17,7 +17,7 @@ use Symfony\Component\PropertyAccess\PropertyAccessor;
 /**
  * FileExtensionFilter
  *
- * @package   FlorianEc\Plum\Converter
+ * @package   Cocur\Plum\Converter
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
  * @copyright 2014 Florian Eckerstorfer
  */

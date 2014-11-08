@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace FlorianEc\Plum\Converter;
+namespace Cocur\Plum\Converter;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
 
 /**
  * FileGetContentsConverterTest
  *
- * @package   FlorianEc\Plum\Converter
+ * @package   Cocur\Plum\Converter
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
  * @copyright 2014 Florian Eckerstorfer
  * @group     unit
@@ -39,7 +39,7 @@ class FileGetContentsConverterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers FlorianEc\Plum\Converter\FileGetContentsConverter::convert()
+     * @covers Cocur\Plum\Converter\FileGetContentsConverter::convert()
      */
     public function convertShouldGetContentsFromFile()
     {
@@ -52,7 +52,7 @@ class FileGetContentsConverterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers FlorianEc\Plum\Converter\FileGetContentsConverter::convert()
+     * @covers Cocur\Plum\Converter\FileGetContentsConverter::convert()
      */
     public function convertShouldConvertFilenameIntoSplFileInfo()
     {
@@ -64,7 +64,7 @@ class FileGetContentsConverterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers FlorianEc\Plum\Converter\FileGetContentsConverter::convert()
+     * @covers Cocur\Plum\Converter\FileGetContentsConverter::convert()
      */
     public function convertShouldThrowExceptionIfFileDoesNotExists()
     {

@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace FlorianEc\Plum\Reader;
+namespace Cocur\Plum\Reader;
 
 use Symfony\Component\Finder\Finder;
 
 /**
  * FinderReader
  *
- * @package   FlorianEc\Plum\Reader
+ * @package   Cocur\Plum\Reader
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
  * @copyright 2014 Florian Eckerstorfer
  */

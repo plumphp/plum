@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace FlorianEc\Plum\Reader;
+namespace Cocur\Plum\Reader;
 
 use \Mockery as m;
 
 /**
  * FinderReaderTest
  *
- * @package   FlorianEc\Plum\Reader
+ * @package   Cocur\Plum\Reader
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
  * @copyright 2014 Florian Eckerstorfer
  *
@@ -40,7 +40,7 @@ class FinderReaderTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers FlorianEc\Plum\Reader\FinderReader::current()
+     * @covers Cocur\Plum\Reader\FinderReader::current()
      */
     public function currentShouldReturnCurrentElement()
     {
@@ -54,7 +54,7 @@ class FinderReaderTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers FlorianEc\Plum\Reader\FinderReader::next()
+     * @covers Cocur\Plum\Reader\FinderReader::next()
      */
     public function nextShouldAdvanceIterator()
     {
@@ -66,7 +66,7 @@ class FinderReaderTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers FlorianEc\Plum\Reader\FinderReader::key()
+     * @covers Cocur\Plum\Reader\FinderReader::key()
      */
     public function keyShouldReturnKey()
     {
@@ -79,7 +79,7 @@ class FinderReaderTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers FlorianEc\Plum\Reader\FinderReader::valid()
+     * @covers Cocur\Plum\Reader\FinderReader::valid()
      */
     public function validShouldReturnIfIteratorIsValid()
     {
@@ -92,7 +92,7 @@ class FinderReaderTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers FlorianEc\Plum\Reader\FinderReader::rewind()
+     * @covers Cocur\Plum\Reader\FinderReader::rewind()
      */
     public function validShouldRewindIterator()
     {
@@ -104,7 +104,7 @@ class FinderReaderTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers FlorianEc\Plum\Reader\FinderReader::count()
+     * @covers Cocur\Plum\Reader\FinderReader::count()
      */
     public function countShouldReturnNumberOfFiles()
     {
