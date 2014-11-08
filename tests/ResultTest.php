@@ -25,6 +25,18 @@ class ResultTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @test
+     * @covers Cocur\Plum\Result::incReadCount()
+     */
+    public function incReadCountShouldIncreaseReadCount()
+    {
+        $result = new Result();
+        $result->incReadCount();
+
+        $this->assertEquals(1, $result->getReadCount());
+    }
+
+    /**
+     * @test
      * @covers Cocur\Plum\Result::__construct()
      * @covers Cocur\Plum\Result::getReadCount()
      */
@@ -34,6 +46,19 @@ class ResultTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(42, $result->getReadCount());
     }
+
+    /**
+     * @test
+     * @covers Cocur\Plum\Result::incWriteCount()
+     */
+    public function incWriteCountShouldIncreaseWriteCount()
+    {
+        $result = new Result();
+        $result->incWriteCount();
+
+        $this->assertEquals(1, $result->getWriteCount());
+    }
+
     /**
      * @test
      * @covers Cocur\Plum\Result::__construct()
@@ -48,13 +73,27 @@ class ResultTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
+     * @covers Cocur\Plum\Result::addException()
+     */
+    public function addExceptionShouldAddException()
+    {
+        /** @var \Exception $exception */
+        $exception = m::mock('\Exception');
+        $result = new Result();
+        $result->addException($exception);
+
+        $this->assertContains($exception, $result->getExceptions());
+    }
+
+    /**
+     * @test
      * @covers Cocur\Plum\Result::__construct()
      * @covers Cocur\Plum\Result::getExceptions()
      */
     public function getExceptionsReturnsExceptions()
     {
-        $exception1 = m::mock('\Exceptions');
-        $exception2 = m::mock('\Exceptions');
+        $exception1 = m::mock('\Exception');
+        $exception2 = m::mock('\Exception');
         $result = new Result(null, null, [$exception1, $exception2]);
 
         $this->assertCount(2, $result->getExceptions());
