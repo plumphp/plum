@@ -77,8 +77,7 @@ class ResultTest extends \PHPUnit_Framework_TestCase
      */
     public function addExceptionShouldAddException()
     {
-        /** @var \Exception $exception */
-        $exception = m::mock('\Exception');
+        $exception = new \Exception();
         $result = new Result();
         $result->addException($exception);
 
@@ -92,8 +91,8 @@ class ResultTest extends \PHPUnit_Framework_TestCase
      */
     public function getExceptionsReturnsExceptions()
     {
-        $exception1 = m::mock('\Exception');
-        $exception2 = m::mock('\Exception');
+        $exception1 = new \Exception();
+        $exception2 = new \Exception();
         $result = new Result(null, null, [$exception1, $exception2]);
 
         $this->assertCount(2, $result->getExceptions());
