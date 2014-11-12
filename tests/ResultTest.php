@@ -107,8 +107,8 @@ class ResultTest extends \PHPUnit_Framework_TestCase
      */
     public function getErrorCountReturnsNumberOfExceptions()
     {
-        $exception1 = m::mock('\Exceptions');
-        $exception2 = m::mock('\Exceptions');
+        $exception1 = new \Exception();
+        $exception2 = new \Exception();
         $result = new Result(null, null, [$exception1, $exception2]);
 
         $this->assertEquals(2, $result->getErrorCount());
