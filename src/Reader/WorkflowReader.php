@@ -11,8 +11,6 @@
 
 namespace Cocur\Plum\Reader;
 
-use Traversable;
-
 /**
  * ArrayReader
  *
@@ -20,29 +18,25 @@ use Traversable;
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
  * @copyright 2014 Florian Eckerstorfer
  */
-class ArrayReader implements ReaderInterface
+class WorkflowReader implements ReaderInterface
 {
     /** @var array */
     private $data = [];
 
     /**
-     * @param array $data
+     * @param mixed $item
+     *
+     * @return ArrayReader
      */
-    public function __construct(array $data)
+    public function addItem($item)
     {
-        $this->data = $data;
+        $this->data[] = $item;
+
+        return $this;
     }
 
     /**
-     * @return array
-     */
-    public function getData()
-    {
-        return $this->data;
-    }
-
-    /**
-     * @return Traversable|void
+     * @return \Iterator|void
      */
     public function getIterator()
     {

@@ -33,7 +33,7 @@ class FinderReader implements ReaderInterface
      */
     public function __construct(Finder $finder)
     {
-        $this->finder   = $finder;
+        $this->finder = $finder;
     }
 
     /**
