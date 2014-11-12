@@ -12,6 +12,7 @@
 namespace Cocur\Plum\Reader;
 
 use Symfony\Component\Finder\Finder;
+use Traversable;
 
 /**
  * FinderReader
@@ -25,9 +26,6 @@ class FinderReader implements ReaderInterface
     /** @var Finder */
     private $finder;
 
-    /** @var \Iterator */
-    private $iterator;
-
     /**
      * @param Finder $finder
      *
@@ -36,53 +34,16 @@ class FinderReader implements ReaderInterface
     public function __construct(Finder $finder)
     {
         $this->finder   = $finder;
-        $this->iterator = $finder->getIterator();
     }
 
     /**
-     * Return the current element.
-     *
-     * @return \Symfony\Component\Finder\SplFileInfo
+     * @return Traversable|void
      */
-    public function current()
+    public function getIterator()
     {
-        return $this->iterator->current();
-    }
-
-    /**
-     * Move forward to next element.
-     */
-    public function next()
-    {
-        $this->iterator->next();
-    }
-
-    /**
-     * Return the key of the current element.
-     *
-     * @return int|null scalar on success, or null on failure.
-     */
-    public function key()
-    {
-        return $this->iterator->key();
-    }
-
-    /**
-     * Checks if current position is valid
-     *
-     * @return bool `true` if the iterator is valid.
-     */
-    public function valid()
-    {
-        return $this->iterator->valid();
-    }
-
-    /**
-     * Rewind the Iterator to the first element
-     */
-    public function rewind()
-    {
-        $this->iterator->rewind();
+        foreach ($this->finder as $key => $value) {
+            yield $key => $value;
+        }
     }
 
     /**

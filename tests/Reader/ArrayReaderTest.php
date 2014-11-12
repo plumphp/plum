@@ -42,60 +42,17 @@ class ArrayReaderTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Cocur\Plum\Reader\ArrayReader::current()
+     * @covers Cocur\Plum\Reader\ArrayReader::getIterator()
      */
-    public function currentShouldReturnCurrentItem()
+    public function getIteratorShouldReturnIteratorForArray()
     {
-        $this->assertEquals('foobar', $this->reader->current());
-    }
-
-    /**
-     * @test
-     * @covers Cocur\Plum\Reader\ArrayReader::key()
-     */
-    public function keyShouldReturnCurrentKey()
-    {
-        $this->assertEquals(0, $this->reader->key());
-    }
-
-    /**
-     * @test
-     * @covers Cocur\Plum\Reader\ArrayReader::next()
-     */
-    public function nextShouldMoveIteratorToNextPosition()
-    {
-        $this->reader->next();
-        $this->assertEquals(1, $this->reader->key());
-    }
-
-    /**
-     * @test
-     * @covers Cocur\Plum\Reader\ArrayReader::valid()
-     */
-    public function validShouldReturnTrueIfPositionIsValid()
-    {
-        $this->assertTrue($this->reader->valid());
-    }
-
-    /**
-     * @test
-     * @covers Cocur\Plum\Reader\ArrayReader::valid()
-     */
-    public function validShouldReturnFalseIfPositionIsInvalid()
-    {
-        $this->reader->next();
-        $this->assertFalse($this->reader->valid());
-    }
-
-    /**
-     * @test
-     * @covers Cocur\Plum\Reader\ArrayReader::rewind()
-     */
-    public function rewindShouldRewindIterator()
-    {
-        $this->reader->next();
-        $this->reader->rewind();
-        $this->assertEquals(0, $this->reader->key());
+        $count = 0;
+        foreach ($this->reader as $key => $value) {
+            $this->assertEquals(0, $key);
+            $this->assertEquals('foobar', $value);
+            $count++;
+        }
+        $this->assertEquals(1, $count);
     }
 
     /**

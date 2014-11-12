@@ -107,9 +107,12 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
      */
     public function processShouldDoNothingWhenNothingIsRead()
     {
+        $iterator = m::mock('\Iterator');
+        $iterator->shouldReceive('rewind');
+        $iterator->shouldReceive('valid')->andReturn(false);
+
         $reader = $this->getMockReader();
-        $reader->shouldReceive('rewind');
-        $reader->shouldReceive('valid')->andReturn(false);
+        $reader->shouldReceive('getIterator')->andReturn($iterator);
 
         $result = $this->workflow->process($reader);
 
@@ -124,12 +127,15 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
      */
     public function processShouldApplyFilterToReadItems()
     {
+        $iterator = m::mock('\Iterator');
+        $iterator->shouldReceive('rewind');
+        $iterator->shouldReceive('valid')->andReturn(true)->once();
+        $iterator->shouldReceive('current')->andReturn('foobar');
+        $iterator->shouldReceive('next');
+        $iterator->shouldReceive('valid')->andReturn(false)->once();
+
         $reader = $this->getMockReader();
-        $reader->shouldReceive('rewind');
-        $reader->shouldReceive('valid')->andReturn(true)->once();
-        $reader->shouldReceive('current')->andReturn('foobar');
-        $reader->shouldReceive('next');
-        $reader->shouldReceive('valid')->andReturn(false)->once();
+        $reader->shouldReceive('getIterator')->andReturn($iterator);
 
         $filter = $this->getMockFilter();
         $filter->shouldReceive('filter')->with('foobar')->once()->andReturn(false);
@@ -149,12 +155,15 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
      */
     public function processShouldApplyConverterToReadItems()
     {
+        $iterator = m::mock('\Iterator');
+        $iterator->shouldReceive('rewind');
+        $iterator->shouldReceive('valid')->andReturn(true)->once();
+        $iterator->shouldReceive('current')->andReturn('foobar');
+        $iterator->shouldReceive('next');
+        $iterator->shouldReceive('valid')->andReturn(false)->once();
+
         $reader = $this->getMockReader();
-        $reader->shouldReceive('rewind');
-        $reader->shouldReceive('valid')->andReturn(true)->once();
-        $reader->shouldReceive('current')->andReturn('foobar');
-        $reader->shouldReceive('next');
-        $reader->shouldReceive('valid')->andReturn(false)->once();
+        $reader->shouldReceive('getIterator')->andReturn($iterator);
 
         $converter = $this->getMockConverter();
         $converter->shouldReceive('convert')->with('foobar')->once()->andReturn('FOOBAR');
@@ -173,12 +182,15 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
      */
     public function processShouldApplyConverterIfFilterReturnsTrueToReadItems()
     {
+        $iterator = m::mock('\Iterator');
+        $iterator->shouldReceive('rewind');
+        $iterator->shouldReceive('valid')->andReturn(true)->once();
+        $iterator->shouldReceive('current')->andReturn('foobar');
+        $iterator->shouldReceive('next');
+        $iterator->shouldReceive('valid')->andReturn(false)->once();
+
         $reader = $this->getMockReader();
-        $reader->shouldReceive('rewind');
-        $reader->shouldReceive('valid')->andReturn(true)->once();
-        $reader->shouldReceive('current')->andReturn('foobar');
-        $reader->shouldReceive('next');
-        $reader->shouldReceive('valid')->andReturn(false)->once();
+        $reader->shouldReceive('getIterator')->andReturn($iterator);
 
         $converter = $this->getMockConverter();
         $converter->shouldReceive('convert')->with('foobar')->once()->andReturn('FOOBAR');
@@ -201,12 +213,15 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
      */
     public function processShouldNotApplyConverterIfFilterReturnsFalseToReadItems()
     {
+        $iterator = m::mock('\Iterator');
+        $iterator->shouldReceive('rewind');
+        $iterator->shouldReceive('valid')->andReturn(true)->once();
+        $iterator->shouldReceive('current')->andReturn('foobar');
+        $iterator->shouldReceive('next');
+        $iterator->shouldReceive('valid')->andReturn(false)->once();
+
         $reader = $this->getMockReader();
-        $reader->shouldReceive('rewind');
-        $reader->shouldReceive('valid')->andReturn(true)->once();
-        $reader->shouldReceive('current')->andReturn('foobar');
-        $reader->shouldReceive('next');
-        $reader->shouldReceive('valid')->andReturn(false)->once();
+        $reader->shouldReceive('getIterator')->andReturn($iterator);
 
         $converter = $this->getMockConverter();
         $converter->shouldReceive('convert')->never();
@@ -230,12 +245,15 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
      */
     public function processShouldApplyWriterToReadItems()
     {
+        $iterator = m::mock('\Iterator');
+        $iterator->shouldReceive('rewind');
+        $iterator->shouldReceive('valid')->andReturn(true)->once();
+        $iterator->shouldReceive('current')->andReturn('foobar');
+        $iterator->shouldReceive('next');
+        $iterator->shouldReceive('valid')->andReturn(false)->once();
+
         $reader = $this->getMockReader();
-        $reader->shouldReceive('rewind');
-        $reader->shouldReceive('valid')->andReturn(true)->once();
-        $reader->shouldReceive('current')->andReturn('foobar');
-        $reader->shouldReceive('next');
-        $reader->shouldReceive('valid')->andReturn(false)->once();
+        $reader->shouldReceive('getIterator')->andReturn($iterator);
 
         $writer = $this->getMockWriter();
         $writer->shouldReceive('prepare')->once();
@@ -256,12 +274,15 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
      */
     public function processShouldCollectExceptions()
     {
+        $iterator = m::mock('\Iterator');
+        $iterator->shouldReceive('rewind');
+        $iterator->shouldReceive('valid')->andReturn(true)->once();
+        $iterator->shouldReceive('current')->andReturn('foobar');
+        $iterator->shouldReceive('next');
+        $iterator->shouldReceive('valid')->andReturn(false)->once();
+
         $reader = $this->getMockReader();
-        $reader->shouldReceive('rewind');
-        $reader->shouldReceive('valid')->andReturn(true)->once();
-        $reader->shouldReceive('current')->andReturn('foobar');
-        $reader->shouldReceive('next');
-        $reader->shouldReceive('valid')->andReturn(false)->once();
+        $reader->shouldReceive('getIterator')->andReturn($iterator);
 
         $exception = new \Exception();
 

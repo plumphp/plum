@@ -10,6 +10,7 @@
  */
 
 namespace Cocur\Plum\Reader;
+use Traversable;
 
 /**
  * ArrayReader
@@ -22,9 +23,6 @@ class ArrayReader implements ReaderInterface
 {
     /** @var array */
     private $data = [];
-
-    /** @var int */
-    private $position = 0;
 
     /**
      * @param array $data
@@ -43,49 +41,13 @@ class ArrayReader implements ReaderInterface
     }
 
     /**
-     * Returns the current element.
-     *
-     * @return mixed
+     * @return Traversable|void
      */
-    public function current()
+    public function getIterator()
     {
-        return $this->data[$this->position];
-    }
-
-    /**
-     * Moves the reader to the next element.
-     */
-    public function next()
-    {
-        ++$this->position;
-    }
-
-    /**
-     * Returns the key of the current element.
-     *
-     * @return int
-     */
-    public function key()
-    {
-        return $this->position;
-    }
-
-    /**
-     * Returns if the current iterator position is valid.
-     *
-     * @return bool
-     */
-    public function valid()
-    {
-        return isset($this->data[$this->position]);
-    }
-
-    /**
-     * Rewinds the iterator.
-     */
-    public function rewind()
-    {
-        $this->position = 0;
+        foreach ($this->data as $key => $value) {
+            yield $key => $value;
+        }
     }
 
     /**
