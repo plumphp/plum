@@ -36,7 +36,7 @@ class WorkflowReader implements ReaderInterface
     }
 
     /**
-     * @return \Iterator|void
+     * @return \ArrayIterator
      */
     public function getIterator()
     {
