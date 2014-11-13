@@ -23,28 +23,24 @@ use \Mockery as m;
  */
 class ResultTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @test
-     * @covers Cocur\Plum\Result::incReadCount()
-     */
-    public function incReadCountShouldIncreaseReadCount()
-    {
-        $result = new Result();
-        $result->incReadCount();
+    /** @var Result */
+    private $result;
 
-        $this->assertEquals(1, $result->getReadCount());
+    public function setUp()
+    {
+        $this->result = new Result();
     }
 
     /**
      * @test
-     * @covers Cocur\Plum\Result::__construct()
+     * @covers Cocur\Plum\Result::incReadCount()
      * @covers Cocur\Plum\Result::getReadCount()
      */
-    public function getReadCountShouldReturnReadCount()
+    public function incReadCountShouldIncreaseReadCount()
     {
-        $result = new Result(42, null);
+        $this->result->incReadCount();
 
-        $this->assertEquals(42, $result->getReadCount());
+        $this->assertEquals(1, $this->result->getReadCount());
     }
 
     /**
@@ -54,22 +50,9 @@ class ResultTest extends \PHPUnit_Framework_TestCase
      */
     public function incWriteCountShouldIncreaseWriteCount()
     {
-        $result = new Result();
-        $result->incWriteCount();
+        $this->result->incWriteCount();
 
-        $this->assertEquals(1, $result->getWriteCount());
-    }
-
-    /**
-     * @test
-     * @covers Cocur\Plum\Result::__construct()
-     * @covers Cocur\Plum\Result::getWriteCount()
-     */
-    public function getWriteCountShouldReturnWriteCount()
-    {
-        $result = new Result(null, 42);
-
-        $this->assertEquals(42, $result->getWriteCount());
+        $this->assertEquals(1, $this->result->getWriteCount());
     }
 
     /**
@@ -79,52 +62,23 @@ class ResultTest extends \PHPUnit_Framework_TestCase
      */
     public function incItemWriteCountShouldIncreaseWriteCount()
     {
-        $result = new Result();
-        $result->incItemWriteCount();
+        $this->result->incItemWriteCount();
 
-        $this->assertEquals(1, $result->getItemWriteCount());
+        $this->assertEquals(1, $this->result->getItemWriteCount());
     }
 
     /**
      * @test
      * @covers Cocur\Plum\Result::addException()
+     * @covers Cocur\Plum\Result::getExceptions()
+     * @covers Cocur\Plum\Result::getErrorCount()
      */
     public function addExceptionShouldAddException()
     {
         $exception = new \Exception();
-        $result = new Result();
-        $result->addException($exception);
+        $this->result->addException($exception);
 
-        $this->assertContains($exception, $result->getExceptions());
-    }
-
-    /**
-     * @test
-     * @covers Cocur\Plum\Result::__construct()
-     * @covers Cocur\Plum\Result::getExceptions()
-     */
-    public function getExceptionsReturnsExceptions()
-    {
-        $exception1 = new \Exception();
-        $exception2 = new \Exception();
-        $result = new Result(null, null, [$exception1, $exception2]);
-
-        $this->assertCount(2, $result->getExceptions());
-        $this->assertContains($exception1, $result->getExceptions());
-        $this->assertContains($exception2, $result->getExceptions());
-    }
-
-    /**
-     * @test
-     * @covers Cocur\Plum\Result::__construct()
-     * @covers Cocur\Plum\Result::getErrorCount()
-     */
-    public function getErrorCountReturnsNumberOfExceptions()
-    {
-        $exception1 = new \Exception();
-        $exception2 = new \Exception();
-        $result = new Result(null, null, [$exception1, $exception2]);
-
-        $this->assertEquals(2, $result->getErrorCount());
+        $this->assertContains($exception, $this->result->getExceptions());
+        $this->assertEquals(1, $this->result->getErrorCount());
     }
 }

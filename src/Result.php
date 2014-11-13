@@ -21,28 +21,16 @@ namespace Cocur\Plum;
 class Result
 {
     /** @var int */
-    private $readCount;
+    private $readCount = 0;
 
     /** @var int */
-    private $writeCount;
+    private $writeCount = 0;
 
     /** @var int */
     private $itemWriteCount = 0;
 
     /** @var \Exception[] */
     private $exceptions;
-
-    /**
-     * @param int          $readCount
-     * @param int          $writeCount
-     * @param \Exception[] $exceptions
-     */
-    public function __construct($readCount = 0, $writeCount = 0, array $exceptions = [])
-    {
-        $this->readCount  = $readCount;
-        $this->writeCount = $writeCount;
-        $this->exceptions = $exceptions;
-    }
 
     /**
      * @return Result
