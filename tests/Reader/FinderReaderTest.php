@@ -27,9 +27,13 @@ class FinderReaderTest extends \PHPUnit_Framework_TestCase
     /** @var \Symfony\Component\Finder\Finder|\Mockery\MockInterface */
     private $finder;
 
+    /** @var FinderReader */
+    private $reader;
+
     public function setUp()
     {
         $this->finder = m::mock('Symfony\Component\Finder\Finder');
+        $this->reader = new FinderReader($this->finder);
     }
 
     /**
@@ -40,9 +44,8 @@ class FinderReaderTest extends \PHPUnit_Framework_TestCase
     {
         $iterator = m::mock('\Iterator');
         $this->finder->shouldReceive('getIterator')->andReturn($iterator);
-        $reader = new FinderReader($this->finder);
 
-        $this->assertEquals($iterator, $reader->getIterator());
+        $this->assertEquals($iterator, $this->reader->getIterator());
     }
 
     /**
@@ -52,8 +55,7 @@ class FinderReaderTest extends \PHPUnit_Framework_TestCase
     public function countShouldReturnNumberOfFiles()
     {
         $this->finder->shouldReceive('count')->once()->andReturn(2);
-        $reader = new FinderReader($this->finder);
 
-        $this->assertEquals(2, $reader->count());
+        $this->assertEquals(2, $this->reader->count());
     }
 }
