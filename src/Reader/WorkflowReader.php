@@ -26,7 +26,7 @@ class WorkflowReader implements ReaderInterface
     /**
      * @param mixed $item
      *
-     * @return ArrayReader
+     * @return WorkflowReader
      */
     public function addItem($item)
     {
