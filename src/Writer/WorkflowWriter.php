@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of florianeckerstorfer/plum.
+ * This file is part of cocur/plum.
  *
  * (c) Florian Eckerstorfer <florian@eckerstorfer.co>
  *

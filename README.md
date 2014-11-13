@@ -28,7 +28,7 @@ Installation
 You can install Plum using [Composer](http://getcomposer.org).
 
 ```shell
-$ composer require florianeckerstorfer/plum:dev-master
+$ composer require cocur/plum:dev-master
 ```
 
 
@@ -204,5 +204,5 @@ Change Log
 License
 -------
 
-The MIT license applies to florianeckerstorfer/plum. For the full copyright and license information,
+The MIT license applies to cocur/plum. For the full copyright and license information,
 please view the LICENSE file distributed with this source code.

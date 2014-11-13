@@ -2,7 +2,7 @@
 
 <phpunit bootstrap="vendor/autoload.php" colors="true">
     <testsuites>
-        <testsuite name="florianeckerstorfer/plum Test Suite">
+        <testsuite name="cocur/plum Test Suite">
             <directory>tests</directory>
         </testsuite>
     </testsuites>
