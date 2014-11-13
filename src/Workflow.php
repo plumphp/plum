@@ -184,7 +184,7 @@ class Workflow
             }
         }
 
-        if ($written) {
+        if ($written === true) {
             $result->incItemWriteCount();
         }
     }
