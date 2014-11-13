@@ -29,6 +29,9 @@ class Workflow
     const PIPELINE_TYPE_CONVERTER = 2;
     const PIPELINE_TYPE_WRITER    = 3;
 
+    const APPEND  = 1;
+    const PREPEND = 2;
+
     /** @var PipelineInterface[][] */
     private $pipeline = [];
 
@@ -52,12 +55,18 @@ class Workflow
 
     /**
      * @param FilterInterface $filter
+     * @param int             $position
      *
      * @return Workflow
      */
-    public function addFilter(FilterInterface $filter)
+    public function addFilter(FilterInterface $filter, $position = Workflow::APPEND)
     {
-        $this->pipeline[] = [self::PIPELINE_TYPE_FILTER, $filter];
+        $element = [self::PIPELINE_TYPE_FILTER, $filter];
+        if ($position === self::PREPEND) {
+            array_unshift($this->pipeline, $element);
+        } else {
+            $this->pipeline[] = $element;
+        }
 
         return $this;
     }
@@ -73,12 +82,21 @@ class Workflow
     /**
      * @param ConverterInterface   $converter
      * @param FilterInterface|null $filter
+     * @param int                  $position
      *
      * @return Workflow $this
      */
-    public function addConverter(ConverterInterface $converter, FilterInterface $filter = null)
-    {
-        $this->pipeline[] = [self::PIPELINE_TYPE_CONVERTER, $converter, $filter];
+    public function addConverter(
+        ConverterInterface $converter,
+        FilterInterface $filter = null,
+        $position = self::APPEND
+    ) {
+        $element = [self::PIPELINE_TYPE_CONVERTER, $converter, $filter];
+        if ($position === self::PREPEND) {
+            array_unshift($this->pipeline, $element);
+        } else {
+            $this->pipeline[] = $element;
+        }
 
         return $this;
     }
@@ -93,12 +111,18 @@ class Workflow
 
     /**
      * @param WriterInterface $writer
+     * @param int             $position
      *
      * @return Workflow
      */
-    public function addWriter(WriterInterface $writer)
+    public function addWriter(WriterInterface $writer, $position = self::APPEND)
     {
-        $this->pipeline[] = [self::PIPELINE_TYPE_WRITER, $writer];
+        $element = [self::PIPELINE_TYPE_WRITER, $writer];
+        if ($position === self::PREPEND) {
+            array_unshift($this->pipeline, $element);
+        } else {
+            $this->pipeline[] = $element;
+        }
 
         return $this;
     }

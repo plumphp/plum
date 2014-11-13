@@ -77,6 +77,22 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
+     * @covers Cocur\Plum\Workflow::addFilter()
+     * @covers Cocur\Plum\Workflow::getFilters()
+     */
+    public function addFilterWithPrependShouldPrependFilterToWorkflow()
+    {
+        $filter1 = $this->getMockFilter();
+        $filter2 = $this->getMockFilter();
+        $this->workflow->addFilter($filter1);
+        $this->workflow->addFilter($filter2, Workflow::PREPEND);
+
+        $this->assertSame($filter2, $this->workflow->getFilters()[0]);
+        $this->assertSame($filter1, $this->workflow->getFilters()[1]);
+    }
+
+    /**
+     * @test
      * @covers Cocur\Plum\Workflow::addConverter()
      * @covers Cocur\Plum\Workflow::getConverters()
      */
@@ -90,6 +106,22 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
+     * @covers Cocur\Plum\Workflow::addConverter()
+     * @covers Cocur\Plum\Workflow::getConverters()
+     */
+    public function addConverterWithPrependShouldPrependConverterToWorkflow()
+    {
+        $converter1 = $this->getMockConverter();
+        $converter2 = $this->getMockConverter();
+        $this->workflow->addConverter($converter1);
+        $this->workflow->addConverter($converter2, null, Workflow::PREPEND);
+
+        $this->assertSame($converter2, $this->workflow->getConverters()[0]);
+        $this->assertSame($converter1, $this->workflow->getConverters()[1]);
+    }
+
+    /**
+     * @test
      * @covers Cocur\Plum\Workflow::addWriter()
      * @covers Cocur\Plum\Workflow::getWriters()
      */
@@ -99,6 +131,22 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
         $this->workflow->addWriter($writer);
 
         $this->assertContains($writer, $this->workflow->getWriters());
+    }
+
+    /**
+     * @test
+     * @covers Cocur\Plum\Workflow::addWriter()
+     * @covers Cocur\Plum\Workflow::getWriters()
+     */
+    public function addWriterWithPrependShouldPrependWriterToWorkflow()
+    {
+        $writer1 = $this->getMockWriter();
+        $writer2 = $this->getMockWriter();
+        $this->workflow->addWriter($writer1);
+        $this->workflow->addWriter($writer2, Workflow::PREPEND);
+
+        $this->assertSame($writer2, $this->workflow->getWriters()[0]);
+        $this->assertSame($writer1, $this->workflow->getWriters()[1]);
     }
 
     /**
