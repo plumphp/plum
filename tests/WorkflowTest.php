@@ -265,6 +265,45 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(1, $result->getReadCount());
         $this->assertEquals(1, $result->getWriteCount());
+        $this->assertEquals(1, $result->getItemWriteCount());
+    }
+
+    /**
+     * @test
+     * @covers Cocur\Plum\Workflow::process()
+     * @covers Cocur\Plum\Workflow::processItem()
+     * @covers Cocur\Plum\Workflow::prepareWriters()
+     * @covers Cocur\Plum\Workflow::finishWriters()
+     */
+    public function processShouldApplyMultipleWritersToReadItems()
+    {
+        $iterator = m::mock('\Iterator');
+        $iterator->shouldReceive('rewind');
+        $iterator->shouldReceive('valid')->andReturn(true)->once();
+        $iterator->shouldReceive('current')->andReturn('foobar');
+        $iterator->shouldReceive('next');
+        $iterator->shouldReceive('valid')->andReturn(false)->once();
+
+        $reader = $this->getMockReader();
+        $reader->shouldReceive('getIterator')->andReturn($iterator);
+
+        $writer1 = $this->getMockWriter();
+        $writer1->shouldReceive('prepare')->once();
+        $writer1->shouldReceive('finish')->once();
+        $writer1->shouldReceive('writeItem')->with('foobar')->once();
+        $this->workflow->addWriter($writer1);
+
+        $writer2 = $this->getMockWriter();
+        $writer2->shouldReceive('prepare')->once();
+        $writer2->shouldReceive('finish')->once();
+        $writer2->shouldReceive('writeItem')->with('foobar')->once();
+        $this->workflow->addWriter($writer2);
+
+        $result = $this->workflow->process($reader);
+
+        $this->assertEquals(1, $result->getReadCount());
+        $this->assertEquals(2, $result->getWriteCount());
+        $this->assertEquals(1, $result->getItemWriteCount());
     }
 
     /**

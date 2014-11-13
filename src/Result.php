@@ -26,6 +26,9 @@ class Result
     /** @var int */
     private $writeCount;
 
+    /** @var int */
+    private $itemWriteCount = 0;
+
     /** @var \Exception[] */
     private $exceptions;
 
@@ -70,11 +73,37 @@ class Result
     }
 
     /**
+     * Returns the write count of the result. This counter is incremented every time an item is written to a writer. If
+     * an item is written to multiple writers, the counter is increased multiple times for every item. For example, when
+     * 3 items are written to 2 writers each then the write count will be 6.
+     *
      * @return int
      */
     public function getWriteCount()
     {
         return $this->writeCount;
+    }
+
+    /**
+     * @return Result
+     */
+    public function incItemWriteCount()
+    {
+        $this->itemWriteCount++;
+
+        return $this;
+    }
+
+    /**
+     * Returns the item write count of the result. This counter is incremented every time an item is written. Every
+     * item can only increase this counter by 1. For example, when 3 items are written to 2 writers each then the
+     * item write count will be 3.
+     *
+     * @return int
+     */
+    public function getItemWriteCount()
+    {
+        return $this->itemWriteCount;
     }
 
     /**

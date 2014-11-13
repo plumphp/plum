@@ -168,6 +168,8 @@ class Workflow
      */
     protected function processItem($item, Result $result)
     {
+        $written = false;
+
         foreach ($this->pipeline as $element) {
             if ($element[0] === self::PIPELINE_TYPE_FILTER) {
                 if ($element[1]->filter($item) === false) {
@@ -178,7 +180,12 @@ class Workflow
             } else if ($element[0] === self::PIPELINE_TYPE_WRITER) {
                 $element[1]->writeItem($item);
                 $result->incWriteCount();
+                $written = true;
             }
+        }
+
+        if ($written) {
+            $result->incItemWriteCount();
         }
     }
 

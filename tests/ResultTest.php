@@ -50,6 +50,7 @@ class ResultTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @covers Cocur\Plum\Result::incWriteCount()
+     * @covers Cocur\Plum\Result::getWriteCount()
      */
     public function incWriteCountShouldIncreaseWriteCount()
     {
@@ -69,6 +70,19 @@ class ResultTest extends \PHPUnit_Framework_TestCase
         $result = new Result(null, 42);
 
         $this->assertEquals(42, $result->getWriteCount());
+    }
+
+    /**
+     * @test
+     * @covers Cocur\Plum\Result::incItemWriteCount()
+     * @covers Cocur\Plum\Result::getItemWriteCount()
+     */
+    public function incItemWriteCountShouldIncreaseWriteCount()
+    {
+        $result = new Result();
+        $result->incItemWriteCount();
+
+        $this->assertEquals(1, $result->getItemWriteCount());
     }
 
     /**
