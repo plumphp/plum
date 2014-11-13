@@ -39,24 +39,10 @@ class FinderReaderTest extends \PHPUnit_Framework_TestCase
     public function getIteratorShouldReturnIterator()
     {
         $iterator = m::mock('\Iterator');
-        $iterator->shouldReceive('rewind');
-        $iterator->shouldReceive('valid')->once()->andReturn(true);
-        $iterator->shouldReceive('current')->once()->andReturn(m::mock('\SplFileInfo'));
-        $iterator->shouldReceive('key')->once()->andReturn(0);
-        $iterator->shouldReceive('next')->once();
-        $iterator->shouldReceive('valid')->once()->andReturn(false);
-
         $this->finder->shouldReceive('getIterator')->andReturn($iterator);
-
         $reader = new FinderReader($this->finder);
 
-        $count = 0;
-        foreach ($reader as $key => $value) {
-            $this->assertEquals(0, $key);
-            $this->assertInstanceOf('\SplFileInfo', $value);
-            $count++;
-        }
-        $this->assertEquals(1, $count);
+        $this->assertEquals($iterator, $reader->getIterator());
     }
 
     /**

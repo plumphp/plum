@@ -44,15 +44,12 @@ class ArrayReaderTest extends \PHPUnit_Framework_TestCase
      * @test
      * @covers Cocur\Plum\Reader\ArrayReader::getIterator()
      */
-    public function getIteratorShouldReturnIteratorForArray()
+    public function getIteratorShouldReturnArrayIterator()
     {
-        $count = 0;
-        foreach ($this->reader as $key => $value) {
-            $this->assertEquals(0, $key);
-            $this->assertEquals('foobar', $value);
-            $count++;
-        }
-        $this->assertEquals(1, $count);
+        $iterator = $this->reader->getIterator();
+
+        $this->assertInstanceOf('\ArrayIterator', $iterator);
+        $this->assertEquals('foobar', $iterator[0]);
     }
 
     /**

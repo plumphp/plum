@@ -37,13 +37,11 @@ class FinderReader implements ReaderInterface
     }
 
     /**
-     * @return Traversable|void
+     * @return \Iterator
      */
     public function getIterator()
     {
-        foreach ($this->finder as $key => $value) {
-            yield $key => $value;
-        }
+        return $this->finder->getIterator();
     }
 
     /**

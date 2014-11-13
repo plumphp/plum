@@ -11,8 +11,6 @@
 
 namespace Cocur\Plum\Reader;
 
-use Traversable;
-
 /**
  * ArrayReader
  *
@@ -42,13 +40,11 @@ class ArrayReader implements ReaderInterface
     }
 
     /**
-     * @return Traversable|void
+     * @return \ArrayIterator
      */
     public function getIterator()
     {
-        foreach ($this->data as $key => $value) {
-            yield $key => $value;
-        }
+        return new \ArrayIterator($this->data);
     }
 
     /**

@@ -40,9 +40,7 @@ class WorkflowReader implements ReaderInterface
      */
     public function getIterator()
     {
-        foreach ($this->data as $key => $value) {
-            yield $key => $value;
-        }
+        return new \ArrayIterator($this->data);
     }
 
     /**

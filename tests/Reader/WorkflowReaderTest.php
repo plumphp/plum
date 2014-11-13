@@ -31,11 +31,10 @@ class WorkflowReaderTest extends \PHPUnit_Framework_TestCase
         $this->reader->addItem('bar');
 
         $iterator = $this->reader->getIterator();
-        $this->assertEquals('foo', $iterator->current());
-        $iterator->next();
-        $this->assertEquals('bar', $iterator->current());
-        $iterator->next();
-        $this->assertFalse($iterator->valid());
+
+        $this->assertInstanceOf('\ArrayIterator', $iterator);
+        $this->assertEquals('foo', $iterator[0]);
+        $this->assertEquals('bar', $iterator[1]);
     }
 
     /**
