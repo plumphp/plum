@@ -3,9 +3,9 @@
 
 Plum is a data processing pipeline that helps you to write structured, reusable and well tested data processing code.
 
-[![Build Status](https://travis-ci.org/florianeckerstorfer/plum.svg?branch=master)](https://travis-ci.org/florianeckerstorfer/plum)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/florianeckerstorfer/plum/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/florianeckerstorfer/plum/?branch=master)
-[![Code Coverage](https://scrutinizer-ci.com/g/florianeckerstorfer/plum/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/florianeckerstorfer/plum/?branch=master)
+[![Build Status](https://travis-ci.org/cocur/plum.svg?branch=master)](https://travis-ci.org/cocur/plum)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/cocur/plum/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/cocur/plum/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/cocur/plum/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/cocur/plum/?branch=master)
 
 Developed by [Florian Eckerstorfer](https://florian.ec) in Vienna, Europe.
 
@@ -57,16 +57,3 @@ Further documentation:
 - [Writers](writers.md)
 - [Filters](filters.md)
 - [Converters](converters.md)
-
-
-Change Log
-----------
-
-*no version released yet*
-
-
-License
--------
-
-The MIT license applies to cocur/plum. For the full copyright and license information,
-please view the LICENSE file distributed with this source code.
