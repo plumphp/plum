@@ -1,9 +1,8 @@
 Readers
 =======
 
-You read data using an object that implements `ReaderInterface`. This interface extends `\Iterator` interface and
-therefore you need to implement its methods. The return value of the `current()` method can be of an arbitrary type,
-arrays, objects or scalar values, Plum doesn't care.
+You read data using an object that implements `ReaderInterface`. This interface extends `\IteratorAggregate` interface
+and therefore you need to implement the `getIterator()` method.
 
 ArrayReader
 -----------
@@ -31,4 +30,43 @@ $finder = new Finder();
 // Further configuration of Finder
 
 $reader = new FinderReader($finder);
+```
+
+Custom Readers
+--------------
+
+As mentioned in the introduction `ReaderInterface` extends `IteratorAggregate` and readers therefore have to
+implement the `getIterator()` method.
+
+```php
+use Cocur\Plum\Reader\ReaderInterface;
+
+class CollectionReader implements ReaderInterface
+{
+    private $collection = [];
+    
+    public function add($item)
+    {
+        $this->collection[] = $item;
+    }
+    
+    public function getIterator()
+    {
+        return new ArrayIterator($this->collection);
+    }
+}
+```
+
+PHP 5.5 and Generators
+----------------------
+
+If you are using PHP 5.5+ the `getIterator()` method can also return a generator.
+
+```php
+public function getIterator()
+{
+    foreach ($this->collection as $item) {
+        yield $item;
+    }
+}
 ```

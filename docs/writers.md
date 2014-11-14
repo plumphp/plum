@@ -21,3 +21,16 @@ $writer = new ArrayWriter();
 // Workflow processing
 $writer->getData() // -> [...]
 ```
+
+ConsoleProgressWriter
+---------------------
+
+In a console application that uses Symfony's [Console]() component you can use `ConsoleProgressWriter` to give 
+the user feedback on the progress of the workflow.
+
+```php
+use Cocur\Plum\Writer\ConsoleProgressWriter;
+
+$worklow->addWriter(new ConsoleProgressWriter($progressBar));
+$worklow->addWriter($otherWriter);
+```
