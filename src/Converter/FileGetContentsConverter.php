@@ -35,7 +35,7 @@ class FileGetContentsConverter implements ConverterInterface
         }
 
         return [
-            'file' => $item,
+            'file'    => $item,
             'content' => file_get_contents($item->getPathname())
         ];
     }

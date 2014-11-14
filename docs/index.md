@@ -40,9 +40,6 @@ writers to the workflow and process it using the `process()` method.
 
 *Working examples can be found in the examples/ directory.*
 
-
-### Workflow
-
 ```php
 use Cocur\Plum\Workflow;
 
@@ -53,115 +50,13 @@ $workflow->addFilter($filter)
 $workflow->process($reader);
 ```
 
-#### Conditional Converters
+Further documentation:
 
-The `addConverter()` method accepts an optional second parameter of type `Cocur\Plum\Filter\FilterInterface`. If a
-filter is provided the converter is only applied to an item if the filter returns `true` for the given item. Otherwise
-the original item is returned by the converter.
-
-```php
-$converter = new CallbackConverter(function ($item) { return strtoupper($item); });
-$filter    = new CallbackFilter(function ($item) { return preg_match('/foo/', $item); });
-$workflow->addConverter($converter, $filter);
-
-// "foobar" -> "FOOBAR"
-// "bazbar" -> "bazbar"
-```
-
-#### Result
-
-The `process()` method returns an instance of `Cocur\Plum\Result`. This object contains information and errors
-collected during the processing.
-
-```php
-$result = $workflow->process($reader);
-$result->getReadCount(); // -> int
-$result->getWriteCount(); // -> int
-$result->getErrorCount(); // -> int
-$result->getExceptions(); // -> \Exception[]
-```
-
-### Readers
-
-You read data using an object that implements `ReaderInterface`. This interface extends `\Iterator` interface and
-therefore you need to implement its methods. The return value of the `current()` method can be of an arbitrary type,
-arrays, objects or scalar values, Plum doesn't care.
-
-#### ArrayReader
-
-The `ArrayReader` feeds the elements of an array to the workflow. In addition to the methods required by
-`ReaderInterface` it provides a `getData()` methods that returns the full array.
-
-```php
-use Cocur\Plum\Reader\ArrayReader;
-
-$reader = new ArrayReader(['Stark', 'Lannister', 'Targaryen', ...]);
-$reader->getData(); // -> ['Stark', 'Lannister', 'Targaryen', ...]
-```
-
-#### FinderReader
-
-You can read directories and files using the Symfony Finder component and `FinderReader`.
-
-```php
-use Cocur\Plum\Reader\FinderReader;
-use Symfony\Component\Finder\Finder;
-
-$finder = new Finder();
-// Further configuration of Finder
-
-$reader = new FinderReader($finder);
-```
-
-### Writers
-
-Use writers to write the result of the workflow. The target doesn't necessarily have to write to a persistent storage,
-you can also write, for example, into arrays or objects. Writers must implement the `WriterInterface` that provides
-three methods: `writeItem()`, `prepare()` and `finish()`. The workflow calls `prepare()` before it reads the first item
-and `finish()` after it read the last item.
-
-Multiple writers can be added to a workflow in any ordering. Therefore it is possible to filter the read items, write
-them somewhere, further filter them and then write them elsewhere.
-
-#### ArrayWriter
-
-The `ArrayWriter` writes the data into an array that can be retrieved using the `getData()` method.
-
-```php
-use Cocur\Plum\Writer\ArrayWriter;
-
-$writer = new ArrayWriter();
-// Workflow processing
-$writer->getData() // -> [...]
-```
-
-### Converters
-
-Converters take an item and convert it into something else. They must implement `ConverterInterface` which has a single
-`convert()` method.
-
-#### CallbackConverter
-
-The `CallbackConverter` calls a callback to convert a given item.
-
-```php
-use Cocur\Plum\Converter\CallbackConverter;
-
-$converter = new CallbackConverter(function ($item) { return strtoupper($item); });
-$converter->convert('foo'); // -> FOO
-```
-
-#### FileGetContentsConverter
-
-The `FileGetContentsConverter` takes a `SplFileInfo` object or a filename and returns both the `SplFileInfo` object
-and the contents of the file.
-
-```php
-use Cocur\Plum\Converter\FileGetContentsConverter;
-
-$converter = new FileGetContentsConverter();
-$converter->convert('foo.txt'); // -> ['file' => \SplFileInfo Object, 'content' => '...']
-```
+- [Workflow](workflow.md)
+- [Readers](readers.md)
+- [Writers](writers.md)
+- [Filters](filters.md)
+- [Converters](converters.md)
 
 
 Change Log
