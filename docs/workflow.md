@@ -63,3 +63,23 @@ Plum counts two different types of writes. The write counter returned by `getWri
 item is written. If you have 3 items and 2 writers in your workflow the write counter will be `6`. In constrast the
 item write counter returned by `getItemWriteCount()` is only increased once for every item. That is, if you have 3
 items and 2 writers in your workflow, the item writer counter will return `3`.
+
+Concatenating Workflows
+-----------------------
+
+On of the most powerful features of Plum is the ability to concatenate workflows. The `Cocur\Plum\WorkflowConcatenator`
+implements both the `Cocur\Plum\ReaderInterface` and the `Cocur\Plum\WriterInterface` and must be added as a writer
+to the first workflow and as a reader to the second workflow.
+
+```php
+use Cocur\Plum\WorkflowConcatenator;
+
+$concatenator = new WorkflowConcatenator();
+
+// Add concatenator as writer to first workflow and process it.
+$workflow1->addWriter($concatenator);
+$workflow1->process($reader);
+
+// Process the second workflow with the concatenator as reader.
+$workflow->process($concatenator):
+```

@@ -9,29 +9,38 @@
  * file that was distributed with this source code.
  */
 
-namespace Cocur\Plum\Writer;
+namespace Cocur\Plum;
 
-use Cocur\Plum\Reader\ArrayReader;
-use Cocur\Plum\Reader\WorkflowReader;
+
+use Cocur\Plum\Reader\ReaderInterface;
+use Cocur\Plum\Writer\WriterInterface;
 
 /**
- * WorkflowWriter
+ * WorkflowConcatenator
  *
- * @package   Cocur\Plum\Writer
+ * @package   Cocur\Plum
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
  * @copyright 2014 Florian Eckerstorfer
  */
-class WorkflowWriter implements WriterInterface
+class WorkflowConcatenator implements ReaderInterface, WriterInterface
 {
-    /** @var WorkflowReader */
-    private $reader;
+    /** @var mixed[] */
+    private $data = [];
 
     /**
-     * @param WorkflowReader $reader
+     * @return \ArrayIterator
      */
-    public function __construct(WorkflowReader $reader)
+    public function getIterator()
     {
-        $this->reader = $reader;
+        return new \ArrayIterator($this->data);
+    }
+
+    /**
+     * @return int
+     */
+    public function count()
+    {
+        return count($this->data);
     }
 
     /**
@@ -43,7 +52,7 @@ class WorkflowWriter implements WriterInterface
      */
     public function writeItem($item)
     {
-        $this->reader->addItem($item);
+        $this->data[] = $item;
     }
 
     /**
