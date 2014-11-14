@@ -54,14 +54,13 @@ class Workflow
     }
 
     /**
-     * @param FilterInterface $filter
-     * @param int             $position
+     * @param <string,PipelineInterface> $element
+     * @param int                        $position
      *
      * @return Workflow
      */
-    public function addFilter(FilterInterface $filter, $position = Workflow::APPEND)
+    protected function addElement($element, $position = self::APPEND)
     {
-        $element = [self::PIPELINE_TYPE_FILTER, $filter];
         if ($position === self::PREPEND) {
             array_unshift($this->pipeline, $element);
         } else {
@@ -69,6 +68,17 @@ class Workflow
         }
 
         return $this;
+    }
+
+    /**
+     * @param FilterInterface $filter
+     * @param int             $position
+     *
+     * @return Workflow
+     */
+    public function addFilter(FilterInterface $filter, $position = self::APPEND)
+    {
+        return $this->addElement([self::PIPELINE_TYPE_FILTER, $filter], $position);
     }
 
     /**
@@ -91,14 +101,7 @@ class Workflow
         FilterInterface $filter = null,
         $position = self::APPEND
     ) {
-        $element = [self::PIPELINE_TYPE_CONVERTER, $converter, $filter];
-        if ($position === self::PREPEND) {
-            array_unshift($this->pipeline, $element);
-        } else {
-            $this->pipeline[] = $element;
-        }
-
-        return $this;
+        return $this->addElement([self::PIPELINE_TYPE_CONVERTER, $converter, $filter], $position);
     }
 
     /**
@@ -117,14 +120,7 @@ class Workflow
      */
     public function addWriter(WriterInterface $writer, $position = self::APPEND)
     {
-        $element = [self::PIPELINE_TYPE_WRITER, $writer];
-        if ($position === self::PREPEND) {
-            array_unshift($this->pipeline, $element);
-        } else {
-            $this->pipeline[] = $element;
-        }
-
-        return $this;
+        return $this->addElement([self::PIPELINE_TYPE_WRITER, $writer], $position);
     }
 
     /**

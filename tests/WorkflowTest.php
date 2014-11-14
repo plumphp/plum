@@ -64,6 +64,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
+     * @covers Cocur\Plum\Workflow::addElement()
      * @covers Cocur\Plum\Workflow::addFilter()
      * @covers Cocur\Plum\Workflow::getFilters()
      */
@@ -77,6 +78,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
+     * @covers Cocur\Plum\Workflow::addElement()
      * @covers Cocur\Plum\Workflow::addFilter()
      * @covers Cocur\Plum\Workflow::getFilters()
      */
@@ -93,6 +95,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
+     * @covers Cocur\Plum\Workflow::addElement()
      * @covers Cocur\Plum\Workflow::addConverter()
      * @covers Cocur\Plum\Workflow::getConverters()
      */
@@ -106,6 +109,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
+     * @covers Cocur\Plum\Workflow::addElement()
      * @covers Cocur\Plum\Workflow::addConverter()
      * @covers Cocur\Plum\Workflow::getConverters()
      */
@@ -122,6 +126,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
+     * @covers Cocur\Plum\Workflow::addElement()
      * @covers Cocur\Plum\Workflow::addWriter()
      * @covers Cocur\Plum\Workflow::getWriters()
      */
@@ -135,6 +140,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
+     * @covers Cocur\Plum\Workflow::addElement()
      * @covers Cocur\Plum\Workflow::addWriter()
      * @covers Cocur\Plum\Workflow::getWriters()
      */
