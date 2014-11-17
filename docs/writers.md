@@ -34,3 +34,19 @@ use Cocur\Plum\Writer\ConsoleProgressWriter;
 $worklow->addWriter(new ConsoleProgressWriter($progressBar));
 $worklow->addWriter($otherWriter);
 ```
+
+CsvWriter
+---------
+
+The `CsvWriter` allows you to write the data into a `.csv` file.
+
+```php
+use Cocur\Plum\Writer\CsvWriter;
+
+$writer = new CsvWriter('foobar.csv', ',', '"');
+$writer->prepare();
+$writer->writeItem(['column 1', 'column 2', 'column 3');
+$writer->finish();
+```
+
+The second and third argument of `__construct()` are optional and by default `,` and `"` respectively.

@@ -18,6 +18,7 @@ Plum is a data processing pipeline, that means it reads data, filters and conver
 - Filters, converters and even writers are pipeline elements that can be attached to a workflow in arbitrary order
 - Readers are iterators that can return values of arbitrary type: arrays, objects or scalars, it doesn't matter to Plum
 - Conditional converters that are only applied to an item if it passes a filter
+- Ability to concatenate workflow to create smaller and better reusable workflows
 
 *Plum has been greatly inspired by [ddeboer/data-import](https://github.com/ddeboer/data-import).*
 
