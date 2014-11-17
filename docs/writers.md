@@ -45,8 +45,15 @@ use Cocur\Plum\Writer\CsvWriter;
 
 $writer = new CsvWriter('foobar.csv', ',', '"');
 $writer->prepare();
-$writer->writeItem(['column 1', 'column 2', 'column 3');
+$writer->writeItem(['value 1', 'value 2', 'value 3');
 $writer->finish();
 ```
 
-The second and third argument of `__construct()` are optional and by default `,` and `"` respectively.
+The second and third argument of `__construct()` are optional and by default `,` and `"` respectively. In addition
+the `setHeader()` method can be used to define the names of the columns. It has to be called before the `prepare()`.
+
+```php
+$writer = new CsvWriter('foobar.csv');
+$writer->setHeader(['column 1', 'column 2', 'column 3']);
+$writer->prepare();
+```

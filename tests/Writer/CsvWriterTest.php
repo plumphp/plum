@@ -54,6 +54,26 @@ class CsvWriterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
+     * @covers Cocur\Plum\Writer\CsvWriter::setHeader()
+     * @covers Cocur\Plum\Writer\CsvWriter::writeItem()
+     * @covers Cocur\Plum\Writer\CsvWriter::prepare()
+     */
+    public function writeItemWritesItemWithHeaderIntoFile()
+    {
+        $writer = new CsvWriter(vfsStream::url('fixtures/foo.csv'), ',', '"');
+        $writer->setHeader(['col 1', 'col 2', 'col 3']);
+        $writer->prepare();
+        $writer->writeItem(['val 1', 'val 2', 'val 3']);
+        $writer->finish();
+
+        $this->assertEquals(
+            "\"col 1\",\"col 2\",\"col 3\"\n\"val 1\",\"val 2\",\"val 3\"\n",
+            file_get_contents(vfsStream::url('fixtures/foo.csv'))
+        );
+    }
+
+    /**
+     * @test
      * @covers Cocur\Plum\Writer\CsvWriter::writeItem()
      */
     public function writeItemThrowsAnExceptionIfNoFileHandleExists()

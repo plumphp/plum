@@ -23,6 +23,9 @@ class CsvWriter implements WriterInterface
     /** @var string */
     private $enclosure;
 
+    /** @var string[]|null */
+    private $header;
+
     /**
      * @param string $filename
      * @param string $separator
@@ -34,6 +37,19 @@ class CsvWriter implements WriterInterface
         $this->separator = $separator;
         $this->enclosure = $enclosure;
     }
+
+    /**
+     * @param string[] $header
+     *
+     * @return CsvWriter
+     */
+    public function setHeader(array $header)
+    {
+        $this->header = $header;
+
+        return $this;
+    }
+
     /**
      * Write the given item.
      *
@@ -61,6 +77,9 @@ class CsvWriter implements WriterInterface
     public function prepare()
     {
         $this->fileHandle = fopen($this->filename, 'w');
+        if ($this->header) {
+            $this->writeItem($this->header);
+        }
     }
 
     /**
