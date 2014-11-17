@@ -4,6 +4,15 @@ Converters
 Converters take an item and convert it into something else. They must implement `ConverterInterface` which has a single
 `convert()` method.
 
+
+Table of Contents
+-----------------
+
+- [CallbackConverter](#callbackconverter)
+- [FileGetContentsConverter](#filegetcontentsconverter)
+- [Custom Converters](#custom-converters)
+
+
 CallbackConverter
 -----------------
 
@@ -15,6 +24,7 @@ use Cocur\Plum\Converter\CallbackConverter;
 $converter = new CallbackConverter(function ($item) { return strtoupper($item); });
 $converter->convert('foo'); // -> FOO
 ```
+
 
 FileGetContentsConverter
 ------------------------
@@ -28,6 +38,7 @@ use Cocur\Plum\Converter\FileGetContentsConverter;
 $converter = new FileGetContentsConverter();
 $converter->convert('foo.txt'); // -> ['file' => \SplFileInfo Object, 'content' => '...']
 ```
+
 
 Custom Converters
 -----------------

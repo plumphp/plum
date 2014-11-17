@@ -8,6 +8,14 @@ method. Every item of the pipeline is passed to the filter and if the return val
 Plum comes with some default filters, but you can also create your own custom filters.
 
 
+Table of Contents
+-----------------
+
+- [CallbackFilter](#callbackfilter)
+- [FileExtensionFilter](#fileextensionfilter)
+- [Custom Filters](#custom-filters)
+
+
 CallbackFilter
 --------------
 

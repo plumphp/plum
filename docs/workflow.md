@@ -11,6 +11,16 @@ $workflow->addFilter($filter)
 $workflow->process($reader);
 ```
 
+
+Table of Contents
+-----------------
+
+- [Conditional Converters](#conditional-converters)
+- [Pipeline Order](#pipeline-order)
+- [Result](#result)
+- [Concatenating Workflows](#concatenating-workflows)
+
+
 Conditional Converters
 ----------------------
 
@@ -26,6 +36,7 @@ $workflow->addConverter($converter, $filter);
 // "foobar" -> "FOOBAR"
 // "bazbar" -> "bazbar"
 ```
+
 
 Pipeline Order
 --------------
@@ -63,6 +74,7 @@ Plum counts two different types of writes. The write counter returned by `getWri
 item is written. If you have 3 items and 2 writers in your workflow the write counter will be `6`. In constrast the
 item write counter returned by `getItemWriteCount()` is only increased once for every item. That is, if you have 3
 items and 2 writers in your workflow, the item writer counter will return `3`.
+
 
 Concatenating Workflows
 -----------------------

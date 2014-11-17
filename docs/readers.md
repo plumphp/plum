@@ -4,6 +4,16 @@ Readers
 You read data using an object that implements `ReaderInterface`. This interface extends `\IteratorAggregate` interface
 and therefore you need to implement the `getIterator()` method.
 
+
+Table of Contents
+-----------------
+
+- [ArrayReader](#arrayreader)
+- [FinderReader](#finderreader)
+- [Custom Readers](#custom-readers)
+- [PHP 5.5 and Generators](#php-55-and-generators)
+
+
 ArrayReader
 -----------
 
@@ -16,6 +26,7 @@ use Cocur\Plum\Reader\ArrayReader;
 $reader = new ArrayReader(['Stark', 'Lannister', 'Targaryen', ...]);
 $reader->getData(); // -> ['Stark', 'Lannister', 'Targaryen', ...]
 ```
+
 
 FinderReader
 ------------
@@ -31,6 +42,7 @@ $finder = new Finder();
 
 $reader = new FinderReader($finder);
 ```
+
 
 Custom Readers
 --------------
@@ -56,6 +68,7 @@ class CollectionReader implements ReaderInterface
     }
 }
 ```
+
 
 PHP 5.5 and Generators
 ----------------------
