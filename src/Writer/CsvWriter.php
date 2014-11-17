@@ -59,13 +59,15 @@ class CsvWriter implements WriterInterface
      */
     public function writeItem($item)
     {
-        if (!is_resource($this->fileHandle)) {
+        if (false === is_resource($this->fileHandle)) {
             throw new \LogicException(sprintf(
                 'There exists no file handle for the file "%s". Please call prepare() before writing items.',
                 $this->filename
             ));
         }
-        $item = array_map(function ($v) { return $this->enclosure.$v.$this->enclosure; }, $item);
+        $item = array_map(function ($v) {
+            return $this->enclosure.$v.$this->enclosure;
+        }, $item);
         fwrite($this->fileHandle, implode($this->separator, $item)."\n");
     }
 
@@ -77,7 +79,7 @@ class CsvWriter implements WriterInterface
     public function prepare()
     {
         $this->fileHandle = fopen($this->filename, 'w');
-        if ($this->header) {
+        if ($this->header !== null) {
             $this->writeItem($this->header);
         }
     }
@@ -89,7 +91,7 @@ class CsvWriter implements WriterInterface
      */
     public function finish()
     {
-        if (!is_resource($this->fileHandle)) {
+        if (false === is_resource($this->fileHandle)) {
             throw new \LogicException(sprintf(
                 'There exists no file handle for the file "%s". For this instance of Cocur\Plum\CsvWriter either'.
                 ' prepare() has never been called or finish() has already been called.',
