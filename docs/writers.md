@@ -9,6 +9,16 @@ and `finish()` after it read the last item.
 Multiple writers can be added to a workflow in any ordering. Therefore it is possible to filter the read items, write
 them somewhere, further filter them and then write them elsewhere.
 
+
+Table of Contents
+-----------------
+
+- [ArrayWriter](#arraywriter)
+- [ConsoleProgressWriter](#consoleprogresswriter)
+- [CsvWriter](#csvwriter)
+- [JsonWriter](#jsonwriter)
+
+
 ArrayWriter
 -----------
 
@@ -22,6 +32,7 @@ $writer = new ArrayWriter();
 $writer->getData() // -> [...]
 ```
 
+
 ConsoleProgressWriter
 ---------------------
 
@@ -34,6 +45,7 @@ use Cocur\Plum\Writer\ConsoleProgressWriter;
 $worklow->addWriter(new ConsoleProgressWriter($progressBar));
 $worklow->addWriter($otherWriter);
 ```
+
 
 CsvWriter
 ---------
@@ -57,3 +69,20 @@ $writer = new CsvWriter('foobar.csv');
 $writer->setHeader(['column 1', 'column 2', 'column 3']);
 $writer->prepare();
 ```
+
+
+JsonWriter
+----------
+
+`JsonWriter` writes the items as JSON into a file.
+
+```php
+use Cocur\Plum\Writer\JsonWriter;
+
+$writer = new JsonWriter('foobar.json');
+$writer->writeItem(['key1' => 'value1', 'key2' => 'value2'));
+$writer->finish();
+```
+
+It is essential that `finish()` is called, because there happens the actual writing. The `prepare()` method does
+nothing.
