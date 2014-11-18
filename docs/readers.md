@@ -10,6 +10,7 @@ Table of Contents
 
 - [ArrayReader](#arrayreader)
 - [FinderReader](#finderreader)
+- [JsonReader](#jsonreader)
 - [Custom Readers](#custom-readers)
 - [PHP 5.5 and Generators](#php-55-and-generators)
 
@@ -41,6 +42,21 @@ $finder = new Finder();
 // Further configuration of Finder
 
 $reader = new FinderReader($finder);
+```
+
+
+JsonReader
+----------
+
+`JsonReader` reads a `.json` file. It uses [Braincrafted\Json](https://github.com/braincrafted/json) to decode the
+JSON file. If you use Composer, add it by calling `composer require braincrafted/json:@stable`.
+
+```php
+use Cocur\Plum\Reader\JsonReader;
+
+$reader = new JsonReader('foo.json');
+$reader->getIterator(); // -> \ArrayIterator
+$reader->count();
 ```
 
 
