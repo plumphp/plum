@@ -16,7 +16,8 @@
         "mockery/mockery":               "~0.9",
         "symfony/finder":                "~2.5",
         "mikey179/vfsStream":            "~1.4",
-        "symfony/console":               "~2.5"
+        "symfony/console":               "~2.5",
+        "braincrafted/json":             "~0.2"
     },
     "autoload": {
         "psr-4": {
