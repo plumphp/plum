@@ -11,6 +11,8 @@
 
 namespace Cocur\Plum\Writer;
 
+use Braincrafted\Json\Json;
+
 /**
  * JsonWriter
  *
@@ -62,6 +64,6 @@ class JsonWriter implements WriterInterface
      */
     public function finish()
     {
-        file_put_contents($this->filename, json_encode($this->data));
+        file_put_contents($this->filename, Json::encode($this->data));
     }
 }
