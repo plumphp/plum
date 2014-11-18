@@ -74,7 +74,8 @@ $writer->prepare();
 JsonWriter
 ----------
 
-`JsonWriter` writes the items as JSON into a file.
+`JsonWriter` writes the items as JSON into a file. It uses [Braincrafted\Json](https://github.com/braincrafted/json)
+to encode the items.
 
 ```php
 use Cocur\Plum\Writer\JsonWriter;
