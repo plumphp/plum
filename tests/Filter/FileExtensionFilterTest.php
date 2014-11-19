@@ -44,6 +44,29 @@ class FileExtensionFilterTest extends \PHPUnit_Framework_TestCase
 
         $this->assertFalse($converter->filter('test.txt'));
     }
+    /**
+     * @test
+     * @covers Cocur\Plum\Filter\FileExtensionFilter::__construct()
+     * @covers Cocur\Plum\Filter\FileExtensionFilter::filter()
+     */
+    public function convertShouldReturnTrueIfFileExtensionMatchesInArray()
+    {
+        $converter = new FileExtensionFilter(['md', 'html']);
+
+        $this->assertTrue($converter->filter('test.md'));
+    }
+
+    /**
+     * @test
+     * @covers Cocur\Plum\Filter\FileExtensionFilter::__construct()
+     * @covers Cocur\Plum\Filter\FileExtensionFilter::filter()
+     */
+    public function convertShouldReturnFalseIfFileExtensionNotMatchesInArray()
+    {
+        $converter = new FileExtensionFilter(['md', 'html']);
+
+        $this->assertFalse($converter->filter('test.txt'));
+    }
 
     /**
      * @test
