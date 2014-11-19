@@ -205,7 +205,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
      * @test
      * @covers Cocur\Plum\Workflow::process()
      * @covers Cocur\Plum\Workflow::processItem()
-     * @covers Cocur\Plum\Workflow::applyConverter()
+     * @covers Cocur\Plum\Workflow::convertItem()
      */
     public function processShouldApplyConverterToReadItems()
     {
@@ -232,7 +232,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
      * @test
      * @covers Cocur\Plum\Workflow::process()
      * @covers Cocur\Plum\Workflow::processItem()
-     * @covers Cocur\Plum\Workflow::applyConverter()
+     * @covers Cocur\Plum\Workflow::convertItem()
      */
     public function processShouldApplyConverterIfFilterReturnsTrueToReadItems()
     {
@@ -263,7 +263,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
      * @test
      * @covers Cocur\Plum\Workflow::process()
      * @covers Cocur\Plum\Workflow::processItem()
-     * @covers Cocur\Plum\Workflow::applyConverter()
+     * @covers Cocur\Plum\Workflow::convertItem()
      */
     public function processShouldNotApplyConverterIfFilterReturnsFalseToReadItems()
     {

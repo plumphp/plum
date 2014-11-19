@@ -196,7 +196,7 @@ class Workflow
                     return;
                 }
             } else if ($element[0] === self::PIPELINE_TYPE_CONVERTER) {
-                $item = $this->applyConverter($item, $element[1], $element[2]);
+                $item = $this->convertItem($item, $element[1], $element[2]);
             } else if ($element[0] === self::PIPELINE_TYPE_WRITER) {
                 $element[1]->writeItem($item);
                 $result->incWriteCount();
@@ -218,7 +218,7 @@ class Workflow
      *
      * @return mixed
      */
-    protected function applyConverter($item, ConverterInterface $converter, FilterInterface $filter = null)
+    protected function convertItem($item, ConverterInterface $converter, FilterInterface $filter = null)
     {
         if ($filter === null || $filter->filter($item) === true) {
             return $converter->convert($item);
