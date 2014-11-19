@@ -149,7 +149,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
         $writer1 = $this->getMockWriter();
         $writer2 = $this->getMockWriter();
         $this->workflow->addWriter($writer1);
-        $this->workflow->addWriter($writer2, Workflow::PREPEND);
+        $this->workflow->addWriter($writer2, null, Workflow::PREPEND);
 
         $this->assertSame($writer2, $this->workflow->getWriters()[0]);
         $this->assertSame($writer1, $this->workflow->getWriters()[1]);
@@ -296,6 +296,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
      * @covers Cocur\Plum\Workflow::processItem()
      * @covers Cocur\Plum\Workflow::prepareWriters()
      * @covers Cocur\Plum\Workflow::finishWriters()
+     * @covers Cocur\Plum\Workflow::writeItem()
      */
     public function processShouldApplyWriterToReadItems()
     {
@@ -320,6 +321,80 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1, $result->getReadCount());
         $this->assertEquals(1, $result->getWriteCount());
         $this->assertEquals(1, $result->getItemWriteCount());
+    }
+
+    /**
+     * @test
+     * @covers Cocur\Plum\Workflow::process()
+     * @covers Cocur\Plum\Workflow::processItem()
+     * @covers Cocur\Plum\Workflow::prepareWriters()
+     * @covers Cocur\Plum\Workflow::finishWriters()
+     * @covers Cocur\Plum\Workflow::writeItem()
+     */
+    public function processShouldApplyWriterToReadItemsIfFilterReturnsTrue()
+    {
+        $iterator = m::mock('\Iterator');
+        $iterator->shouldReceive('rewind');
+        $iterator->shouldReceive('valid')->andReturn(true)->once();
+        $iterator->shouldReceive('current')->andReturn('foobar');
+        $iterator->shouldReceive('next');
+        $iterator->shouldReceive('valid')->andReturn(false)->once();
+
+        $reader = $this->getMockReader();
+        $reader->shouldReceive('getIterator')->andReturn($iterator);
+
+        $writer = $this->getMockWriter();
+        $writer->shouldReceive('prepare')->once();
+        $writer->shouldReceive('finish')->once();
+        $writer->shouldReceive('writeItem')->with('foobar')->once();
+
+        $filter = $this->getMockFilter();
+        $filter->shouldReceive('filter')->once()->andReturn(true);
+
+        $this->workflow->addWriter($writer, $filter);
+
+        $result = $this->workflow->process($reader);
+
+        $this->assertEquals(1, $result->getReadCount());
+        $this->assertEquals(1, $result->getWriteCount());
+        $this->assertEquals(1, $result->getItemWriteCount());
+    }
+
+    /**
+     * @test
+     * @covers Cocur\Plum\Workflow::process()
+     * @covers Cocur\Plum\Workflow::processItem()
+     * @covers Cocur\Plum\Workflow::prepareWriters()
+     * @covers Cocur\Plum\Workflow::finishWriters()
+     * @covers Cocur\Plum\Workflow::writeItem()
+     */
+    public function processShouldNotApplyWriterToReadItemsIfFilterReturnsFalse()
+    {
+        $iterator = m::mock('\Iterator');
+        $iterator->shouldReceive('rewind');
+        $iterator->shouldReceive('valid')->andReturn(true)->once();
+        $iterator->shouldReceive('current')->andReturn('foobar');
+        $iterator->shouldReceive('next');
+        $iterator->shouldReceive('valid')->andReturn(false)->once();
+
+        $reader = $this->getMockReader();
+        $reader->shouldReceive('getIterator')->andReturn($iterator);
+
+        $writer = $this->getMockWriter();
+        $writer->shouldReceive('prepare')->once();
+        $writer->shouldReceive('finish')->once();
+        $writer->shouldReceive('writeItem')->never();
+
+        $filter = $this->getMockFilter();
+        $filter->shouldReceive('filter')->once()->andReturn(false);
+
+        $this->workflow->addWriter($writer, $filter);
+
+        $result = $this->workflow->process($reader);
+
+        $this->assertEquals(1, $result->getReadCount());
+        $this->assertEquals(0, $result->getWriteCount());
+        $this->assertEquals(0, $result->getItemWriteCount());
     }
 
     /**

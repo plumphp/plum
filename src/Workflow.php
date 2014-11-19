@@ -114,13 +114,14 @@ class Workflow
 
     /**
      * @param WriterInterface $writer
+     * @param FilterInterface $filter
      * @param int             $position
      *
      * @return Workflow
      */
-    public function addWriter(WriterInterface $writer, $position = self::APPEND)
+    public function addWriter(WriterInterface $writer, FilterInterface $filter = null, $position = self::APPEND)
     {
-        return $this->addElement([self::PIPELINE_TYPE_WRITER, $writer], $position);
+        return $this->addElement([self::PIPELINE_TYPE_WRITER, $writer, $filter], $position);
     }
 
     /**
@@ -198,9 +199,10 @@ class Workflow
             } else if ($element[0] === self::PIPELINE_TYPE_CONVERTER) {
                 $item = $this->convertItem($item, $element[1], $element[2]);
             } else if ($element[0] === self::PIPELINE_TYPE_WRITER) {
-                $element[1]->writeItem($item);
-                $result->incWriteCount();
-                $written = true;
+                if ($this->writeItem($item, $element[1], $element[2]) === true) {
+                    $result->incWriteCount();
+                    $written = true;
+                }
             }
         }
 
@@ -225,5 +227,25 @@ class Workflow
         }
 
         return $item;
+    }
+
+    /**
+     * Writes the given item to the given writer if the no filter is given or the filter returns `true`.
+     *
+     * @param mixed           $item
+     * @param WriterInterface $writer
+     * @param FilterInterface $filter
+     *
+     * @return bool `true` if the item has been written, `false` if not.
+     */
+    protected function writeItem($item, WriterInterface $writer, FilterInterface $filter = null)
+    {
+        if ($filter === null || $filter->filter($item) === true) {
+            $writer->writeItem($item);
+
+            return true;
+        }
+
+        return false;
     }
 }

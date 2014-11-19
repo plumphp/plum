@@ -17,6 +17,7 @@ Table of Contents
 - [ConsoleProgressWriter](#consoleprogresswriter)
 - [CsvWriter](#csvwriter)
 - [JsonWriter](#jsonwriter)
+- [Conditional Writers](#conditional-writers)
 
 
 ArrayWriter
@@ -87,3 +88,15 @@ $writer->finish();
 
 It is essential that `finish()` is called, because there happens the actual writing. The `prepare()` method does
 nothing.
+
+
+Conditional Writers
+-------------------
+
+Writers can be conditional if a filter is passed to the `addWriter()` method.
+
+```php
+$workflow->addWriter($writer, $filter);
+```
+
+An item is only written to a conditional writer, if the filter returns `true` for the item.
