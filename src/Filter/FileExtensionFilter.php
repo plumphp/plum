@@ -23,8 +23,8 @@ use Symfony\Component\PropertyAccess\PropertyAccessor;
  */
 class FileExtensionFilter implements FilterInterface
 {
-    /** @var string */
-    private $extension;
+    /** @var string[] */
+    private $extensions;
 
     /** @var string|null */
     private $property;
@@ -33,14 +33,17 @@ class FileExtensionFilter implements FilterInterface
     private $accessor;
 
     /**
-     * @param string        $extension
-     * @param string|null $property
+     * @param string|string[] $extension
+     * @param string|null     $property
      */
     public function __construct($extension, $property = null)
     {
-        $this->extension = $extension;
-        $this->property  = $property;
-        $this->accessor  = PropertyAccess::createPropertyAccessor();
+        if (is_string($extension) === true) {
+            $extension = [$extension];
+        }
+        $this->extensions = $extension;
+        $this->property   = $property;
+        $this->accessor   = PropertyAccess::createPropertyAccessor();
     }
 
     /**
@@ -52,6 +55,12 @@ class FileExtensionFilter implements FilterInterface
     {
         $filename = $this->property === null ? $item : $this->accessor->getValue($item, $this->property);
 
-        return preg_match(sprintf('/\.%s/', $this->extension), $filename) === 1;
+        foreach ($this->extensions as $extension) {
+            if (preg_match(sprintf('/\.%s/', $extension), $filename) === 1) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

@@ -63,6 +63,14 @@ $item->filename = 'README.html';
 $filterObject->filter($item); // -> false
 ```
 
+The extension passed to the constructor can also be an array. The filter returns `true` if the given item matches any
+of the extensions in the array.
+
+```php
+$filter = new FileExtensionFilter(['md', 'html']);
+$filter->filter('file.md'); // -> true
+```
+
 
 Custom Filters
 --------------
