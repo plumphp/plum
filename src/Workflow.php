@@ -113,9 +113,9 @@ class Workflow
     }
 
     /**
-     * @param WriterInterface $writer
-     * @param FilterInterface $filter
-     * @param int             $position
+     * @param WriterInterface      $writer
+     * @param FilterInterface|null $filter
+     * @param int                  $position
      *
      * @return Workflow
      */
@@ -232,9 +232,9 @@ class Workflow
     /**
      * Writes the given item to the given writer if the no filter is given or the filter returns `true`.
      *
-     * @param mixed           $item
-     * @param WriterInterface $writer
-     * @param FilterInterface $filter
+     * @param mixed                $item
+     * @param WriterInterface      $writer
+     * @param FilterInterface|null $filter
      *
      * @return bool `true` if the item has been written, `false` if not.
      */
