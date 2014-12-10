@@ -52,7 +52,9 @@ $workflow->process($reader);
 Change Log
 ----------
 
-*no version released yet*
+### Version 0.1 (10 December 2014)
+
+- Initial version
 
 
 License
