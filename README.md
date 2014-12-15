@@ -54,7 +54,7 @@ Change Log
 
 ### Version 0.1.1 (15 December 2014)
 
-- Redcude required version of PropertyAccess to `2.5`
+- Reduce required version of PropertyAccess to `2.5`
 
 ### Version 0.1 (10 December 2014)
 
