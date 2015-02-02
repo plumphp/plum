@@ -10,7 +10,7 @@ Table of Contents
 
 - [ArrayReader](#arrayreader)
 - [FinderReader](#finderreader)
-- [JsonReader](#jsonreader)
+- [JsonFileReader](#jsonfilereader)
 - [Custom Readers](#custom-readers)
 - [PHP 5.5 and Generators](#php-55-and-generators)
 
@@ -45,16 +45,16 @@ $reader = new FinderReader($finder);
 ```
 
 
-JsonReader
+JsonFileReader
 ----------
 
-`JsonReader` reads a `.json` file. It uses [Braincrafted\Json](https://github.com/braincrafted/json) to decode the
-JSON file. If you use Composer, add it by calling `composer require braincrafted/json:@stable`.
+`JsonFileReader` reads a `.json` file. You need add the `plum-json` package to your project using Composer:
+`composer require plumphp/plum-json:@stable`.
 
 ```php
-use Plum\Plum\Reader\JsonReader;
+use Plum\PlumJson\JsonFileReader;
 
-$reader = new JsonReader('foo.json');
+$reader = new JsonFileReader('foo.json');
 $reader->getIterator(); // -> \ArrayIterator
 $reader->count();
 ```

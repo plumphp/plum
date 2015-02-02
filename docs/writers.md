@@ -16,7 +16,7 @@ Table of Contents
 - [ArrayWriter](#arraywriter)
 - [ConsoleProgressWriter](#consoleprogresswriter)
 - [CsvWriter](#csvwriter)
-- [JsonWriter](#jsonwriter)
+- [JsonFileWriter](#jsonfilewriter)
 - [Conditional Writers](#conditional-writers)
 
 
@@ -72,16 +72,16 @@ $writer->prepare();
 ```
 
 
-JsonWriter
-----------
+JsonFileWriter
+--------------
 
-`JsonWriter` writes the items as JSON into a file. It uses [Braincrafted\Json](https://github.com/braincrafted/json)
-to encode the items.
+`JsonFileWriter` writes the items as JSON into a file.  You need add the `plum-json` package to your project using
+Composer: `composer require plumphp/plum-json:@stable`.
 
 ```php
-use Plum\Plum\Writer\JsonWriter;
+use Plum\PlumJson\JsonFileWriter;
 
-$writer = new JsonWriter('foobar.json');
+$writer = new JsonFileWriter('foobar.json');
 $writer->writeItem(['key1' => 'value1', 'key2' => 'value2'));
 $writer->finish();
 ```
