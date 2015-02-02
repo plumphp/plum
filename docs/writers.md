@@ -26,7 +26,7 @@ ArrayWriter
 The `ArrayWriter` writes the data into an array that can be retrieved using the `getData()` method.
 
 ```php
-use Cocur\Plum\Writer\ArrayWriter;
+use Plum\Plum\Writer\ArrayWriter;
 
 $writer = new ArrayWriter();
 // Workflow processing
@@ -41,7 +41,7 @@ In a console application that uses Symfony's [Console]() component you can use `
 the user feedback on the progress of the workflow.
 
 ```php
-use Cocur\Plum\Writer\ConsoleProgressWriter;
+use Plum\Plum\Writer\ConsoleProgressWriter;
 
 $worklow->addWriter(new ConsoleProgressWriter($progressBar));
 $worklow->addWriter($otherWriter);
@@ -54,7 +54,7 @@ CsvWriter
 The `CsvWriter` allows you to write the data into a `.csv` file.
 
 ```php
-use Cocur\Plum\Writer\CsvWriter;
+use Plum\Plum\Writer\CsvWriter;
 
 $writer = new CsvWriter('foobar.csv', ',', '"');
 $writer->prepare();
@@ -79,7 +79,7 @@ JsonWriter
 to encode the items.
 
 ```php
-use Cocur\Plum\Writer\JsonWriter;
+use Plum\Plum\Writer\JsonWriter;
 
 $writer = new JsonWriter('foobar.json');
 $writer->writeItem(['key1' => 'value1', 'key2' => 'value2'));

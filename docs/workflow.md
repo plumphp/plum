@@ -2,7 +2,7 @@ Workflow
 ========
 
 ```php
-use Cocur\Plum\Workflow;
+use Plum\Plum\Workflow;
 
 $workflow = new Workflow();
 $workflow->addFilter($filter)
@@ -24,7 +24,7 @@ Table of Contents
 Conditional Converters
 ----------------------
 
-The `addConverter()` method accepts an optional second parameter of type `Cocur\Plum\Filter\FilterInterface`. If a
+The `addConverter()` method accepts an optional second parameter of type `Plum\Plum\Filter\FilterInterface`. If a
 filter is provided the converter is only applied to an item if the filter returns `true` for the given item. Otherwise
 the original item is returned by the converter.
 
@@ -58,7 +58,7 @@ $workflow->addWriter($converter, null, Workflow::APPEND);
 Result
 ------
 
-The `process()` method returns an instance of `Cocur\Plum\Result`. This object contains information and errors
+The `process()` method returns an instance of `Plum\Plum\Result`. This object contains information and errors
 collected during the processing.
 
 ```php
@@ -79,12 +79,12 @@ items and 2 writers in your workflow, the item writer counter will return `3`.
 Concatenating Workflows
 -----------------------
 
-On of the most powerful features of Plum is the ability to concatenate workflows. The `Cocur\Plum\WorkflowConcatenator`
-implements both the `Cocur\Plum\ReaderInterface` and the `Cocur\Plum\WriterInterface` and must be added as a writer
+On of the most powerful features of Plum is the ability to concatenate workflows. The `Plum\Plum\WorkflowConcatenator`
+implements both the `Plum\Plum\ReaderInterface` and the `Plum\Plum\WriterInterface` and must be added as a writer
 to the first workflow and as a reader to the second workflow.
 
 ```php
-use Cocur\Plum\WorkflowConcatenator;
+use Plum\Plum\WorkflowConcatenator;
 
 $concatenator = new WorkflowConcatenator();
 

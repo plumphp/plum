@@ -39,7 +39,7 @@ Usage
 Here is a quick preview, but please check out the [documentation](https://github.com/plumphp/plum/docs/index.md).
 
 ```php
-use Cocur\Plum\Workflow;
+use Plum\Plum\Workflow;
 
 $workflow = new Workflow();
 $workflow->addFilter($filter)

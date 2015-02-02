@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of cocur/plum.
+ * This file is part of plumphp/plum.
  *
  * (c) Florian Eckerstorfer <florian@eckerstorfer.co>
  *
@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Cocur\Plum\Filter;
+namespace Plum\Plum\Filter;
 
-use Cocur\Plum\PipelineInterface;
+use Plum\Plum\PipelineInterface;
 
 /**
  * FilterInterface
  *
- * @package   Cocur\Plum\Filter
+ * @package   Plum\Plum\Filter
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
  * @copyright 2014 Florian Eckerstorfer
  */

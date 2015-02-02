@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of cocur/plum.
+ * This file is part of plumphp/plum.
  *
  * (c) Florian Eckerstorfer <florian@eckerstorfer.co>
  *
@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Cocur\Plum;
+namespace Plum\Plum;
 
 use \Mockery as m;
 
 /**
  * ResultTest
  *
- * @package   Cocur\Plum
+ * @package   Plum\Plum
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
  * @copyright 2014 Florian Eckerstorfer
  * @group     unit
@@ -33,8 +33,8 @@ class ResultTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Cocur\Plum\Result::incReadCount()
-     * @covers Cocur\Plum\Result::getReadCount()
+     * @covers Plum\Plum\Result::incReadCount()
+     * @covers Plum\Plum\Result::getReadCount()
      */
     public function incReadCountShouldIncreaseReadCount()
     {
@@ -45,8 +45,8 @@ class ResultTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Cocur\Plum\Result::incWriteCount()
-     * @covers Cocur\Plum\Result::getWriteCount()
+     * @covers Plum\Plum\Result::incWriteCount()
+     * @covers Plum\Plum\Result::getWriteCount()
      */
     public function incWriteCountShouldIncreaseWriteCount()
     {
@@ -57,8 +57,8 @@ class ResultTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Cocur\Plum\Result::incItemWriteCount()
-     * @covers Cocur\Plum\Result::getItemWriteCount()
+     * @covers Plum\Plum\Result::incItemWriteCount()
+     * @covers Plum\Plum\Result::getItemWriteCount()
      */
     public function incItemWriteCountShouldIncreaseWriteCount()
     {
@@ -69,9 +69,9 @@ class ResultTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Cocur\Plum\Result::addException()
-     * @covers Cocur\Plum\Result::getExceptions()
-     * @covers Cocur\Plum\Result::getErrorCount()
+     * @covers Plum\Plum\Result::addException()
+     * @covers Plum\Plum\Result::getExceptions()
+     * @covers Plum\Plum\Result::getErrorCount()
      */
     public function addExceptionShouldAddException()
     {

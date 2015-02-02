@@ -22,7 +22,7 @@ CallbackFilter
 The `CallbackFilter` calls a function and checks the return value of that function.
 
 ```php
-use Cocur\Plum\Filter\CallbackFilter;
+use Plum\Plum\Filter\CallbackFilter;
 
 $filter = new CallbackFilter(function ($item) {
     return preg_match('/https?:\/\/[a-z0-9-]+\.[a-z]+/', $item);
@@ -37,7 +37,7 @@ FileExtensionFilter
 Checks if the file extension of a file name matches.
 
 ```php
-use Cocur\Plum\Filter\FileExtensionFilter;
+use Plum\Plum\Filter\FileExtensionFilter;
 
 $filter = new FileExtensionFilter('md');
 $filter->filter('README.md'); // -> true
@@ -49,7 +49,7 @@ If the item is are more complex structure, for example, an array or an object `F
 from the item. You can pass the path to the property as the second argument to the constructor.
 
 ```php
-use Cocur\Plum\Filter\FileExtensionFilter;
+use Plum\Plum\Filter\FileExtensionFilter;
 
 $filterArray = new FileExtensionFilter('md', '[filename]');
 $filterArray->filter(['filename' => 'README.md']); // -> true
@@ -75,14 +75,14 @@ $filter->filter('file.md'); // -> true
 Custom Filters
 --------------
 
-You can create a custom filter by creating a class that implements `Cocur\Plum\Filter\FilterInterface`. The interface
+You can create a custom filter by creating a class that implements `Plum\Plum\Filter\FilterInterface`. The interface
 requires you to implement a `filter()` method that expects a single argument and returns either `true` or `false`.
 Plum processes items of all types, simple scalar types (such as strings or integers) as well as complex types (arrays
 or objects) and therefore Plum does not guarantee the type of the item passed to `filter()`.
 
 ```php
 
-use Cocur\Plum\Filter\FilterInterface;
+use Plum\Plum\Filter\FilterInterface;
 
 class RegExpFilter implements FilterInterface
 {

@@ -2,10 +2,10 @@
 
 require_once __DIR__.'/../vendor/autoload.php';
 
-use Cocur\Plum\Reader\ArrayReader;
-use Cocur\Plum\Writer\ArrayWriter;
-use Cocur\Plum\Workflow;
-use Cocur\Plum\WorkflowConcatenator;
+use Plum\Plum\Reader\ArrayReader;
+use Plum\Plum\Writer\ArrayWriter;
+use Plum\Plum\Workflow;
+use Plum\Plum\WorkflowConcatenator;
 
 $reader = new ArrayReader(['foo', 'bar', 'baz', 'qoo']);
 $writer = new ArrayWriter();

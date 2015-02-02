@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of cocur/plum.
+ * This file is part of plumphp/plum.
  *
  * (c) Florian Eckerstorfer <florian@eckerstorfer.co>
  *
@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Cocur\Plum\Writer;
+namespace Plum\Plum\Writer;
 
 use \Mockery as m;
 
 /**
  * ConsoleProgressWriterTest
  *
- * @package   Cocur\Plum\Writer
+ * @package   Plum\Plum\Writer
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
  * @copyright 2014 Florian Eckerstorfer
  * @group     unit
@@ -37,7 +37,7 @@ class ConsoleProgressWriterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Cocur\Plum\Writer\ConsoleProgressWriter::writeItem()
+     * @covers Plum\Plum\Writer\ConsoleProgressWriter::writeItem()
      */
     public function writeItemShouldCallAdvanceOnProgressBar()
     {
@@ -48,7 +48,7 @@ class ConsoleProgressWriterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Cocur\Plum\Writer\ConsoleProgressWriter::prepare()
+     * @covers Plum\Plum\Writer\ConsoleProgressWriter::prepare()
      */
     public function prepareShouldCallStartOnProgressBar()
     {
@@ -59,7 +59,7 @@ class ConsoleProgressWriterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Cocur\Plum\Writer\ConsoleProgressWriter::finish()
+     * @covers Plum\Plum\Writer\ConsoleProgressWriter::finish()
      */
     public function finishShouldCallFinishOnProgressBar()
     {

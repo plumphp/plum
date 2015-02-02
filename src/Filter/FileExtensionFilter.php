@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of cocur/plum.
+ * This file is part of plumphp/plum.
  *
  * (c) Florian Eckerstorfer <florian@eckerstorfer.co>
  *
@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Cocur\Plum\Filter;
+namespace Plum\Plum\Filter;
 
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\PropertyAccess\PropertyAccessor;
@@ -17,7 +17,7 @@ use Symfony\Component\PropertyAccess\PropertyAccessor;
 /**
  * FileExtensionFilter
  *
- * @package   Cocur\Plum\Converter
+ * @package   Plum\Plum\Converter
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
  * @copyright 2014 Florian Eckerstorfer
  */

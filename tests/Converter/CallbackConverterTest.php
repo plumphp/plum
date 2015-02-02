@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of cocur/plum.
+ * This file is part of plumphp/plum.
  *
  * (c) Florian Eckerstorfer <florian@eckerstorfer.co>
  *
@@ -9,12 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Cocur\Plum\Converter;
+namespace Plum\Plum\Converter;
 
 /**
  * CallbackConverterTest
  *
- * @package   Cocur\Plum\Converter
+ * @package   Plum\Plum\Converter
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
  * @copyright 2014 Florian Eckerstorfer
  *
@@ -24,8 +24,8 @@ class CallbackConverterTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @test
-     * @covers Cocur\Plum\Converter\CallbackConverter::__construct()
-     * @covers Cocur\Plum\Converter\CallbackConverter::convert()
+     * @covers Plum\Plum\Converter\CallbackConverter::__construct()
+     * @covers Plum\Plum\Converter\CallbackConverter::convert()
      */
     public function convertShouldCallCallback()
     {

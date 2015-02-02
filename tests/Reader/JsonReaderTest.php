@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of cocur/plum.
+ * This file is part of plumphp/plum.
  *
  * (c) Florian Eckerstorfer <florian@eckerstorfer.co>
  *
@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Cocur\Plum\Reader;
+namespace Plum\Plum\Reader;
 
 use org\bovigo\vfs\vfsStream;
 
 /**
  * JsonReaderTest
  *
- * @package   Cocur\Plum\Reader
+ * @package   Plum\Plum\Reader
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
  * @copyright 2014 Florian Eckerstorfer
  * @group     unit
@@ -32,9 +32,9 @@ class JsonReaderTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Cocur\Plum\Reader\JsonReader::__construct()
-     * @covers Cocur\Plum\Reader\JsonReader::getIterator()
-     * @covers Cocur\Plum\Reader\JsonReader::getJson()
+     * @covers Plum\Plum\Reader\JsonReader::__construct()
+     * @covers Plum\Plum\Reader\JsonReader::getIterator()
+     * @covers Plum\Plum\Reader\JsonReader::getJson()
      */
     public function getIteratorReturnsIteratorOfJsonFile()
     {
@@ -45,9 +45,9 @@ class JsonReaderTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Cocur\Plum\Reader\JsonReader::__construct()
-     * @covers Cocur\Plum\Reader\JsonReader::count()
-     * @covers Cocur\Plum\Reader\JsonReader::getJson()
+     * @covers Plum\Plum\Reader\JsonReader::__construct()
+     * @covers Plum\Plum\Reader\JsonReader::count()
+     * @covers Plum\Plum\Reader\JsonReader::getJson()
      */
     public function countReturnsNumberOfItemsInJsonFile()
     {

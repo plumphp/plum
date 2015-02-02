@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of cocur/plum.
+ * This file is part of plumphp/plum.
  *
  * (c) Florian Eckerstorfer <florian@eckerstorfer.co>
  *
@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Cocur\Plum\Writer;
+namespace Plum\Plum\Writer;
 
 use org\bovigo\vfs\vfsStream;
 
 /**
  * CsvWriterTest
  *
- * @package   Cocur\Plum\Writer
+ * @package   Plum\Plum\Writer
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
  * @copyright 2014 Florian Eckerstorfer
  * @group     unit
@@ -30,9 +30,9 @@ class CsvWriterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Cocur\Plum\Writer\CsvWriter::writeItem()
-     * @covers Cocur\Plum\Writer\CsvWriter::prepare()
-     * @covers Cocur\Plum\Writer\CsvWriter::finish()
+     * @covers Plum\Plum\Writer\CsvWriter::writeItem()
+     * @covers Plum\Plum\Writer\CsvWriter::prepare()
+     * @covers Plum\Plum\Writer\CsvWriter::finish()
      */
     public function writeItemWritesItemIntoFile()
     {
@@ -46,10 +46,10 @@ class CsvWriterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Cocur\Plum\Writer\CsvWriter::__construct()
-     * @covers Cocur\Plum\Writer\CsvWriter::writeItem()
-     * @covers Cocur\Plum\Writer\CsvWriter::prepare()
-     * @covers Cocur\Plum\Writer\CsvWriter::finish()
+     * @covers Plum\Plum\Writer\CsvWriter::__construct()
+     * @covers Plum\Plum\Writer\CsvWriter::writeItem()
+     * @covers Plum\Plum\Writer\CsvWriter::prepare()
+     * @covers Plum\Plum\Writer\CsvWriter::finish()
      */
     public function writeItemWritesItemWithCustomOptionsIntoFile()
     {
@@ -63,9 +63,9 @@ class CsvWriterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Cocur\Plum\Writer\CsvWriter::setHeader()
-     * @covers Cocur\Plum\Writer\CsvWriter::writeItem()
-     * @covers Cocur\Plum\Writer\CsvWriter::prepare()
+     * @covers Plum\Plum\Writer\CsvWriter::setHeader()
+     * @covers Plum\Plum\Writer\CsvWriter::writeItem()
+     * @covers Plum\Plum\Writer\CsvWriter::prepare()
      */
     public function writeItemWritesItemWithHeaderIntoFile()
     {
@@ -83,7 +83,7 @@ class CsvWriterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Cocur\Plum\Writer\CsvWriter::writeItem()
+     * @covers Plum\Plum\Writer\CsvWriter::writeItem()
      */
     public function writeItemThrowsAnExceptionIfNoFileHandleExists()
     {
@@ -100,7 +100,7 @@ class CsvWriterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Cocur\Plum\Writer\CsvWriter::finish()
+     * @covers Plum\Plum\Writer\CsvWriter::finish()
      */
     public function finishThrowsAnExceptionIfNoFileHandleExists()
     {

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of cocur/plum.
+ * This file is part of plumphp/plum.
  *
  * (c) Florian Eckerstorfer <florian@eckerstorfer.co>
  *
@@ -9,12 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Cocur\Plum\Writer;
+namespace Plum\Plum\Writer;
 
 /**
  * ArrayWriterTest
  *
- * @package   Cocur\Plum\Writer
+ * @package   Plum\Plum\Writer
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
  * @copyright 2014 Florian Eckerstorfer
  *
@@ -32,8 +32,8 @@ class ArrayWriterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Cocur\Plum\Writer\ArrayWriter::writeItem()
-     * @covers Cocur\Plum\Writer\ArrayWriter::getData()
+     * @covers Plum\Plum\Writer\ArrayWriter::writeItem()
+     * @covers Plum\Plum\Writer\ArrayWriter::getData()
      */
     public function writeItemShouldWriteItemToArray()
     {
@@ -44,7 +44,7 @@ class ArrayWriterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Cocur\Plum\Writer\ArrayWriter::prepare()
+     * @covers Plum\Plum\Writer\ArrayWriter::prepare()
      */
     public function prepareShouldDoNothing()
     {
@@ -53,7 +53,7 @@ class ArrayWriterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Cocur\Plum\Writer\ArrayWriter::finish()
+     * @covers Plum\Plum\Writer\ArrayWriter::finish()
      */
     public function finishShouldDoNothing()
     {

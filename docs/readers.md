@@ -22,7 +22,7 @@ The `ArrayReader` feeds the elements of an array to the workflow. In addition to
 `ReaderInterface` it provides a `getData()` methods that returns the full array.
 
 ```php
-use Cocur\Plum\Reader\ArrayReader;
+use Plum\Plum\Reader\ArrayReader;
 
 $reader = new ArrayReader(['Stark', 'Lannister', 'Targaryen', ...]);
 $reader->getData(); // -> ['Stark', 'Lannister', 'Targaryen', ...]
@@ -35,7 +35,7 @@ FinderReader
 You can read directories and files using the Symfony Finder component and `FinderReader`.
 
 ```php
-use Cocur\Plum\Reader\FinderReader;
+use Plum\Plum\Reader\FinderReader;
 use Symfony\Component\Finder\Finder;
 
 $finder = new Finder();
@@ -52,7 +52,7 @@ JsonReader
 JSON file. If you use Composer, add it by calling `composer require braincrafted/json:@stable`.
 
 ```php
-use Cocur\Plum\Reader\JsonReader;
+use Plum\Plum\Reader\JsonReader;
 
 $reader = new JsonReader('foo.json');
 $reader->getIterator(); // -> \ArrayIterator
@@ -67,7 +67,7 @@ As mentioned in the introduction `ReaderInterface` extends `IteratorAggregate` a
 implement the `getIterator()` method.
 
 ```php
-use Cocur\Plum\Reader\ReaderInterface;
+use Plum\Plum\Reader\ReaderInterface;
 
 class CollectionReader implements ReaderInterface
 {

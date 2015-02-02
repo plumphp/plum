@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of cocur/plum.
+ * This file is part of plumphp/plum.
  *
  * (c) Florian Eckerstorfer <florian@eckerstorfer.co>
  *
@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Cocur\Plum\Writer;
+namespace Plum\Plum\Writer;
 
 use org\bovigo\vfs\vfsStream;
 
 /**
  * JsonWriterTest
  *
- * @package   Cocur\Plum\Writer
+ * @package   Plum\Plum\Writer
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
  * @copyright 2014 Florian Eckerstorfer
  * @group     unit
@@ -30,9 +30,9 @@ class JsonWriterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Cocur\Plum\Writer\JsonWriter::__construct()
-     * @covers Cocur\Plum\Writer\JsonWriter::writeItem()
-     * @covers Cocur\Plum\Writer\JsonWriter::finish()
+     * @covers Plum\Plum\Writer\JsonWriter::__construct()
+     * @covers Plum\Plum\Writer\JsonWriter::writeItem()
+     * @covers Plum\Plum\Writer\JsonWriter::finish()
      */
     public function writeItemWritesItemAsJsonToFile()
     {
@@ -47,7 +47,7 @@ class JsonWriterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Cocur\Plum\Writer\JsonWriter::prepare()
+     * @covers Plum\Plum\Writer\JsonWriter::prepare()
      */
     public function prepareDoesNothing()
     {

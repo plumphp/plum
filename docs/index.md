@@ -3,9 +3,9 @@
 
 Plum is a data processing pipeline that helps you to write structured, reusable and well tested data processing code.
 
-[![Build Status](https://travis-ci.org/cocur/plum.svg?branch=master)](https://travis-ci.org/cocur/plum)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/cocur/plum/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/cocur/plum/?branch=master)
-[![Code Coverage](https://scrutinizer-ci.com/g/cocur/plum/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/cocur/plum/?branch=master)
+[![Build Status](https://travis-ci.org/plumphp/plum.svg?branch=master)](https://travis-ci.org/plumphp/plum)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/plumphp/plum/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/plumphp/plum/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/plumphp/plum/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/plumphp/plum/?branch=master)
 
 Developed by [Florian Eckerstorfer](https://florian.ec) in Vienna, Europe.
 
@@ -29,7 +29,7 @@ Installation
 You can install Plum using [Composer](http://getcomposer.org).
 
 ```shell
-$ composer require cocur/plum:dev-master
+$ composer require plumphp/plum:dev-master
 ```
 
 
@@ -42,7 +42,7 @@ writers to the workflow and process it using the `process()` method.
 *Working examples can be found in the examples/ directory.*
 
 ```php
-use Cocur\Plum\Workflow;
+use Plum\Plum\Workflow;
 
 $workflow = new Workflow();
 $workflow->addFilter($filter)

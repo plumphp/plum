@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of cocur/plum.
+ * This file is part of plumphp/plum.
  *
  * (c) Florian Eckerstorfer <florian@eckerstorfer.co>
  *
@@ -9,12 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Cocur\Plum\Reader;
+namespace Plum\Plum\Reader;
 
 /**
  * ArrayReaderTest
  *
- * @package   Cocur\Plum\Reader
+ * @package   Plum\Plum\Reader
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
  * @copyright 2014 Florian Eckerstorfer
  *
@@ -32,8 +32,8 @@ class ArrayReaderTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Cocur\Plum\Reader\ArrayReader::__construct()
-     * @covers Cocur\Plum\Reader\ArrayReader::getData()
+     * @covers Plum\Plum\Reader\ArrayReader::__construct()
+     * @covers Plum\Plum\Reader\ArrayReader::getData()
      */
     public function getDataShouldReturnData()
     {
@@ -42,7 +42,7 @@ class ArrayReaderTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Cocur\Plum\Reader\ArrayReader::getIterator()
+     * @covers Plum\Plum\Reader\ArrayReader::getIterator()
      */
     public function getIteratorShouldReturnArrayIterator()
     {
@@ -54,7 +54,7 @@ class ArrayReaderTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Cocur\Plum\Reader\ArrayReader::count()
+     * @covers Plum\Plum\Reader\ArrayReader::count()
      */
     public function countShouldReturnNumberOfElements()
     {

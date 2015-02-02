@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of cocur/plum.
+ * This file is part of plumphp/plum.
  *
  * (c) Florian Eckerstorfer <florian@eckerstorfer.co>
  *
@@ -9,14 +9,15 @@
  * file that was distributed with this source code.
  */
 
-namespace Cocur\Plum\Converter;
+namespace Plum\Plum\Converter;
+
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
 
 /**
  * FileGetContentsConverterTest
  *
- * @package   Cocur\Plum\Converter
+ * @package   Plum\Plum\Converter
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
  * @copyright 2014 Florian Eckerstorfer
  * @group     unit
@@ -39,7 +40,7 @@ class FileGetContentsConverterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Cocur\Plum\Converter\FileGetContentsConverter::convert()
+     * @covers Plum\Plum\Converter\FileGetContentsConverter::convert()
      */
     public function convertShouldGetContentsFromFile()
     {
@@ -52,7 +53,7 @@ class FileGetContentsConverterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Cocur\Plum\Converter\FileGetContentsConverter::convert()
+     * @covers Plum\Plum\Converter\FileGetContentsConverter::convert()
      */
     public function convertShouldConvertFilenameIntoSplFileInfo()
     {
@@ -64,7 +65,7 @@ class FileGetContentsConverterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Cocur\Plum\Converter\FileGetContentsConverter::convert()
+     * @covers Plum\Plum\Converter\FileGetContentsConverter::convert()
      */
     public function convertShouldThrowExceptionIfFileDoesNotExists()
     {

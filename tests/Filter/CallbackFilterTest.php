@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of cocur/plum.
+ * This file is part of plumphp/plum.
  *
  * (c) Florian Eckerstorfer <florian@eckerstorfer.co>
  *
@@ -9,12 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Cocur\Plum\Filter;
+namespace Plum\Plum\Filter;
 
 /**
  * CallbackFilterTest
  *
- * @package   Cocur\Plum\Filter
+ * @package   Plum\Plum\Filter
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
  * @copyright 2014 Florian Eckerstorfer
  *
@@ -24,8 +24,8 @@ class CallbackFilterTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @test
-     * @covers Cocur\Plum\Filter\CallbackFilter::__construct()
-     * @covers Cocur\Plum\Filter\CallbackFilter::filter()
+     * @covers Plum\Plum\Filter\CallbackFilter::__construct()
+     * @covers Plum\Plum\Filter\CallbackFilter::filter()
      */
     public function filterShouldCallCallback()
     {

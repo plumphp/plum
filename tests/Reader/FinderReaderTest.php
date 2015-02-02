@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of cocur/plum.
+ * This file is part of plumphp/plum.
  *
  * (c) Florian Eckerstorfer <florian@eckerstorfer.co>
  *
@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Cocur\Plum\Reader;
+namespace Plum\Plum\Reader;
 
 use \Mockery as m;
 
 /**
  * FinderReaderTest
  *
- * @package   Cocur\Plum\Reader
+ * @package   Plum\Plum\Reader
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
  * @copyright 2014 Florian Eckerstorfer
  *
@@ -38,7 +38,7 @@ class FinderReaderTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Cocur\Plum\Reader\FinderReader::getIterator()
+     * @covers Plum\Plum\Reader\FinderReader::getIterator()
      */
     public function getIteratorShouldReturnIterator()
     {
@@ -50,7 +50,7 @@ class FinderReaderTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Cocur\Plum\Reader\FinderReader::count()
+     * @covers Plum\Plum\Reader\FinderReader::count()
      */
     public function countShouldReturnNumberOfFiles()
     {

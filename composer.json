@@ -1,5 +1,5 @@
 {
-    "name": "cocur/plum",
+    "name": "plumphp/plum",
     "description": "Plum is a data processing pipeline that helps you to write structured, reusable and well tested data processing code.",
     "license": "MIT",
     "authors": [
@@ -21,7 +21,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Cocur\\Plum\\": "src"
+            "Plum\\Plum\\": "src"
         }
     }
 }

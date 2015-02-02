@@ -2,11 +2,11 @@
 
 require_once __DIR__.'/../vendor/autoload.php';
 
-use Cocur\Plum\Writer\ArrayWriter;
-use Cocur\Plum\Workflow;
-use Cocur\Plum\Reader\ArrayReader;
-use Cocur\Plum\Converter\CallbackConverter;
-use Cocur\Plum\Filter\CallbackFilter;
+use Plum\Plum\Writer\ArrayWriter;
+use Plum\Plum\Workflow;
+use Plum\Plum\Reader\ArrayReader;
+use Plum\Plum\Converter\CallbackConverter;
+use Plum\Plum\Filter\CallbackFilter;
 
 $reader = new ArrayReader(['foobar', 'qoobar', 'bazbaz']);
 

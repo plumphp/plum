@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of cocur/plum.
+ * This file is part of plumphp/plum.
  *
  * (c) Florian Eckerstorfer <florian@eckerstorfer.co>
  *
@@ -9,12 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Cocur\Plum;
+namespace Plum\Plum;
 
 /**
  * WorkflowConcatenatorTest
  *
- * @package   Cocur\Plum
+ * @package   Plum\Plum
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
  * @copyright 2014 Florian Eckerstorfer
  * @group     unit
@@ -31,7 +31,7 @@ class WorkflowConcatenatorTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Cocur\Plum\WorkflowConcatenator::getIterator()
+     * @covers Plum\Plum\WorkflowConcatenator::getIterator()
      */
     public function getIteratorReturnsAnIterator()
     {
@@ -40,7 +40,7 @@ class WorkflowConcatenatorTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Cocur\Plum\WorkflowConcatenator::count()
+     * @covers Plum\Plum\WorkflowConcatenator::count()
      */
     public function countReturnsTheNumberOfItems()
     {
@@ -51,7 +51,7 @@ class WorkflowConcatenatorTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Cocur\Plum\WorkflowConcatenator::writeItem()
+     * @covers Plum\Plum\WorkflowConcatenator::writeItem()
      */
     public function writeItemAddsItem()
     {
@@ -61,7 +61,7 @@ class WorkflowConcatenatorTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Cocur\Plum\WorkflowConcatenator::prepare()
+     * @covers Plum\Plum\WorkflowConcatenator::prepare()
      */
     public function prepareDoesNothing()
     {
@@ -70,7 +70,7 @@ class WorkflowConcatenatorTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Cocur\Plum\WorkflowConcatenator::finish()
+     * @covers Plum\Plum\WorkflowConcatenator::finish()
      */
     public function finishDoesNothing()
     {

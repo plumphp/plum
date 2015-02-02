@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of cocur/plum.
+ * This file is part of plumphp/plum.
  *
  * (c) Florian Eckerstorfer <florian@eckerstorfer.co>
  *
@@ -9,12 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Cocur\Plum\Writer;
+namespace Plum\Plum\Writer;
 
 /**
  * CsvWriter
  *
- * @package   Cocur\Plum\Writer
+ * @package   Plum\Plum\Writer
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
  * @copyright 2014 Florian Eckerstorfer
  */
@@ -102,7 +102,7 @@ class CsvWriter implements WriterInterface
     {
         if (false === is_resource($this->fileHandle)) {
             throw new \LogicException(sprintf(
-                'There exists no file handle for the file "%s". For this instance of Cocur\Plum\CsvWriter either'.
+                'There exists no file handle for the file "%s". For this instance of Plum\Plum\CsvWriter either'.
                 ' prepare() has never been called or finish() has already been called.',
                 $this->filename
             ));

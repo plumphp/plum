@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of cocur/plum.
+ * This file is part of plumphp/plum.
  *
  * (c) Florian Eckerstorfer <florian@eckerstorfer.co>
  *
@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Cocur\Plum;
+namespace Plum\Plum;
 
 use \Mockery as m;
 
 /**
  * WorkflowTest
  *
- * @package   Cocur\Plum
+ * @package   Plum\Plum
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
  * @copyright 2014 Florian Eckerstorfer
  *
@@ -34,7 +34,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Cocur\Plum\Workflow::getPipeline()
+     * @covers Plum\Plum\Workflow::getPipeline()
      */
     public function getPipelineShouldReturnAllPipelineElements()
     {
@@ -49,7 +49,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Cocur\Plum\Workflow::getPipeline()
+     * @covers Plum\Plum\Workflow::getPipeline()
      */
     public function getPipelineShouldReturnOnlyElementsOfGivenType()
     {
@@ -64,9 +64,9 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Cocur\Plum\Workflow::addElement()
-     * @covers Cocur\Plum\Workflow::addFilter()
-     * @covers Cocur\Plum\Workflow::getFilters()
+     * @covers Plum\Plum\Workflow::addElement()
+     * @covers Plum\Plum\Workflow::addFilter()
+     * @covers Plum\Plum\Workflow::getFilters()
      */
     public function addFilterShouldAddFilterToWorkflow()
     {
@@ -78,9 +78,9 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Cocur\Plum\Workflow::addElement()
-     * @covers Cocur\Plum\Workflow::addFilter()
-     * @covers Cocur\Plum\Workflow::getFilters()
+     * @covers Plum\Plum\Workflow::addElement()
+     * @covers Plum\Plum\Workflow::addFilter()
+     * @covers Plum\Plum\Workflow::getFilters()
      */
     public function addFilterWithPrependShouldPrependFilterToWorkflow()
     {
@@ -95,9 +95,9 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Cocur\Plum\Workflow::addElement()
-     * @covers Cocur\Plum\Workflow::addConverter()
-     * @covers Cocur\Plum\Workflow::getConverters()
+     * @covers Plum\Plum\Workflow::addElement()
+     * @covers Plum\Plum\Workflow::addConverter()
+     * @covers Plum\Plum\Workflow::getConverters()
      */
     public function addConverterShouldAddConverterToWorkflow()
     {
@@ -109,9 +109,9 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Cocur\Plum\Workflow::addElement()
-     * @covers Cocur\Plum\Workflow::addConverter()
-     * @covers Cocur\Plum\Workflow::getConverters()
+     * @covers Plum\Plum\Workflow::addElement()
+     * @covers Plum\Plum\Workflow::addConverter()
+     * @covers Plum\Plum\Workflow::getConverters()
      */
     public function addConverterWithPrependShouldPrependConverterToWorkflow()
     {
@@ -126,9 +126,9 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Cocur\Plum\Workflow::addElement()
-     * @covers Cocur\Plum\Workflow::addWriter()
-     * @covers Cocur\Plum\Workflow::getWriters()
+     * @covers Plum\Plum\Workflow::addElement()
+     * @covers Plum\Plum\Workflow::addWriter()
+     * @covers Plum\Plum\Workflow::getWriters()
      */
     public function addWriterShouldAddWriterToWorkflow()
     {
@@ -140,9 +140,9 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Cocur\Plum\Workflow::addElement()
-     * @covers Cocur\Plum\Workflow::addWriter()
-     * @covers Cocur\Plum\Workflow::getWriters()
+     * @covers Plum\Plum\Workflow::addElement()
+     * @covers Plum\Plum\Workflow::addWriter()
+     * @covers Plum\Plum\Workflow::getWriters()
      */
     public function addWriterWithPrependShouldPrependWriterToWorkflow()
     {
@@ -157,7 +157,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Cocur\Plum\Workflow::process()
+     * @covers Plum\Plum\Workflow::process()
      */
     public function processShouldDoNothingWhenNothingIsRead()
     {
@@ -176,8 +176,8 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Cocur\Plum\Workflow::process()
-     * @covers Cocur\Plum\Workflow::processItem()
+     * @covers Plum\Plum\Workflow::process()
+     * @covers Plum\Plum\Workflow::processItem()
      */
     public function processShouldApplyFilterToReadItems()
     {
@@ -203,9 +203,9 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Cocur\Plum\Workflow::process()
-     * @covers Cocur\Plum\Workflow::processItem()
-     * @covers Cocur\Plum\Workflow::convertItem()
+     * @covers Plum\Plum\Workflow::process()
+     * @covers Plum\Plum\Workflow::processItem()
+     * @covers Plum\Plum\Workflow::convertItem()
      */
     public function processShouldApplyConverterToReadItems()
     {
@@ -230,9 +230,9 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Cocur\Plum\Workflow::process()
-     * @covers Cocur\Plum\Workflow::processItem()
-     * @covers Cocur\Plum\Workflow::convertItem()
+     * @covers Plum\Plum\Workflow::process()
+     * @covers Plum\Plum\Workflow::processItem()
+     * @covers Plum\Plum\Workflow::convertItem()
      */
     public function processShouldApplyConverterIfFilterReturnsTrueToReadItems()
     {
@@ -261,9 +261,9 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Cocur\Plum\Workflow::process()
-     * @covers Cocur\Plum\Workflow::processItem()
-     * @covers Cocur\Plum\Workflow::convertItem()
+     * @covers Plum\Plum\Workflow::process()
+     * @covers Plum\Plum\Workflow::processItem()
+     * @covers Plum\Plum\Workflow::convertItem()
      */
     public function processShouldNotApplyConverterIfFilterReturnsFalseToReadItems()
     {
@@ -292,11 +292,11 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Cocur\Plum\Workflow::process()
-     * @covers Cocur\Plum\Workflow::processItem()
-     * @covers Cocur\Plum\Workflow::prepareWriters()
-     * @covers Cocur\Plum\Workflow::finishWriters()
-     * @covers Cocur\Plum\Workflow::writeItem()
+     * @covers Plum\Plum\Workflow::process()
+     * @covers Plum\Plum\Workflow::processItem()
+     * @covers Plum\Plum\Workflow::prepareWriters()
+     * @covers Plum\Plum\Workflow::finishWriters()
+     * @covers Plum\Plum\Workflow::writeItem()
      */
     public function processShouldApplyWriterToReadItems()
     {
@@ -325,11 +325,11 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Cocur\Plum\Workflow::process()
-     * @covers Cocur\Plum\Workflow::processItem()
-     * @covers Cocur\Plum\Workflow::prepareWriters()
-     * @covers Cocur\Plum\Workflow::finishWriters()
-     * @covers Cocur\Plum\Workflow::writeItem()
+     * @covers Plum\Plum\Workflow::process()
+     * @covers Plum\Plum\Workflow::processItem()
+     * @covers Plum\Plum\Workflow::prepareWriters()
+     * @covers Plum\Plum\Workflow::finishWriters()
+     * @covers Plum\Plum\Workflow::writeItem()
      */
     public function processShouldApplyWriterToReadItemsIfFilterReturnsTrue()
     {
@@ -362,11 +362,11 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Cocur\Plum\Workflow::process()
-     * @covers Cocur\Plum\Workflow::processItem()
-     * @covers Cocur\Plum\Workflow::prepareWriters()
-     * @covers Cocur\Plum\Workflow::finishWriters()
-     * @covers Cocur\Plum\Workflow::writeItem()
+     * @covers Plum\Plum\Workflow::process()
+     * @covers Plum\Plum\Workflow::processItem()
+     * @covers Plum\Plum\Workflow::prepareWriters()
+     * @covers Plum\Plum\Workflow::finishWriters()
+     * @covers Plum\Plum\Workflow::writeItem()
      */
     public function processShouldNotApplyWriterToReadItemsIfFilterReturnsFalse()
     {
@@ -399,10 +399,10 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Cocur\Plum\Workflow::process()
-     * @covers Cocur\Plum\Workflow::processItem()
-     * @covers Cocur\Plum\Workflow::prepareWriters()
-     * @covers Cocur\Plum\Workflow::finishWriters()
+     * @covers Plum\Plum\Workflow::process()
+     * @covers Plum\Plum\Workflow::processItem()
+     * @covers Plum\Plum\Workflow::prepareWriters()
+     * @covers Plum\Plum\Workflow::finishWriters()
      */
     public function processShouldApplyMultipleWritersToReadItems()
     {
@@ -437,8 +437,8 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Cocur\Plum\Workflow::process()
-     * @covers Cocur\Plum\Workflow::processItem()
+     * @covers Plum\Plum\Workflow::process()
+     * @covers Plum\Plum\Workflow::processItem()
      */
     public function processShouldCollectExceptions()
     {
@@ -466,34 +466,34 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @return \Cocur\Plum\Reader\ReaderInterface|\Mockery\MockInterface
+     * @return \Plum\Plum\Reader\ReaderInterface|\Mockery\MockInterface
      */
     protected function getMockReader()
     {
-        return m::mock('Cocur\Plum\Reader\ReaderInterface');
+        return m::mock('Plum\Plum\Reader\ReaderInterface');
     }
 
     /**
-     * @return \Cocur\Plum\Writer\WriterInterface|\Mockery\MockInterface
+     * @return \Plum\Plum\Writer\WriterInterface|\Mockery\MockInterface
      */
     protected function getMockWriter()
     {
-        return m::mock('Cocur\Plum\Writer\WriterInterface');
+        return m::mock('Plum\Plum\Writer\WriterInterface');
     }
 
     /**
-     * @return \Cocur\Plum\Converter\ConverterInterface|\Mockery\MockInterface
+     * @return \Plum\Plum\Converter\ConverterInterface|\Mockery\MockInterface
      */
     protected function getMockConverter()
     {
-        return m::mock('Cocur\Plum\Converter\ConverterInterface');
+        return m::mock('Plum\Plum\Converter\ConverterInterface');
     }
 
     /**
-     * @return \Cocur\Plum\Filter\FilterInterface|\Mockery\MockInterface
+     * @return \Plum\Plum\Filter\FilterInterface|\Mockery\MockInterface
      */
     protected function getMockFilter()
     {
-        return m::mock('Cocur\Plum\Filter\FilterInterface');
+        return m::mock('Plum\Plum\Filter\FilterInterface');
     }
 }

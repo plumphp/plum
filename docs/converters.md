@@ -19,7 +19,7 @@ CallbackConverter
 The `CallbackConverter` calls a callback to convert a given item.
 
 ```php
-use Cocur\Plum\Converter\CallbackConverter;
+use Plum\Plum\Converter\CallbackConverter;
 
 $converter = new CallbackConverter(function ($item) { return strtoupper($item); });
 $converter->convert('foo'); // -> FOO
@@ -33,7 +33,7 @@ The `FileGetContentsConverter` takes a `SplFileInfo` object or a filename and re
 and the contents of the file.
 
 ```php
-use Cocur\Plum\Converter\FileGetContentsConverter;
+use Plum\Plum\Converter\FileGetContentsConverter;
 
 $converter = new FileGetContentsConverter();
 $converter->convert('foo.txt'); // -> ['file' => \SplFileInfo Object, 'content' => '...']
@@ -43,10 +43,10 @@ $converter->convert('foo.txt'); // -> ['file' => \SplFileInfo Object, 'content' 
 Custom Converters
 -----------------
 
-You can add custom converters by creating a class that implements `Cocur\Plum\Converter\ConverterInterface`.
+You can add custom converters by creating a class that implements `Plum\Plum\Converter\ConverterInterface`.
 
 ```php
-use Cocur\Plum\Converter\ConverterInterface;
+use Plum\Plum\Converter\ConverterInterface;
 
 class Rot13Converter implements ConverterInterface
 {

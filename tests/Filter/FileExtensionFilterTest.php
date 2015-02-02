@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of cocur/plum.
+ * This file is part of plumphp/plum.
  *
  * (c) Florian Eckerstorfer <florian@eckerstorfer.co>
  *
@@ -9,12 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Cocur\Plum\Filter;
+namespace Plum\Plum\Filter;
 
 /**
  * FileExtensionFilterTest
  *
- * @package   Cocur\Plum\Filter
+ * @package   Plum\Plum\Filter
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
  * @copyright 2014 Florian Eckerstorfer
  * @group     unit
@@ -23,8 +23,8 @@ class FileExtensionFilterTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @test
-     * @covers Cocur\Plum\Filter\FileExtensionFilter::__construct()
-     * @covers Cocur\Plum\Filter\FileExtensionFilter::filter()
+     * @covers Plum\Plum\Filter\FileExtensionFilter::__construct()
+     * @covers Plum\Plum\Filter\FileExtensionFilter::filter()
      */
     public function convertShouldReturnTrueIfFileExtensionMatches()
     {
@@ -35,8 +35,8 @@ class FileExtensionFilterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Cocur\Plum\Filter\FileExtensionFilter::__construct()
-     * @covers Cocur\Plum\Filter\FileExtensionFilter::filter()
+     * @covers Plum\Plum\Filter\FileExtensionFilter::__construct()
+     * @covers Plum\Plum\Filter\FileExtensionFilter::filter()
      */
     public function convertShouldReturnFalseIfFileExtensionNotMatches()
     {
@@ -46,8 +46,8 @@ class FileExtensionFilterTest extends \PHPUnit_Framework_TestCase
     }
     /**
      * @test
-     * @covers Cocur\Plum\Filter\FileExtensionFilter::__construct()
-     * @covers Cocur\Plum\Filter\FileExtensionFilter::filter()
+     * @covers Plum\Plum\Filter\FileExtensionFilter::__construct()
+     * @covers Plum\Plum\Filter\FileExtensionFilter::filter()
      */
     public function convertShouldReturnTrueIfFileExtensionMatchesInArray()
     {
@@ -58,8 +58,8 @@ class FileExtensionFilterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Cocur\Plum\Filter\FileExtensionFilter::__construct()
-     * @covers Cocur\Plum\Filter\FileExtensionFilter::filter()
+     * @covers Plum\Plum\Filter\FileExtensionFilter::__construct()
+     * @covers Plum\Plum\Filter\FileExtensionFilter::filter()
      */
     public function convertShouldReturnFalseIfFileExtensionNotMatchesInArray()
     {
@@ -70,8 +70,8 @@ class FileExtensionFilterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Cocur\Plum\Filter\FileExtensionFilter::__construct()
-     * @covers Cocur\Plum\Filter\FileExtensionFilter::filter()
+     * @covers Plum\Plum\Filter\FileExtensionFilter::__construct()
+     * @covers Plum\Plum\Filter\FileExtensionFilter::filter()
      */
     public function convertShouldReturnTrueIfFileExtensionInArrayMatches()
     {
@@ -82,8 +82,8 @@ class FileExtensionFilterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Cocur\Plum\Filter\FileExtensionFilter::__construct()
-     * @covers Cocur\Plum\Filter\FileExtensionFilter::filter()
+     * @covers Plum\Plum\Filter\FileExtensionFilter::__construct()
+     * @covers Plum\Plum\Filter\FileExtensionFilter::filter()
      */
     public function convertShouldReturnFalseIfFileExtensionInArrayNotMatches()
     {

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of cocur/plum.
+ * This file is part of plumphp/plum.
  *
  * (c) Florian Eckerstorfer <florian@eckerstorfer.co>
  *
@@ -9,17 +9,17 @@
  * file that was distributed with this source code.
  */
 
-namespace Cocur\Plum;
+namespace Plum\Plum;
 
-use Cocur\Plum\Converter\ConverterInterface;
-use Cocur\Plum\Filter\FilterInterface;
-use Cocur\Plum\Reader\ReaderInterface;
-use Cocur\Plum\Writer\WriterInterface;
+use Plum\Plum\Converter\ConverterInterface;
+use Plum\Plum\Filter\FilterInterface;
+use Plum\Plum\Reader\ReaderInterface;
+use Plum\Plum\Writer\WriterInterface;
 
 /**
  * Workflow
  *
- * @package   Cocur\Plum
+ * @package   Plum\Plum
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
  * @copyright 2014 Florian Eckerstorfer
  */
