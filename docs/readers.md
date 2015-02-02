@@ -11,6 +11,7 @@ Table of Contents
 - [ArrayReader](#arrayreader)
 - [FinderReader](#finderreader)
 - [JsonFileReader](#jsonfilereader)
+- [JsonReader](#jsonreader)
 - [Custom Readers](#custom-readers)
 - [PHP 5.5 and Generators](#php-55-and-generators)
 
@@ -44,9 +45,22 @@ $finder = new Finder();
 $reader = new FinderReader($finder);
 ```
 
+JsonReader
+----------
+
+`JsonReader` reads a JSON string. If you want to read a `.json` file checkout [JsonFileReader](#jsonfilereader). You
+need add the `plum-json` package to your project using Composer: `composer require plumphp/plum-json:@stable`.
+
+```php
+use Plum\PlumJson\JsonReader;
+
+$reader = new JsonReader('[{'key1': 'value1', 'key2': 'value2'}]');
+$reader->getIterator(); // -> \ArrayIterator
+$reader->count();
+```
 
 JsonFileReader
-----------
+--------------
 
 `JsonFileReader` reads a `.json` file. You need add the `plum-json` package to your project using Composer:
 `composer require plumphp/plum-json:@stable`.

@@ -17,6 +17,7 @@ Table of Contents
 - [ConsoleProgressWriter](#consoleprogresswriter)
 - [CsvWriter](#csvwriter)
 - [JsonFileWriter](#jsonfilewriter)
+- [JsonWriter](#jsonwriter)
 - [Conditional Writers](#conditional-writers)
 
 
@@ -84,6 +85,24 @@ use Plum\PlumJson\JsonFileWriter;
 $writer = new JsonFileWriter('foobar.json');
 $writer->writeItem(['key1' => 'value1', 'key2' => 'value2'));
 $writer->finish();
+```
+
+It is essential that `finish()` is called, because there happens the actual writing. The `prepare()` method does
+nothing.
+
+JsonWriter
+----------
+
+`JsonWriter` converts the items into JSON format. Please checkout [JsonFileWriter](#jsonfilewriter) if you want to
+write the JSON into a file. You need add the `plum-json` package to your project using Composer:
+`composer require plumphp/plum-json:@stable`.
+
+```php
+use Plum\PlumJson\JsonWriter;
+
+$writer = new JsonWriter();
+$writer->writeItem(['key1' => 'value1', 'key2' => 'value2'));
+echo $writer->getJson(); // [{'key1': 'value1', 'key2': 'value2'}]
 ```
 
 It is essential that `finish()` is called, because there happens the actual writing. The `prepare()` method does
