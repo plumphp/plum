@@ -3,9 +3,9 @@
 
 > Plum is a data processing pipeline that helps you to write structured, reusable and well tested data processing code.
 
-[![Build Status](https://travis-ci.org/cocur/plum.svg?branch=master)](https://travis-ci.org/cocur/plum)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/cocur/plum/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/cocur/plum/?branch=master)
-[![Code Coverage](https://scrutinizer-ci.com/g/cocur/plum/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/cocur/plum/?branch=master)
+[![Build Status](https://travis-ci.org/plumphp/plum.svg?branch=master)](https://travis-ci.org/plumphp/plum)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/plumphp/plum/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/plumphp/plum/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/plumphp/plum/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/plumphp/plum/?branch=master)
 
 Developed by [Florian Eckerstorfer](https://florian.ec) in Vienna, Europe.
 
@@ -29,14 +29,14 @@ Installation
 You can install Plum using [Composer](http://getcomposer.org).
 
 ```shell
-$ composer require cocur/plum:dev-master
+$ composer require plumphp/plum:dev-master
 ```
 
 
 Usage
 -----
 
-Here is a quick preview, but please check out the [documentation](http://plum.readthedocs.org/en/latest/).
+Here is a quick preview, but please check out the [documentation](https://github.com/plumphp/plum/docs/index.md).
 
 ```php
 use Cocur\Plum\Workflow;
@@ -52,17 +52,11 @@ $workflow->process($reader);
 Change Log
 ----------
 
-### Version 0.1.1 (15 December 2014)
-
-- Reduce required version of PropertyAccess to `2.4`
-
-### Version 0.1 (10 December 2014)
-
-- Initial version
+*No version released.*
 
 
 License
 -------
 
-The MIT license applies to cocur/plum. For the full copyright and license information,
+The MIT license applies to plumphp/plum. For the full copyright and license information,
 please view the LICENSE file distributed with this source code.
