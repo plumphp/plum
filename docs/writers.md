@@ -52,10 +52,11 @@ $worklow->addWriter($otherWriter);
 CsvWriter
 ---------
 
-The `CsvWriter` allows you to write the data into a `.csv` file.
+The `CsvWriter` allows you to write the data into a `.csv` file. You need to install the `plum-csv` package to use it:
+`composer require plumphp/plum-csv@dev-master`.
 
 ```php
-use Plum\Plum\Writer\CsvWriter;
+use Plum\PlumCsv\CsvWriter;
 
 $writer = new CsvWriter('foobar.csv', ',', '"');
 $writer->prepare();
