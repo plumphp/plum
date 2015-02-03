@@ -49,6 +49,16 @@ $workflow->process($reader);
 ```
 
 
+Additional packages
+-------------------
+
+The core of Plum (the `plumphp/plum` package) contains only the essential classes. However, we provide additional
+packages which give you more functionality out of the box:
+
+- [plum-csv](https://github.com/plumphp/plum-csv) Readers and writers for CSV files.
+- [plum-json](https://github.com/plumphp/plum.json) Readers and writers for JSON strings and files.
+
+
 Change Log
 ----------
 
