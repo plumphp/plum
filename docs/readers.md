@@ -33,10 +33,12 @@ $reader->getData(); // -> ['Stark', 'Lannister', 'Targaryen', ...]
 FinderReader
 ------------
 
-You can read directories and files using the Symfony Finder component and `FinderReader`.
+You can read directories and files using the [Symfony Finder](http://symfony.com/doc/current/components/finder.html) 
+component and `FinderReader`. You need to add the `plum-finder` package to your project using Composer:
+`composer require plumphp/plum-finder:@stable`.
 
 ```php
-use Plum\Plum\Reader\FinderReader;
+use Plum\PlumFinder\FinderReader;
 use Symfony\Component\Finder\Finder;
 
 $finder = new Finder();
@@ -49,7 +51,7 @@ JsonReader
 ----------
 
 `JsonReader` reads a JSON string. If you want to read a `.json` file checkout [JsonFileReader](#jsonfilereader). You
-need add the `plum-json` package to your project using Composer: `composer require plumphp/plum-json:@stable`.
+need to add the `plum-json` package to your project using Composer: `composer require plumphp/plum-json:@stable`.
 
 ```php
 use Plum\PlumJson\JsonReader;
