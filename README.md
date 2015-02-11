@@ -36,7 +36,8 @@ $ composer require plumphp/plum:dev-master
 Usage
 -----
 
-Here is a quick preview, but please check out the [documentation](https://github.com/plumphp/plum/docs/index.md).
+Here is a quick preview, but please check out the 
+[documentation](https://github.com/plumphp/plum/blob/master/docs/index.md).
 
 ```php
 use Plum\Plum\Workflow;
@@ -56,7 +57,8 @@ The core of Plum (the `plumphp/plum` package) contains only the essential classe
 packages which give you more functionality out of the box:
 
 - [plum-csv](https://github.com/plumphp/plum-csv) Readers and writers for CSV files.
-- [plum-json](https://github.com/plumphp/plum.json) Readers and writers for JSON strings and files.
+- [plum-json](https://github.com/plumphp/plum-json) Readers and writers for JSON strings and files.
+- [plum-finder](https://github.com/plumphp/plum-finder) Integration for the Symfony Finder component.
 
 
 Change Log
