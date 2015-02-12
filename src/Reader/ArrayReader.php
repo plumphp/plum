@@ -11,6 +11,8 @@
 
 namespace Plum\Plum\Reader;
 
+use ArrayIterator;
+
 /**
  * ArrayReader
  *
@@ -40,11 +42,11 @@ class ArrayReader implements ReaderInterface
     }
 
     /**
-     * @return \ArrayIterator
+     * @return ArrayIterator
      */
     public function getIterator()
     {
-        return new \ArrayIterator($this->data);
+        return new ArrayIterator($this->data);
     }
 
     /**

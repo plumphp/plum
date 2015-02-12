@@ -59,7 +59,7 @@ class Workflow
      *
      * @return Workflow
      */
-    protected function addElement($element, $position = self::APPEND)
+    protected function add($element, $position = self::APPEND)
     {
         if ($position === self::PREPEND) {
             array_unshift($this->pipeline, $element);
@@ -78,7 +78,7 @@ class Workflow
      */
     public function addFilter(FilterInterface $filter, $position = self::APPEND)
     {
-        return $this->addElement([self::PIPELINE_TYPE_FILTER, $filter], $position);
+        return $this->add([self::PIPELINE_TYPE_FILTER, $filter], $position);
     }
 
     /**
@@ -101,7 +101,7 @@ class Workflow
         FilterInterface $filter = null,
         $position = self::APPEND
     ) {
-        return $this->addElement([self::PIPELINE_TYPE_CONVERTER, $converter, $filter], $position);
+        return $this->add([self::PIPELINE_TYPE_CONVERTER, $converter, $filter], $position);
     }
 
     /**
@@ -121,7 +121,7 @@ class Workflow
      */
     public function addWriter(WriterInterface $writer, FilterInterface $filter = null, $position = self::APPEND)
     {
-        return $this->addElement([self::PIPELINE_TYPE_WRITER, $writer, $filter], $position);
+        return $this->add([self::PIPELINE_TYPE_WRITER, $writer, $filter], $position);
     }
 
     /**

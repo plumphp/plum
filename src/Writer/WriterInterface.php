@@ -11,6 +11,8 @@
 
 namespace Plum\Plum\Writer;
 
+use Plum\Plum\PipelineInterface;
+
 /**
  * WriterInterface
  *
@@ -18,7 +20,7 @@ namespace Plum\Plum\Writer;
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
  * @copyright 2014 Florian Eckerstorfer
  */
-interface WriterInterface
+interface WriterInterface extends PipelineInterface
 {
     /**
      * Write the given item.
