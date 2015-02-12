@@ -38,11 +38,12 @@ $writer->getData() // -> [...]
 ConsoleProgressWriter
 ---------------------
 
-In a console application that uses Symfony's [Console]() component you can use `ConsoleProgressWriter` to give 
-the user feedback on the progress of the workflow.
+In a console application that uses the Symfony [Console](http://symfony.com/doc/current/components/console/index.html)
+component you can use `ConsoleProgressWriter` to give the user feedback on the progress of the workflow. You need to
+install the `plum-console` package to use it: `composer require plumphp-plum-console@stable`.
 
 ```php
-use Plum\Plum\Writer\ConsoleProgressWriter;
+use Plum\PlumConsole\ConsoleProgressWriter;
 
 $worklow->addWriter(new ConsoleProgressWriter($progressBar));
 $worklow->addWriter($otherWriter);

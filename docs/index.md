@@ -29,8 +29,10 @@ Installation
 You can install Plum using [Composer](http://getcomposer.org).
 
 ```shell
-$ composer require plumphp/plum:dev-master
+$ composer require plumphp/plum:@stable
 ```
+
+*Tip:* Replace `@stable` with a version from the [releases page](https://github.com/plumphp/plum/releases).
 
 
 Usage
@@ -58,3 +60,6 @@ Further documentation:
 - [Writers](writers.md)
 - [Filters](filters.md)
 - [Converters](converters.md)
+
+The base `plum` package contains the base classes and interfaces. Specific readers, writers, filter and converters
+can be added as separate packages. A list of [Plum packages](https://github.com/plumphp) can be found on Github.

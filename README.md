@@ -59,6 +59,7 @@ packages which give you more functionality out of the box:
 - [plum-csv](https://github.com/plumphp/plum-csv) Readers and writers for CSV files.
 - [plum-json](https://github.com/plumphp/plum-json) Readers and writers for JSON strings and files.
 - [plum-finder](https://github.com/plumphp/plum-finder) Integration for the Symfony Finder component.
+- [plum-console](https://github.com/plumphp/plum-console) Integration for the Symfony Console component.
 
 
 Change Log
