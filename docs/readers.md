@@ -12,6 +12,7 @@ Table of Contents
 - [FinderReader](#finderreader)
 - [JsonFileReader](#jsonfilereader)
 - [JsonReader](#jsonreader)
+- [PdoStatementReader](#pdostatementreader)
 - [Custom Readers](#custom-readers)
 - [PHP 5.5 and Generators](#php-55-and-generators)
 
@@ -71,6 +72,25 @@ JsonFileReader
 use Plum\PlumJson\JsonFileReader;
 
 $reader = new JsonFileReader('foo.json');
+$reader->getIterator(); // -> \ArrayIterator
+$reader->count();
+```
+
+PdoStatementReader
+------------------
+
+`PdoStatementReader` returns an iterator for the result set of a `PDOStatement`. The `execute()` method has to be
+called before. You need to add the `plum-pdo` package to your project using Composer: 
+`composer require plumphp/plum-pdo:@stable`.
+ 
+```php
+use Plum\PlumPdo\PdoStatementReader;
+
+$statement = $pdo->prepare('SELECT * FROM users WHERE age >= :min_age');
+$statement->bindValue(':min_age', 18);
+$statement->execute();
+
+$reader = new PdoStatementReader($statement);
 $reader->getIterator(); // -> \ArrayIterator
 $reader->count();
 ```

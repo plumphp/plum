@@ -60,6 +60,7 @@ packages which give you more functionality out of the box:
 - [plum-json](https://github.com/plumphp/plum-json) Readers and writers for JSON strings and files.
 - [plum-finder](https://github.com/plumphp/plum-finder) Integration for the Symfony Finder component.
 - [plum-console](https://github.com/plumphp/plum-console) Integration for the Symfony Console component.
+- [plum-pdo](https://github.com/plumphp/plum-pdo) Integration for PDO.
 
 
 Change Log
