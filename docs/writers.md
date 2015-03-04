@@ -75,6 +75,14 @@ $writer->setHeader(['column 1', 'column 2', 'column 3']);
 $writer->prepare();
 ```
 
+When you read data dynamically you probably don't want to set the header columns manually. You can call 
+`autoDetectHeader()` to use the array keys of the first item written to `CsvWriter` as headers.
+
+```php
+$writer = new CsvWriter('foobar.csv');
+$writer->autoDetectHeader(); // Must be called before the first `writeItem()`
+```
+
 
 ExcelWriter
 -----------
