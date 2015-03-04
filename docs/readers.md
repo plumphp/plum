@@ -9,6 +9,7 @@ Table of Contents
 -----------------
 
 - [ArrayReader](#arrayreader)
+- [CsvReader](#csvreader)
 - [ExcelReader](#excelreader)
 - [FinderReader](#finderreader)
 - [JsonFileReader](#jsonfilereader)
@@ -29,6 +30,26 @@ use Plum\Plum\Reader\ArrayReader;
 
 $reader = new ArrayReader(['Stark', 'Lannister', 'Targaryen', ...]);
 $reader->getData(); // -> ['Stark', 'Lannister', 'Targaryen', ...]
+```
+
+
+CsvReader
+---------
+
+You can use the `CsvReader` to read data from a `.csv` file. You need to add the `plum-csv`
+package to your project using Composer: `composer require plumphp/plum-csv:@stable`. Plum uses
+[League\CSV](https://github.com/thephpleague/csv) to actually read the CSV files.
+
+```php
+use Plum\PlumCsv\CsvReader;
+
+$reader = new CsvReader('countries.csv');
+```
+
+Optionally you can also pass the delimiter and enclosure to the constructor.
+
+```php
+$reader = new CsvReader('countries.csv`, ',', '"');
 ```
 
 
