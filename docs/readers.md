@@ -9,6 +9,7 @@ Table of Contents
 -----------------
 
 - [ArrayReader](#arrayreader)
+- [ExcelReader](#excelreader)
 - [FinderReader](#finderreader)
 - [JsonFileReader](#jsonfilereader)
 - [JsonReader](#jsonreader)
@@ -28,6 +29,21 @@ use Plum\Plum\Reader\ArrayReader;
 
 $reader = new ArrayReader(['Stark', 'Lannister', 'Targaryen', ...]);
 $reader->getData(); // -> ['Stark', 'Lannister', 'Targaryen', ...]
+```
+
+
+ExcelReader
+-----------
+
+You can use the `ExcelReader` to read data from an Excel (`.xlsx` or `.xls`) file. You need to add the `plum-excel`
+package to your project using Composer: `composer require plumphp/plum-excel:@stable`. Plum uses
+[PHPExcel](https://github.com/PHPOffice/PHPExcel) to actually read the Excel files.
+
+```php
+use Plum\PlumExcel\ExcelReader;
+
+$reader = new ExcelReader(PHPExcel_IOFactory::load('countries.xlsx'));
+$reader->setHeaderRow(0); // First row contains the header
 ```
 
 

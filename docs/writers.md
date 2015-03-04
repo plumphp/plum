@@ -16,6 +16,7 @@ Table of Contents
 - [ArrayWriter](#arraywriter)
 - [ConsoleProgressWriter](#consoleprogresswriter)
 - [CsvWriter](#csvwriter)
+- [ExcelWriter](#excelwriter)
 - [JsonFileWriter](#jsonfilewriter)
 - [JsonWriter](#jsonwriter)
 - [Conditional Writers](#conditional-writers)
@@ -72,6 +73,31 @@ the `setHeader()` method can be used to define the names of the columns. It has 
 $writer = new CsvWriter('foobar.csv');
 $writer->setHeader(['column 1', 'column 2', 'column 3']);
 $writer->prepare();
+```
+
+
+ExcelWriter
+-----------
+
+The `ExcelWriter` allows you to write the data into a Microsoft Excel (`.xlsx` and `.xls`) file. You need to install the
+`plum-excel` package to use it: `composer require plumphp/plum-excel@stable`.
+
+```php
+$writer = new ExcelWriter('cities.xlsx');
+$writer->autoDetectHeader();
+$writer->prepare();
+$writer->writeItem(['Town' => 'Vienna', 'Country' => 'Austria']);
+$writer->writeItem(['Town' => 'Hamburg', 'Country' => 'Germany']);
+$writer->finish();
+```
+
+The call to `autoDetectHeader()` will cause `ExcelWriter` to add a header column as row using the keys from the first
+written item.
+
+Instead of only passing the filename to the constructor, you can also directly pass a `PHPExcel` object. 
+
+```php
+$writer = new ExcelWriter('cities.xlsx', new PHPExcel());
 ```
 
 

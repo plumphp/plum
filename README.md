@@ -61,6 +61,7 @@ packages which give you more functionality out of the box:
 - [plum-finder](https://github.com/plumphp/plum-finder) Integration for the Symfony Finder component.
 - [plum-console](https://github.com/plumphp/plum-console) Integration for the Symfony Console component.
 - [plum-pdo](https://github.com/plumphp/plum-pdo) Integration for PDO.
+- [plum-excel](https://github.com/plumphp/plum-excel) Readers and writers for Microsoft Excel files.
 
 
 Change Log
