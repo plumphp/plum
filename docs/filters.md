@@ -13,6 +13,7 @@ Table of Contents
 
 - [CallbackFilter](#callbackfilter)
 - [FileExtensionFilter](#fileextensionfilter)
+- [SkipFirstFilter](#skipfirstfilter)
 - [Custom Filters](#custom-filters)
 
 
@@ -69,6 +70,21 @@ of the extensions in the array.
 ```php
 $filter = new FileExtensionFilter(['md', 'html']);
 $filter->filter('file.md'); // -> true
+```
+
+
+SkipFirstFilter
+--------------
+
+The `SkipFirstFilter` skips the first items. The amount of items skipped is passed in as a constructor argument. It can 
+be used to skip the header of a csv for example.
+
+```php
+use Plum\Plum\Filter\SkipFirstFilter;
+
+$filter = new SkipFirstFilter(1);
+$filter->filter('foo'); // -> false
+$filter->filter('bar'); // -> true
 ```
 
 
