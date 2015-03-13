@@ -76,8 +76,8 @@ $filter->filter('file.md'); // -> true
 SkipFirstFilter
 --------------
 
-The `SkipFirstFilter` skips the first items. The amount of items skipped is passed in as a constructor argument. It can 
-be used to skip the header of a csv for example.
+The `SkipFirstFilter` skips the first items. The amount of items skipped is passed in as a constructor argument. It
+can be used to skip the header of a CSV or Excel file.
 
 ```php
 use Plum\Plum\Filter\SkipFirstFilter;
