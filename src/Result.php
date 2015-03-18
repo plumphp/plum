@@ -30,7 +30,7 @@ class Result
     private $itemWriteCount = 0;
 
     /** @var \Exception[] */
-    private $exceptions;
+    private $exceptions = [];
 
     /**
      * @return Result

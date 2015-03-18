@@ -14,6 +14,7 @@ Table of Contents
 - [CallbackFilter](#callbackfilter)
 - [FileExtensionFilter](#fileextensionfilter)
 - [ModificationTimeFilter](#modificationtimefilter)
+- [SkipFirstFilter](#skipfirstfilter)
 - [Custom Filters](#custom-filters)
 
 
@@ -100,6 +101,21 @@ $range = new ModificationTimeFilter(['after' => new DateTime('-6 days'), 'before
 $range->filter('modified-4-days-ago.txt'); // -> true
 $range->filter('modified-8-days-ago.txt'); // -> false
 $range->filter('modified-2-days-ago.txt'); // -> false
+```
+
+
+SkipFirstFilter
+--------------
+
+The `SkipFirstFilter` skips the first items. The amount of items skipped is passed in as a constructor argument. It
+can be used to skip the header of a CSV or Excel file.
+
+```php
+use Plum\Plum\Filter\SkipFirstFilter;
+
+$filter = new SkipFirstFilter(1);
+$filter->filter('foo'); // -> false
+$filter->filter('bar'); // -> true
 ```
 
 

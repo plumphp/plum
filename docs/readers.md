@@ -52,6 +52,19 @@ Optionally you can also pass the delimiter and enclosure to the constructor.
 $reader = new CsvReader('countries.csv`, ',', '"');
 ```
 
+Most CSV files have a header row. Because Plum processes a CSV file row by row you need to add `HeaderConverter` to
+change the index of each read item. In addition you can use the `SkipFirstFilter` to skip the header row.
+
+```php
+use Plum\Plum\Converter\HeaderConverter;
+use Plum\Plum\Filter\SkipFirstFilter;
+
+$workflow = new Workflow();
+$workflow->addConverter(new HeaderConverter());
+$workflow->addFilter(new SkipFirstFilter(1));
+$reader = new CsvReader('countries.csv`, ',', '"');
+```
+
 
 ExcelReader
 -----------
@@ -71,7 +84,7 @@ $reader->setHeaderRow(0); // First row contains the header
 FinderReader
 ------------
 
-You can read directories and files using the [Symfony Finder](http://symfony.com/doc/current/components/finder.html) 
+You can read directories and files using the [Symfony Finder](http://symfony.com/doc/current/components/finder.html)
 component and `FinderReader`. You need to add the `plum-finder` package to your project using Composer:
 `composer require plumphp/plum-finder:@stable`.
 
@@ -117,9 +130,9 @@ PdoStatementReader
 ------------------
 
 `PdoStatementReader` returns an iterator for the result set of a `PDOStatement`. The `execute()` method has to be
-called before. You need to add the `plum-pdo` package to your project using Composer: 
+called before. You need to add the `plum-pdo` package to your project using Composer:
 `composer require plumphp/plum-pdo:@stable`.
- 
+
 ```php
 use Plum\PlumPdo\PdoStatementReader;
 
@@ -145,12 +158,12 @@ use Plum\Plum\Reader\ReaderInterface;
 class CollectionReader implements ReaderInterface
 {
     private $collection = [];
-    
+
     public function add($item)
     {
         $this->collection[] = $item;
     }
-    
+
     public function getIterator()
     {
         return new ArrayIterator($this->collection);
