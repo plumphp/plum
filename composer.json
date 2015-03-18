@@ -10,7 +10,7 @@
         }
     ],
     "require":     {
-        "php":                ">=5.4"
+        "php":                ">=5.4",
         "cocur/vale":         "~0.1"
     },
     "require-dev": {
