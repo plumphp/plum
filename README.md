@@ -62,12 +62,15 @@ packages which give you more functionality out of the box:
 - [plum-console](https://github.com/plumphp/plum-console) Integration for the Symfony Console component.
 - [plum-pdo](https://github.com/plumphp/plum-pdo) Integration for PDO.
 - [plum-excel](https://github.com/plumphp/plum-excel) Readers and writers for Microsoft Excel files.
+- [plum-file](https://github.com/plumphp/plum-file) Converters and filters for working with files.
 
 
 Change Log
 ----------
 
-*No version released.*
+### Version 0.1 (18 March 2015)
+
+- Initial release
 
 
 License
