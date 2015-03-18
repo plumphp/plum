@@ -13,6 +13,7 @@ Table of Contents
 
 - [CallbackFilter](#callbackfilter)
 - [FileExtensionFilter](#fileextensionfilter)
+- [ModificationTimeFilter](#modificationtimefilter)
 - [Custom Filters](#custom-filters)
 
 
@@ -34,22 +35,22 @@ $filter->filter('https://florian.ec'); // -> true
 FileExtensionFilter
 -------------------
 
-Checks if the file extension of a file name matches.
+Checks if the file extension of a file name matches. The filter is part of `plum-file`.
 
 ```php
-use Plum\Plum\Filter\FileExtensionFilter;
+use Plum\PlumFile\FileExtensionFilter;
 
 $filter = new FileExtensionFilter('md');
 $filter->filter('README.md'); // -> true
 $filter->filter('README.html'); // -> false
 ```
 
-If the item is are more complex structure, for example, an array or an object `FileExtensionFilter` uses Symfony's
+If the item is are more complex structure, for example, an array or an object `FileExtensionFilter` uses Symfonys
 [PropertyAccess](http://symfony.com/doc/current/components/property_access/introduction.html) to retrieve the filename
 from the item. You can pass the path to the property as the second argument to the constructor.
 
 ```php
-use Plum\Plum\Filter\FileExtensionFilter;
+use Plum\PlumFile\FileExtensionFilter;
 
 $filterArray = new FileExtensionFilter('md', '[filename]');
 $filterArray->filter(['filename' => 'README.md']); // -> true
@@ -68,7 +69,37 @@ of the extensions in the array.
 
 ```php
 $filter = new FileExtensionFilter(['md', 'html']);
-$filter->filter('file.md'); // -> true
+$filter->filter('file.md');   // -> true
+$filter->filter('file.html'); // -> false
+$filter->filter('file.csv`);  // -> false
+```
+
+Just like the [`FileExtensionFilter`](#fileextensionfilter) the `ModificationTimeFilter` uses the Property Access
+component to retrieve the filename. You can pass the path to the property as second argument to the constructor. The
+file can be either a string or an instance of `SplFileInfo`.
+
+
+ModificationTimeFilter
+----------------------
+
+The `ModificationTimeFilter` returns if a file was modified before and/or after a certain time. It is part of the
+`plum-file` package.
+
+```php
+use Plum\PlumFile\ModificationTimeFilter;
+
+$after = new ModificationTimeFilter(['after' => new DateTime('-3 days')]);
+$after->filter('modified-2-days-ago.txt'); // -> true
+$after->filter('modified-4-days-ago.txt'); // -> false
+
+$before = new ModificationTimeFilter(['before' => new DateTime('-3 days')]);
+$before->filter('modified-4-days-ago.txt'); // -> true
+$before->filter('modified-2-days-ago.txt'); // -> false
+
+$range = new ModificationTimeFilter(['after' => new DateTime('-6 days'), 'before' => new DateTime('-3 days')]);
+$range->filter('modified-4-days-ago.txt'); // -> true
+$range->filter('modified-8-days-ago.txt'); // -> false
+$range->filter('modified-2-days-ago.txt'); // -> false
 ```
 
 

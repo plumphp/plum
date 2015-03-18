@@ -30,10 +30,10 @@ FileGetContentsConverter
 ------------------------
 
 The `FileGetContentsConverter` takes a `SplFileInfo` object or a filename and returns both the `SplFileInfo` object
-and the contents of the file.
+and the contents of the file. It is part of `plum-file`.
 
 ```php
-use Plum\Plum\Converter\FileGetContentsConverter;
+use Plum\PlumFile\FileGetContentsConverter;
 
 $converter = new FileGetContentsConverter();
 $converter->convert('foo.txt'); // -> ['file' => \SplFileInfo Object, 'content' => '...']
