@@ -11,6 +11,7 @@
 
 namespace Plum\Plum;
 
+use Cocur\Vale\Vale;
 use Plum\Plum\Converter\ConverterInterface;
 use Plum\Plum\Filter\FilterInterface;
 use Plum\Plum\Reader\ReaderInterface;
@@ -21,13 +22,15 @@ use Plum\Plum\Writer\WriterInterface;
  *
  * @package   Plum\Plum
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
- * @copyright 2014 Florian Eckerstorfer
+ * @copyright 2014-2015 Florian Eckerstorfer
  */
 class Workflow
 {
-    const PIPELINE_TYPE_FILTER    = 1;
-    const PIPELINE_TYPE_CONVERTER = 2;
-    const PIPELINE_TYPE_WRITER    = 3;
+    const PIPELINE_TYPE_FILTER          = 1;
+    const PIPELINE_TYPE_CONVERTER       = 2;
+    const PIPELINE_TYPE_WRITER          = 3;
+    const PIPELINE_TYPE_VALUE_FILTER    = 4;
+    const PIPELINE_TYPE_VALUE_CONVERTER = 5;
 
     const APPEND  = 1;
     const PREPEND = 2;
@@ -90,6 +93,26 @@ class Workflow
     }
 
     /**
+     * @param string|array    $field
+     * @param FilterInterface $filter
+     * @param int             $position
+     *
+     * @return Workflow
+     */
+    public function addValueFilter($field, FilterInterface $filter, $position = self::APPEND)
+    {
+        return $this->add([self::PIPELINE_TYPE_VALUE_FILTER, $filter, $field], $position);
+    }
+
+    /**
+     * @return FilterInterface[]
+     */
+    public function getValueFilters()
+    {
+        return $this->getPipeline(self::PIPELINE_TYPE_VALUE_FILTER);
+    }
+
+    /**
      * @param ConverterInterface   $converter
      * @param FilterInterface|null $filter
      * @param int                  $position
@@ -110,6 +133,31 @@ class Workflow
     public function getConverters()
     {
         return $this->getPipeline(self::PIPELINE_TYPE_CONVERTER);
+    }
+
+    /**
+     * @param string|array       $field
+     * @param ConverterInterface $converter
+     * @param FilterInterface    $filter
+     * @param int                $position
+     *
+     * @return Workflow
+     */
+    public function addValueConverter(
+        $field,
+        ConverterInterface $converter,
+        FilterInterface $filter = null,
+        $position = self::APPEND
+    ) {
+        return $this->add([self::PIPELINE_TYPE_VALUE_CONVERTER, $converter, $filter, $field], $position);
+    }
+
+    /**
+     * @return ConverterInterface[]
+     */
+    public function getValueConverters()
+    {
+        return $this->getPipeline(self::PIPELINE_TYPE_VALUE_CONVERTER);
     }
 
     /**
@@ -196,8 +244,14 @@ class Workflow
                 if ($element[1]->filter($item) === false) {
                     return;
                 }
+            } else if ($element[0] === self::PIPELINE_TYPE_VALUE_FILTER) {
+                if ($element[1]->filter(Vale::get($item, $element[2])) === false) {
+                    return;
+                }
             } else if ($element[0] === self::PIPELINE_TYPE_CONVERTER) {
                 $item = $this->convertItem($item, $element[1], $element[2]);
+            } else if ($element[0] === self::PIPELINE_TYPE_VALUE_CONVERTER) {
+                $item = $this->convertItemValue($item, $element[3], $element[1], $element[2]);
             } else if ($element[0] === self::PIPELINE_TYPE_WRITER) {
                 if ($this->writeItem($item, $element[1], $element[2]) === true) {
                     $result->incWriteCount();
@@ -224,6 +278,27 @@ class Workflow
     {
         if ($filter === null || $filter->filter($item) === true) {
             return $converter->convert($item);
+        }
+
+        return $item;
+    }
+
+    /**
+     * Applies the given converter to the given field in the given item if no filter is given or if the filters returns
+     * `true` for the field.
+     *
+     * @param mixed              $item
+     * @param string|array       $field
+     * @param ConverterInterface $converter
+     * @param FilterInterface    $filter
+     *
+     * @return mixed
+     */
+    protected function convertItemValue($item, $field, ConverterInterface $converter, FilterInterface $filter = null)
+    {
+        $value = Vale::get($item, $field);
+        if ($filter === null || $filter->filter($value) === true) {
+            $item = Vale::set($item, $field, $converter->convert($value));
         }
 
         return $item;

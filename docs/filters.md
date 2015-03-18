@@ -16,6 +16,7 @@ Table of Contents
 - [ModificationTimeFilter](#modificationtimefilter)
 - [SkipFirstFilter](#skipfirstfilter)
 - [Custom Filters](#custom-filters)
+- [Value Filters](#value-filters)
 
 
 CallbackFilter
@@ -145,4 +146,15 @@ class RegExpFilter implements FilterInterface
         return 1 === preg_match($this->pattern, $item);
     }
 }
+```
+
+
+Value Filters
+-------------
+
+Sometimes you want to filter items on a single value in the item and Plum therefore supports value filters. Value
+filters use Vale to retrieve a value from an arbitrary array or object.
+
+```php
+$workflow->addValueFilter(['foo, 'bar', 'qoo'], $filter);
 ```

@@ -5,11 +5,12 @@
     "authors": [
         {
             "name": "Florian Eckerstorfer",
-            "email": "florian@eckerstorfer.co"
+            "email": "florian@eckerstorfer.co",
+            "homepage": "https://florian.ec"
         }
     ],
     "require": {
-        "symfony/property-access": "~2.4"
+        "cocur/vale": "dev-master@dev"
     },
     "require-dev": {
         "phpunit/phpunit":    "~4.3",
