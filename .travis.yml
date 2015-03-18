@@ -4,13 +4,18 @@ php:
   - 5.4
   - 5.5
   - 5.6
+  - 7.0
   - hhvm
 
+matrix:
+  allow_failures:
+    - php: 7.0
+  fast_finish: true
+
 before_script:
-  - wget http://getcomposer.org/composer.phar
+  - composer self-update
+  - composer install --prefer-source
   - wget https://scrutinizer-ci.com/ocular.phar
-  - php composer.phar --prefer-source --dev install
-  - cp phpunit.xml.dist phpunit.xml
 
 script:
   - mkdir -p build/logs

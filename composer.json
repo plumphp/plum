@@ -1,25 +1,24 @@
 {
-    "name": "plumphp/plum",
+    "name":        "plumphp/plum",
     "description": "Plum is a data processing pipeline that helps you to write structured, reusable and well tested data processing code.",
-    "license": "MIT",
-    "authors": [
+    "license":     "MIT",
+    "authors":     [
         {
-            "name": "Florian Eckerstorfer",
-            "email": "florian@eckerstorfer.co",
+            "name":     "Florian Eckerstorfer",
+            "email":    "florian@eckerstorfer.co",
             "homepage": "https://florian.ec"
         }
     ],
-    "require": {
-        "cocur/vale": "dev-master@dev"
+    "require":     {
+        "php":                ">=5.4"
+        "cocur/vale":         "~0.1"
     },
     "require-dev": {
         "phpunit/phpunit":    "~4.3",
         "mockery/mockery":    "~0.9",
         "mikey179/vfsStream": "~1.4"
     },
-    "autoload": {
-        "psr-4": {
-            "Plum\\Plum\\": "src"
-        }
+    "autoload":    {
+        "psr-4": {"Plum\\Plum\\": "src"}
     }
 }
