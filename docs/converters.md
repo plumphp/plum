@@ -9,6 +9,7 @@ Table of Contents
 -----------------
 
 - [CallbackConverter](#callbackconverter)
+- [MappingConverter](#mappingconverter)
 - [FileGetContentsConverter](#filegetcontentsconverter)
 - [Custom Converters](#custom-converters)
 - [Value Converters](#value-converters)
@@ -24,6 +25,33 @@ use Plum\Plum\Converter\CallbackConverter;
 
 $converter = new CallbackConverter(function ($item) { return strtoupper($item); });
 $converter->convert('foo'); // -> FOO
+```
+
+
+MappingConverter
+----------------
+
+The `MappingConverter` can be used to maps a value from one element to another. The converter uses
+[Vale](https://github.com/cocur/vale) to target elements in complex, nested data structures (objects and arrays); the
+given item therefore can be even a complex object. Vale tries a lot of different variants to access an element, thus
+it should be possible to transform nearly every item.
+
+```php
+use Plum\Plum\Converter\MappingConverter;
+
+$converter = new MappingConverter();
+$converter->addMapping(['foo'], ['bar']);
+$converter->convert(['foo' => 'foobar']); // -> ['bar' => 'foobar']
+```
+
+If two or more mappings which point to the same target element are given, the last one added to the converter takes
+precedence and the first element will be lost.
+
+```php
+$converter = new MappingConverter();
+$converter->addMapping(['foo'], ['bar']);
+$converter->addMapping(['qoo'], ['bar']);
+$converter->convert(['foo' => 'foobar', 'qoo' => 'qoobar']); // -> ['bar' => 'qoobar']
 ```
 
 
