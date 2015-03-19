@@ -16,7 +16,7 @@ namespace Plum\Plum\Writer;
  *
  * @package   Plum\Plum\Writer
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
- * @copyright 2014 Florian Eckerstorfer
+ * @copyright 2014-2015 Florian Eckerstorfer
  */
 class ArrayWriter implements WriterInterface
 {

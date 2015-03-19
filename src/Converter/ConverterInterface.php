@@ -18,7 +18,7 @@ use Plum\Plum\PipelineInterface;
  *
  * @package   Plum\Plum\Converter
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
- * @copyright 2014 Florian Eckerstorfer
+ * @copyright 2014-2015 Florian Eckerstorfer
  */
 interface ConverterInterface extends PipelineInterface
 {

@@ -18,7 +18,7 @@ use \Mockery as m;
  *
  * @package   Plum\Plum
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
- * @copyright 2014 Florian Eckerstorfer
+ * @copyright 2014-2015 Florian Eckerstorfer
  * @group     unit
  */
 class ResultTest extends \PHPUnit_Framework_TestCase

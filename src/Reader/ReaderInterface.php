@@ -11,13 +11,16 @@
 
 namespace Plum\Plum\Reader;
 
+use IteratorAggregate;
+use Countable;
+
 /**
  * ReaderInterface
  *
  * @package   Plum\Plum\Reader
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
- * @copyright 2014 Florian Eckerstorfer
+ * @copyright 2014-2015 Florian Eckerstorfer
  */
-interface ReaderInterface extends \IteratorAggregate, \Countable
+interface ReaderInterface extends IteratorAggregate, Countable
 {
 }

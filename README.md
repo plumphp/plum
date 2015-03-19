@@ -76,5 +76,5 @@ Change Log
 License
 -------
 
-The MIT license applies to plumphp/plum. For the full copyright and license information,
-please view the LICENSE file distributed with this source code.
+The MIT license applies to plumphp/plum. For the full copyright and license information, please view the 
+[LICENSE](https://github.com/plumphp/plum/blob/master/LICENSE) file distributed with this source code.

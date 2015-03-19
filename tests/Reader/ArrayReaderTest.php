@@ -16,9 +16,8 @@ namespace Plum\Plum\Reader;
  *
  * @package   Plum\Plum\Reader
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
- * @copyright 2014 Florian Eckerstorfer
- *
- * @group unit
+ * @copyright 2014-2015 Florian Eckerstorfer
+ * @group     unit
  */
 class ArrayReaderTest extends \PHPUnit_Framework_TestCase
 {

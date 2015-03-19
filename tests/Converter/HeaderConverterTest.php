@@ -16,7 +16,7 @@ namespace Plum\Plum\Converter;
  *
  * @package   Plum\Plum\Converter
  * @author    Sebastian Göttschkes <sebastian.goettschkes@googlemail.com>
- * @copyright 2015 Florian Eckerstorfer
+ * @copyright 2015-2015 Florian Eckerstorfer
  * @group     unit
  */
 class HeaderConverterTest extends \PHPUnit_Framework_TestCase

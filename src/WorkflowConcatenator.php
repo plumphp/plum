@@ -20,7 +20,7 @@ use Plum\Plum\Writer\WriterInterface;
  *
  * @package   Plum\Plum
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
- * @copyright 2014 Florian Eckerstorfer
+ * @copyright 2014-2015 Florian Eckerstorfer
  */
 class WorkflowConcatenator implements ReaderInterface, WriterInterface
 {

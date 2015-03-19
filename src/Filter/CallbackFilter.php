@@ -16,7 +16,7 @@ namespace Plum\Plum\Filter;
  *
  * @package   Plum\Plum\Filter
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
- * @copyright 2014 Florian Eckerstorfer
+ * @copyright 2014-2015 Florian Eckerstorfer
  */
 class CallbackFilter implements FilterInterface
 {
