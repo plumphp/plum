@@ -11,6 +11,7 @@ Table of Contents
 - [CallbackConverter](#callbackconverter)
 - [MappingConverter](#mappingconverter)
 - [FileGetContentsConverter](#filegetcontentsconverter)
+- [MarkdownConverter](#markdownconverter)
 - [Custom Converters](#custom-converters)
 - [Value Converters](#value-converters)
 
@@ -66,6 +67,19 @@ use Plum\PlumFile\FileGetContentsConverter;
 
 $converter = new FileGetContentsConverter();
 $converter->convert('foo.txt'); // -> ['file' => \SplFileInfo Object, 'content' => '...']
+```
+
+
+MarkdownConverter
+------------------------
+
+The `MarkdownConverter` converts Markdown into HTML. It is part of `plum-markdown`.
+
+```php
+use Plum\PlumMarkdown\MarkdownConverter;
+
+$converter = new MarkdownConverter();
+$converter->convert('*foobar*'); // -> "<p><em>foobar</em></p>
 ```
 
 

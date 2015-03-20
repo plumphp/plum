@@ -56,13 +56,14 @@ Additional packages
 The core of Plum (the `plumphp/plum` package) contains only the essential classes. However, we provide additional
 packages which give you more functionality out of the box:
 
-- [plum-csv](https://github.com/plumphp/plum-csv) Readers and writers for CSV files.
-- [plum-json](https://github.com/plumphp/plum-json) Readers and writers for JSON strings and files.
-- [plum-finder](https://github.com/plumphp/plum-finder) Integration for the Symfony Finder component.
-- [plum-console](https://github.com/plumphp/plum-console) Integration for the Symfony Console component.
-- [plum-pdo](https://github.com/plumphp/plum-pdo) Integration for PDO.
-- [plum-excel](https://github.com/plumphp/plum-excel) Readers and writers for Microsoft Excel files.
-- [plum-file](https://github.com/plumphp/plum-file) Converters and filters for working with files.
+- [**plum-csv**](https://github.com/plumphp/plum-csv): Readers and writers for CSV files.
+- [**plum-json**](https://github.com/plumphp/plum-json): Readers and writers for JSON strings and files.
+- [**plum-finder**](https://github.com/plumphp/plum-finder): Integration for the Symfony Finder component.
+- [**plum-console**](https://github.com/plumphp/plum-console): Integration for the Symfony Console component.
+- [**plum-pdo**](https://github.com/plumphp/plum-pdo): Integration for PDO.
+- [**plum-excel**](https://github.com/plumphp/plum-excel): Readers and writers for Microsoft Excel files.
+- [**plum-file**](https://github.com/plumphp/plum-file): Converters and filters for working with files.
+- [**plum-markdown**](https://github.com/plumphp/plum-markdown): Markdown converter.
 
 ### Libraries with Plum integrations
 
