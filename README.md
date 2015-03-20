@@ -64,6 +64,10 @@ packages which give you more functionality out of the box:
 - [plum-excel](https://github.com/plumphp/plum-excel) Readers and writers for Microsoft Excel files.
 - [plum-file](https://github.com/plumphp/plum-file) Converters and filters for working with files.
 
+### Libraries with Plum integrations
+
+- [**Slugify**](https://github.com/cocur/slugify): Converts a string to a slug.
+
 
 Change Log
 ----------
