@@ -48,8 +48,8 @@ class Workflow
         $pipeline = [];
 
         foreach ($this->pipeline as $element) {
-            if ($type === null || $element[0] === $type) {
-                $pipeline[] = $element[1];
+            if ($type === null || $element['type'] === $type) {
+                $pipeline[] = $element;
             }
         }
 
@@ -81,7 +81,11 @@ class Workflow
      */
     public function addFilter(FilterInterface $filter, $position = self::APPEND)
     {
-        return $this->add([self::PIPELINE_TYPE_FILTER, $filter], $position);
+        $element = [
+            'type'   => self::PIPELINE_TYPE_FILTER,
+            'filter' => $filter
+        ];
+        return $this->add($element, $position);
     }
 
     /**
@@ -101,7 +105,12 @@ class Workflow
      */
     public function addValueFilter($field, FilterInterface $filter, $position = self::APPEND)
     {
-        return $this->add([self::PIPELINE_TYPE_VALUE_FILTER, $filter, $field], $position);
+        $element = [
+            'type'   => self::PIPELINE_TYPE_VALUE_FILTER,
+            'filter' => $filter,
+            'field'  => $field
+        ];
+        return $this->add($element, $position);
     }
 
     /**
@@ -124,7 +133,13 @@ class Workflow
         FilterInterface $filter = null,
         $position = self::APPEND
     ) {
-        return $this->add([self::PIPELINE_TYPE_CONVERTER, $converter, $filter], $position);
+        $element = [
+            'type'      => self::PIPELINE_TYPE_CONVERTER,
+            'converter' => $converter,
+            'filter'    => $filter
+        ];
+
+        return $this->add($element, $position);
     }
 
     /**
@@ -149,7 +164,14 @@ class Workflow
         FilterInterface $filter = null,
         $position = self::APPEND
     ) {
-        return $this->add([self::PIPELINE_TYPE_VALUE_CONVERTER, $converter, $filter, $field], $position);
+        $element = [
+            'type'      => self::PIPELINE_TYPE_VALUE_CONVERTER,
+            'converter' => $converter,
+            'filter'    => $filter,
+            'field'     => $field
+        ];
+
+        return $this->add($element, $position);
     }
 
     /**
@@ -169,7 +191,12 @@ class Workflow
      */
     public function addWriter(WriterInterface $writer, FilterInterface $filter = null, $position = self::APPEND)
     {
-        return $this->add([self::PIPELINE_TYPE_WRITER, $writer, $filter], $position);
+        $element = [
+            'type'   => self::PIPELINE_TYPE_WRITER,
+            'writer' => $writer,
+            'filter' => $filter
+        ];
+        return $this->add($element, $position);
     }
 
     /**
@@ -212,8 +239,8 @@ class Workflow
      */
     protected function prepareWriters($writers)
     {
-        foreach ($writers as $writer) {
-            $writer->prepare();
+        foreach ($writers as $element) {
+            $element['writer']->prepare();
         }
     }
 
@@ -224,8 +251,8 @@ class Workflow
      */
     protected function finishWriters($writers)
     {
-        foreach ($writers as $writer) {
-            $writer->finish();
+        foreach ($writers as $element) {
+            $element['writer']->finish();
         }
     }
 
@@ -240,20 +267,20 @@ class Workflow
         $written = false;
 
         foreach ($this->pipeline as $element) {
-            if ($element[0] === self::PIPELINE_TYPE_FILTER) {
-                if ($element[1]->filter($item) === false) {
+            if ($element['type'] === self::PIPELINE_TYPE_FILTER) {
+                if ($element['filter']->filter($item) === false) {
                     return;
                 }
-            } else if ($element[0] === self::PIPELINE_TYPE_VALUE_FILTER) {
-                if ($element[1]->filter(Vale::get($item, $element[2])) === false) {
+            } else if ($element['type'] === self::PIPELINE_TYPE_VALUE_FILTER) {
+                if ($element['filter']->filter(Vale::get($item, $element['field'])) === false) {
                     return;
                 }
-            } else if ($element[0] === self::PIPELINE_TYPE_CONVERTER) {
-                $item = $this->convertItem($item, $element[1], $element[2]);
-            } else if ($element[0] === self::PIPELINE_TYPE_VALUE_CONVERTER) {
-                $item = $this->convertItemValue($item, $element[3], $element[1], $element[2]);
-            } else if ($element[0] === self::PIPELINE_TYPE_WRITER) {
-                if ($this->writeItem($item, $element[1], $element[2]) === true) {
+            } else if ($element['type'] === self::PIPELINE_TYPE_CONVERTER) {
+                $item = $this->convertItem($item, $element['converter'], $element['filter']);
+            } else if ($element['type'] === self::PIPELINE_TYPE_VALUE_CONVERTER) {
+                $item = $this->convertItemValue($item, $element['field'], $element['converter'], $element['filter']);
+            } else if ($element['type'] === self::PIPELINE_TYPE_WRITER) {
+                if ($this->writeItem($item, $element['writer'], $element['filter']) === true) {
                     $result->incWriteCount();
                     $written = true;
                 }

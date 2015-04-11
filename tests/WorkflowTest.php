@@ -73,7 +73,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
         $filter = $this->getMockFilter();
         $this->workflow->addFilter($filter);
 
-        $this->assertContains($filter, $this->workflow->getFilters());
+        $this->assertSame($filter, $this->workflow->getFilters()[0]['filter']);
     }
 
     /**
@@ -89,8 +89,8 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
         $this->workflow->addFilter($filter1);
         $this->workflow->addFilter($filter2, Workflow::PREPEND);
 
-        $this->assertSame($filter2, $this->workflow->getFilters()[0]);
-        $this->assertSame($filter1, $this->workflow->getFilters()[1]);
+        $this->assertSame($filter2, $this->workflow->getFilters()[0]['filter']);
+        $this->assertSame($filter1, $this->workflow->getFilters()[1]['filter']);
     }
 
     /**
@@ -104,7 +104,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
         $filter = $this->getMockFilter();
         $this->workflow->addValueFilter(['foo'], $filter);
 
-        $this->assertContains($filter, $this->workflow->getValueFilters());
+        $this->assertSame($filter, $this->workflow->getValueFilters()[0]['filter']);
     }
 
     /**
@@ -120,8 +120,8 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
         $this->workflow->addValueFilter(['foo'], $filter1);
         $this->workflow->addValueFilter(['foo'], $filter2, Workflow::PREPEND);
 
-        $this->assertSame($filter2, $this->workflow->getValueFilters()[0]);
-        $this->assertSame($filter1, $this->workflow->getValueFilters()[1]);
+        $this->assertSame($filter2, $this->workflow->getValueFilters()[0]['filter']);
+        $this->assertSame($filter1, $this->workflow->getValueFilters()[1]['filter']);
     }
 
     /**
@@ -135,7 +135,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
         $converter = $this->getMockConverter();
         $this->workflow->addConverter($converter);
 
-        $this->assertContains($converter, $this->workflow->getConverters());
+        $this->assertSame($converter, $this->workflow->getConverters()[0]['converter']);
     }
 
     /**
@@ -151,8 +151,8 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
         $this->workflow->addConverter($converter1);
         $this->workflow->addConverter($converter2, null, Workflow::PREPEND);
 
-        $this->assertSame($converter2, $this->workflow->getConverters()[0]);
-        $this->assertSame($converter1, $this->workflow->getConverters()[1]);
+        $this->assertSame($converter2, $this->workflow->getConverters()[0]['converter']);
+        $this->assertSame($converter1, $this->workflow->getConverters()[1]['converter']);
     }
 
     /**
@@ -166,7 +166,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
         $converter = $this->getMockConverter();
         $this->workflow->addValueConverter(['foo'], $converter);
 
-        $this->assertContains($converter, $this->workflow->getValueConverters());
+        $this->assertSame($converter, $this->workflow->getValueConverters()[0]['converter']);
     }
 
     /**
@@ -182,8 +182,8 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
         $this->workflow->addValueConverter(['foo'], $converter1);
         $this->workflow->addValueConverter(['foo'], $converter2, null, Workflow::PREPEND);
 
-        $this->assertSame($converter2, $this->workflow->getValueConverters()[0]);
-        $this->assertSame($converter1, $this->workflow->getValueConverters()[1]);
+        $this->assertSame($converter2, $this->workflow->getValueConverters()[0]['converter']);
+        $this->assertSame($converter1, $this->workflow->getValueConverters()[1]['converter']);
     }
 
     /**
@@ -197,7 +197,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
         $writer = $this->getMockWriter();
         $this->workflow->addWriter($writer);
 
-        $this->assertContains($writer, $this->workflow->getWriters());
+        $this->assertSame($writer, $this->workflow->getWriters()[0]['writer']);
     }
 
     /**
@@ -213,8 +213,8 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
         $this->workflow->addWriter($writer1);
         $this->workflow->addWriter($writer2, null, Workflow::PREPEND);
 
-        $this->assertSame($writer2, $this->workflow->getWriters()[0]);
-        $this->assertSame($writer1, $this->workflow->getWriters()[1]);
+        $this->assertSame($writer2, $this->workflow->getWriters()[0]['writer']);
+        $this->assertSame($writer1, $this->workflow->getWriters()[1]['writer']);
     }
 
     /**
