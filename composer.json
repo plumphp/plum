@@ -11,7 +11,8 @@
     ],
     "require":     {
         "php":                ">=5.4",
-        "cocur/vale":         "~0.2"
+        "cocur/vale":         "~0.2",
+        "psr/log":            "~1.0"
     },
     "require-dev": {
         "phpunit/phpunit":    "~4.3",
