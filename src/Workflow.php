@@ -250,6 +250,9 @@ class Workflow
                 }
             } else if ($element[0] === self::PIPELINE_TYPE_CONVERTER) {
                 $item = $this->convertItem($item, $element[1], $element[2]);
+                if ($item === null) {
+                    return;
+                }
             } else if ($element[0] === self::PIPELINE_TYPE_VALUE_CONVERTER) {
                 $item = $this->convertItemValue($item, $element[3], $element[1], $element[2]);
             } else if ($element[0] === self::PIPELINE_TYPE_WRITER) {

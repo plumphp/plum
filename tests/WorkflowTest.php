@@ -323,6 +323,40 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
      * @covers Plum\Plum\Workflow::processItem()
      * @covers Plum\Plum\Workflow::convertItem()
      */
+    public function processShouldFilterItemIfConverterReturnsNull()
+    {
+        $iterator = m::mock('\Iterator');
+        $iterator->shouldReceive('rewind');
+        $iterator->shouldReceive('valid')->andReturn(true)->once();
+        $iterator->shouldReceive('current')->andReturn('foobar');
+        $iterator->shouldReceive('next');
+        $iterator->shouldReceive('valid')->andReturn(false)->once();
+
+        $reader = $this->getMockReader();
+        $reader->shouldReceive('getIterator')->andReturn($iterator);
+
+        $converter = $this->getMockConverter();
+        $converter->shouldReceive('convert')->with('foobar')->once()->andReturn(null);
+        $this->workflow->addConverter($converter);
+
+        $writer = $this->getMockWriter();
+        $writer->shouldReceive('prepare')->once();
+        $writer->shouldReceive('finish')->once();
+        $writer->shouldReceive('writeItem')->never();
+        $this->workflow->addWriter($writer);
+
+        $result = $this->workflow->process($reader);
+
+        $this->assertEquals(1, $result->getReadCount());
+        $this->assertEquals(0, $result->getWriteCount());
+    }
+
+    /**
+     * @test
+     * @covers Plum\Plum\Workflow::process()
+     * @covers Plum\Plum\Workflow::processItem()
+     * @covers Plum\Plum\Workflow::convertItem()
+     */
     public function processShouldApplyConverterIfFilterReturnsTrueToReadItems()
     {
         $iterator = m::mock('\Iterator');
