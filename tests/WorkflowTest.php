@@ -64,7 +64,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Plum\Plum\Workflow::add()
+     * @covers Plum\Plum\Workflow::insertElement()
      * @covers Plum\Plum\Workflow::addFilter()
      * @covers Plum\Plum\Workflow::getFilters()
      */
@@ -78,7 +78,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Plum\Plum\Workflow::add()
+     * @covers Plum\Plum\Workflow::insertElement()
      * @covers Plum\Plum\Workflow::addFilter()
      * @covers Plum\Plum\Workflow::getFilters()
      */
@@ -95,7 +95,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Plum\Plum\Workflow::add()
+     * @covers Plum\Plum\Workflow::insertElement()
      * @covers Plum\Plum\Workflow::addValueFilter()
      * @covers Plum\Plum\Workflow::getValueFilters()
      */
@@ -109,7 +109,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Plum\Plum\Workflow::add()
+     * @covers Plum\Plum\Workflow::insertElement()
      * @covers Plum\Plum\Workflow::addValueFilter()
      * @covers Plum\Plum\Workflow::getValueFilters()
      */
@@ -126,7 +126,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Plum\Plum\Workflow::add()
+     * @covers Plum\Plum\Workflow::insertElement()
      * @covers Plum\Plum\Workflow::addConverter()
      * @covers Plum\Plum\Workflow::getConverters()
      */
@@ -140,7 +140,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Plum\Plum\Workflow::add()
+     * @covers Plum\Plum\Workflow::insertElement()
      * @covers Plum\Plum\Workflow::addConverter()
      * @covers Plum\Plum\Workflow::getConverters()
      */
@@ -157,7 +157,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Plum\Plum\Workflow::add()
+     * @covers Plum\Plum\Workflow::insertElement()
      * @covers Plum\Plum\Workflow::addValueConverter()
      * @covers Plum\Plum\Workflow::getValueConverters()
      */
@@ -171,7 +171,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Plum\Plum\Workflow::add()
+     * @covers Plum\Plum\Workflow::insertElement()
      * @covers Plum\Plum\Workflow::addValueConverter()
      * @covers Plum\Plum\Workflow::getValueConverters()
      */
@@ -188,7 +188,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Plum\Plum\Workflow::add()
+     * @covers Plum\Plum\Workflow::insertElement()
      * @covers Plum\Plum\Workflow::addWriter()
      * @covers Plum\Plum\Workflow::getWriters()
      */
@@ -202,7 +202,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Plum\Plum\Workflow::add()
+     * @covers Plum\Plum\Workflow::insertElement()
      * @covers Plum\Plum\Workflow::addWriter()
      * @covers Plum\Plum\Workflow::getWriters()
      */

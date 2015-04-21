@@ -57,13 +57,16 @@ class Workflow
     }
 
     /**
-     * @param <string,PipelineInterface> $element
-     * @param int                        $position
+     * Inserts an element into the pipeline at the given position.
+     *
+     * @param array $element
      *
      * @return Workflow
      */
-    protected function add($element, $position = self::APPEND)
+    protected function insertElement($element)
     {
+        $position = isset($element['position']) ? $element['position'] : self::APPEND;
+
         if ($position === self::PREPEND) {
             array_unshift($this->pipeline, $element);
         } else {
@@ -82,10 +85,12 @@ class Workflow
     public function addFilter(FilterInterface $filter, $position = self::APPEND)
     {
         $element = [
-            'type'   => self::PIPELINE_TYPE_FILTER,
-            'filter' => $filter
+            'type'     => self::PIPELINE_TYPE_FILTER,
+            'filter'   => $filter,
+            'position' => $position
         ];
-        return $this->add($element, $position);
+
+        return $this->insertElement($element);
     }
 
     /**
@@ -106,11 +111,13 @@ class Workflow
     public function addValueFilter($field, FilterInterface $filter, $position = self::APPEND)
     {
         $element = [
-            'type'   => self::PIPELINE_TYPE_VALUE_FILTER,
-            'filter' => $filter,
-            'field'  => $field
+            'type'     => self::PIPELINE_TYPE_VALUE_FILTER,
+            'filter'   => $filter,
+            'field'    => $field,
+            'position' => $position
         ];
-        return $this->add($element, $position);
+
+        return $this->insertElement($element);
     }
 
     /**
@@ -136,10 +143,11 @@ class Workflow
         $element = [
             'type'      => self::PIPELINE_TYPE_CONVERTER,
             'converter' => $converter,
-            'filter'    => $filter
+            'filter'    => $filter,
+            'position'  => $position
         ];
 
-        return $this->add($element, $position);
+        return $this->insertElement($element);
     }
 
     /**
@@ -168,10 +176,11 @@ class Workflow
             'type'      => self::PIPELINE_TYPE_VALUE_CONVERTER,
             'converter' => $converter,
             'filter'    => $filter,
-            'field'     => $field
+            'field'     => $field,
+            'position'  => $position
         ];
 
-        return $this->add($element, $position);
+        return $this->insertElement($element);
     }
 
     /**
@@ -192,11 +201,12 @@ class Workflow
     public function addWriter(WriterInterface $writer, FilterInterface $filter = null, $position = self::APPEND)
     {
         $element = [
-            'type'   => self::PIPELINE_TYPE_WRITER,
-            'writer' => $writer,
-            'filter' => $filter
+            'type'     => self::PIPELINE_TYPE_WRITER,
+            'writer'   => $writer,
+            'filter'   => $filter,
+            'position' => $position
         ];
-        return $this->add($element, $position);
+        return $this->insertElement($element);
     }
 
     /**
