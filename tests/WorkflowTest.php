@@ -109,6 +109,36 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
+     * @covers            Plum\Plum\Workflow::addFilter()
+     * @expectedException \InvalidArgumentException
+     */
+    public function addFilterThrowsExceptionIfElementIsNotAFilterAndNotAnArray()
+    {
+        $this->workflow->addFilter('invalid');
+    }
+
+    /**
+     * @test
+     * @covers            Plum\Plum\Workflow::addFilter()
+     * @expectedException \InvalidArgumentException
+     */
+    public function addFilterThrowsExceptionIfArrayDoesNotContainFilter()
+    {
+        $this->workflow->addFilter([]);
+    }
+
+    /**
+     * @test
+     * @covers            Plum\Plum\Workflow::addFilter()
+     * @expectedException \InvalidArgumentException
+     */
+    public function addFilterThrowsExceptionIfFilterInArrayIsNotFilter()
+    {
+        $this->workflow->addFilter(['filter' => 'invalid']);
+    }
+
+    /**
+     * @test
      * @covers Plum\Plum\Workflow::insertElement()
      * @covers Plum\Plum\Workflow::addValueFilter()
      * @covers Plum\Plum\Workflow::getValueFilters()
@@ -154,6 +184,56 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
+     * @covers            Plum\Plum\Workflow::addValueFilter()
+     * @expectedException \InvalidArgumentException
+     */
+    public function addValueFilterThrowsExceptionIfElementIsNotAnArrayAndNotAFilter()
+    {
+        $this->workflow->addValueFilter('invalid', ['foo']);
+    }
+
+    /**
+     * @test
+     * @covers            Plum\Plum\Workflow::addValueFilter()
+     * @expectedException \InvalidArgumentException
+     */
+    public function addValueFilterThrowsExceptionIfFieldIsMissing()
+    {
+        $this->workflow->addValueFilter($this->getMockFilter(), null);
+    }
+
+    /**
+     * @test
+     * @covers            Plum\Plum\Workflow::addValueFilter()
+     * @expectedException \InvalidArgumentException
+     */
+    public function addValueFilterThrowsExceptionIfFieldIsMissingInArray()
+    {
+        $this->workflow->addValueFilter(['filter' => $this->getMockFilter()]);
+    }
+
+    /**
+     * @test
+     * @covers            Plum\Plum\Workflow::addValueFilter()
+     * @expectedException \InvalidArgumentException
+     */
+    public function addValueFilterThrowsExceptionIfFilterIsMissingInArray()
+    {
+        $this->workflow->addValueFilter(['field' => ['foo']]);
+    }
+
+    /**
+     * @test
+     * @covers            Plum\Plum\Workflow::addValueFilter()
+     * @expectedException \InvalidArgumentException
+     */
+    public function addValueFilterThrowsExceptionIfFilterInArrayIsNotFilter()
+    {
+        $this->workflow->addValueFilter(['field' => ['foo'], 'filter' => 'invalid']);
+    }
+
+    /**
+     * @test
      * @covers Plum\Plum\Workflow::insertElement()
      * @covers Plum\Plum\Workflow::addConverter()
      * @covers Plum\Plum\Workflow::getConverters()
@@ -195,6 +275,36 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame($converter2, $this->workflow->getConverters()[0]['converter']);
         $this->assertSame($converter1, $this->workflow->getConverters()[1]['converter']);
+    }
+
+    /**
+     * @test
+     * @covers            Plum\Plum\Workflow::addConverter()
+     * @expectedException \InvalidArgumentException
+     */
+    public function addConverterThrowsExceptionIfElementIsNotAConverterAndNotAnArray()
+    {
+        $this->workflow->addConverter('invalid');
+    }
+
+    /**
+     * @test
+     * @covers            Plum\Plum\Workflow::addConverter()
+     * @expectedException \InvalidArgumentException
+     */
+    public function addConverterThrowsExceptionIfConverterIsMissingInArray()
+    {
+        $this->workflow->addConverter([]);
+    }
+
+    /**
+     * @test
+     * @covers            Plum\Plum\Workflow::addConverter()
+     * @expectedException \InvalidArgumentException
+     */
+    public function addConverterThrowsExceptionIfConverterInArrayIsNotConverter()
+    {
+        $this->workflow->addConverter(['converter' => 'invalid']);
     }
 
     /**
@@ -248,6 +358,56 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
+     * @covers            Plum\Plum\Workflow::addValueConverter()
+     * @expectedException \InvalidArgumentException
+     */
+    public function addValueConverterThrowsExceptionIfElementIsNotAnArrayAndNotAConverter()
+    {
+        $this->workflow->addValueConverter('invalid', ['foo']);
+    }
+
+    /**
+     * @test
+     * @covers            Plum\Plum\Workflow::addValueConverter()
+     * @expectedException \InvalidArgumentException
+     */
+    public function addValueConverterThrowsExceptionIfFieldIsMissing()
+    {
+        $this->workflow->addValueConverter($this->getMockConverter(), null);
+    }
+
+    /**
+     * @test
+     * @covers            Plum\Plum\Workflow::addValueConverter()
+     * @expectedException \InvalidArgumentException
+     */
+    public function addValueConverterThrowsExceptionIfFieldIsMissingInArray()
+    {
+        $this->workflow->addValueConverter(['converter' => $this->getMockConverter()]);
+    }
+
+    /**
+     * @test
+     * @covers            Plum\Plum\Workflow::addValueConverter()
+     * @expectedException \InvalidArgumentException
+     */
+    public function addValueConverterThrowsExceptionIfConverterIsMissingInArray()
+    {
+        $this->workflow->addValueConverter(['field' => ['foo']]);
+    }
+
+    /**
+     * @test
+     * @covers            Plum\Plum\Workflow::addValueConverter()
+     * @expectedException \InvalidArgumentException
+     */
+    public function addValueConverterThrowsExceptionIfConverterIsInArrayIsNotConverter()
+    {
+        $this->workflow->addValueConverter(['field' => ['foo'], 'converter' => 'invalid']);
+    }
+
+    /**
+     * @test
      * @covers Plum\Plum\Workflow::insertElement()
      * @covers Plum\Plum\Workflow::addWriter()
      * @covers Plum\Plum\Workflow::getWriters()
@@ -289,6 +449,36 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame($writer2, $this->workflow->getWriters()[0]['writer']);
         $this->assertSame($writer1, $this->workflow->getWriters()[1]['writer']);
+    }
+
+    /**
+     * @test
+     * @covers            Plum\Plum\Workflow::addWriter()
+     * @expectedException \InvalidArgumentException
+     */
+    public function addWriterThrowsExceptionIfElementIsNotAnArrayAndNotAWriter()
+    {
+        $this->workflow->addWriter('invalid');
+    }
+
+    /**
+     * @test
+     * @covers            Plum\Plum\Workflow::addWriter()
+     * @expectedException \InvalidArgumentException
+     */
+    public function addWriterThrowsExceptionIfWriterIsMissingInArray()
+    {
+        $this->workflow->addWriter([]);
+    }
+
+    /**
+     * @test
+     * @covers            Plum\Plum\Workflow::addWriter()
+     * @expectedException \InvalidArgumentException
+     */
+    public function addWriterThrowsExceptionIfWriterInArrayIsNotWriter()
+    {
+        $this->workflow->addWriter(['writer' => 'invalid']);
     }
 
     /**

@@ -88,7 +88,8 @@ class Workflow
     {
         if (is_object($element) && $element instanceof FilterInterface) {
             $element = ['filter' => $element];
-        } else if (!is_array($element) || !isset($element['filter'])) {
+        } else if (!is_array($element) || !isset($element['filter'])
+                || !$element['filter'] instanceof FilterInterface) {
             throw new InvalidArgumentException('Workflow::addFilter() must be called with either an instance of "Plum\Plum\Filter\FilterInterface" or an array that contains "filter".');
         }
 
@@ -121,7 +122,7 @@ class Workflow
         if (is_object($element) && $element instanceof FilterInterface && $field) {
             $element = ['filter' => $element, 'field' => $field];
         } else if (!is_array($element) || (!is_array($element) && !$field) || !isset($element['filter'])
-            || !isset($element['field'])) {
+                || !isset($element['field']) || !$element['filter'] instanceof FilterInterface) {
             throw new InvalidArgumentException('Workflow::addValueFilter() must be called with either an instance of "Plum\Plum\Filter\FilterInterface" and a field name or with an array that contains "filter" and "field".');
         }
 
@@ -152,7 +153,8 @@ class Workflow
     {
         if (is_object($element) && $element instanceof ConverterInterface) {
             $element = ['converter' => $element];
-        } else if (!is_array($element) || !isset($element['converter'])) {
+        } else if (!is_array($element) || !isset($element['converter'])
+                || !$element['converter'] instanceof ConverterInterface) {
             throw new InvalidArgumentException('Workflow::addConverter() must be called with either an instance of "Plum\Plum\Converter\ConverterInterface" or with an array that contains "converter".');
         }
 
@@ -186,7 +188,7 @@ class Workflow
         if (is_object($element) && $element instanceof ConverterInterface && $field) {
             $element = ['converter' => $element, 'field' => $field];
         } else if (!is_array($element) || (!is_array($element) && !$field) || !isset($element['converter'])
-            || !isset($element['field'])) {
+            || !isset($element['field']) || !$element['converter'] instanceof ConverterInterface) {
             throw new InvalidArgumentException('Workflow::addValueConverter() must be called with either an instance of "Plum\Plum\Converter\ConverterInterface" and a field name or with an array that contains "converter" and "field".');
         }
 
@@ -218,7 +220,8 @@ class Workflow
     {
         if (is_object($element) && $element instanceof WriterInterface) {
             $element = ['writer' => $element];
-        } else if (!is_array($element) || !isset($element['writer'])) {
+        } else if (!is_array($element) || !isset($element['writer'])
+                || !$element['writer'] instanceof WriterInterface) {
             throw new InvalidArgumentException('Workflow::addWriter() must be called with either an instance of "Plum\Plum\Writer\WriterInterface" or with an array that contains "writer".');
         }
 
