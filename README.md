@@ -36,7 +36,7 @@ $ composer require plumphp/plum:dev-master
 Usage
 -----
 
-Here is a quick preview, but please check out the 
+Here is a quick preview, but please check out the
 [documentation](https://github.com/plumphp/plum/blob/master/docs/index.md).
 
 ```php
@@ -73,6 +73,13 @@ packages which give you more functionality out of the box:
 Change Log
 ----------
 
+### Version 0.2 (21 April 2015)
+
+- Add value converters and value filters
+- Add `MappingConverter`
+- Add `LogConverter`
+- Filter items if converter returns `null`
+
 ### Version 0.1 (18 March 2015)
 
 - Initial release
@@ -81,5 +88,5 @@ Change Log
 License
 -------
 
-The MIT license applies to plumphp/plum. For the full copyright and license information, please view the 
+The MIT license applies to plumphp/plum. For the full copyright and license information, please view the
 [LICENSE](https://github.com/plumphp/plum/blob/master/LICENSE) file distributed with this source code.
