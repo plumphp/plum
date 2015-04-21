@@ -105,13 +105,13 @@ Value Converters
 ----------------
 
 Often you don't want to convert the whole item, but only a single field and Plum therefore supports value converters.
-Plum uses Vale to retrieve a field from an arbitrary array or object, apply a converter and stores the converted
-value back into its original position.
+Plum uses [Vale](https://github.com/cocur/vale) to retrieve a field from an arbitrary array or object, apply a converter
+and stores the converted value back into its original position.
 
 ```php
 $writer = new ArrayWriter();
 $workflow = new Workflow();
-$workflow->addValueConverter(['foo', 'bar', 'qoo', 'qoz'], new CallbackConverter(function ($v) { return $v*2; }));
+$workflow->addValueConverter(new CallbackConverter(function ($v) { return $v*2; }), ['foo', 'bar', 'qoo', 'qoz']);
 $workflow->addWriter($writer);
 $workflow->process(new ArrayReader([['foo' => ['bar' => ['qoo' => ['qoz' => 21]]]]]));
 
