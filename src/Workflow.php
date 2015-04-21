@@ -312,6 +312,9 @@ class Workflow
                 }
             } else if ($element['type'] === self::PIPELINE_TYPE_CONVERTER) {
                 $item = $this->convertItem($item, $element['converter'], $element['filter']);
+                if ($item === null) {
+                    return;
+                }
             } else if ($element['type'] === self::PIPELINE_TYPE_VALUE_CONVERTER) {
                 $item = $this->convertItemValue($item, $element['field'], $element['converter'], $element['filter']);
             } else if ($element['type'] === self::PIPELINE_TYPE_WRITER) {
