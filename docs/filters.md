@@ -153,8 +153,8 @@ Value Filters
 -------------
 
 Sometimes you want to filter items on a single value in the item and Plum therefore supports value filters. Value
-filters use Vale to retrieve a value from an arbitrary array or object.
+filters use [Vale](https://github.com/cocur/vale) to retrieve a value from an arbitrary array or object.
 
 ```php
-$workflow->addValueFilter(['foo, 'bar', 'qoo'], $filter);
+$workflow->addValueFilter($filter, ['foo, 'bar', 'qoo']);
 ```
