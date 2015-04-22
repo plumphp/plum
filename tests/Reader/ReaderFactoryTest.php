@@ -10,6 +10,7 @@
  */
 
 namespace Plum\Plum\Reader;
+use Iterator;
 
 /**
  * ReaderFactoryTest
@@ -57,12 +58,13 @@ class ReaderFactoryTest extends \PHPUnit_Framework_TestCase
         });
 
         $reader   = $this->factory->create(['foo', 'bar']);
+        /** @var Iterator $iterator */
         $iterator = $reader->getIterator();
 
         $this->assertInstanceOf('Plum\Plum\Reader\ArrayReader', $reader);
-        $this->assertSame('bar', current($iterator));
-        next($iterator);
-        $this->assertSame('foo', current($iterator));
+        $this->assertSame('bar', $iterator->current());
+        $iterator->next();
+        $this->assertSame('foo', $iterator->current());
     }
 
     /**
