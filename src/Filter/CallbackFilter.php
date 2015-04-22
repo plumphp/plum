@@ -23,6 +23,9 @@ class CallbackFilter implements FilterInterface
     /** @var callable */
     private $callback;
 
+    /**
+     * @param callable $callback
+     */
     public function __construct($callback)
     {
         $this->callback = $callback;
