@@ -26,13 +26,13 @@ class ReaderFactory
     protected $readers = [];
 
     /**
-     * @param string $reader
+     * @param string $className
      *
      * @return ReaderFactory
      */
-    public function addReader($reader)
+    public function addReader($className, callable $createFunction = null)
     {
-        $this->readers[] = $reader;
+        $this->readers[] = ['className' => $className, 'createFunction' => $createFunction];
 
         return $this;
     }
@@ -45,8 +45,12 @@ class ReaderFactory
     public function create($input)
     {
         foreach ($this->readers as $reader) {
-            if (call_user_func([$reader, 'accepts'], $input)) {
-                return $this->createInstance($reader, $input);
+            if (call_user_func([$reader['className'], 'accepts'], $input)) {
+                if (!$reader['createFunction']) {
+                    return $this->createInstance($reader['className'], $input);
+                } else {
+                    return call_user_func($reader['createFunction'], $input);
+                }
             }
         }
 
@@ -54,19 +58,19 @@ class ReaderFactory
     }
 
     /**
-     * @param $reader
-     * @param $input
+     * @param string $className
+     * @param mixed  $input
      *
      * @return ReaderInterface
      */
-    protected function createInstance($reader, $input)
+    protected function createInstance($className, $input)
     {
-        $obj = new $reader($input);
+        $obj = new $className($input);
 
         if (!$obj instanceof ReaderInterface) {
             throw new \RuntimeException(sprintf(
                 'The given reader class "%s" does not implement "Plum\Plum\Reader\ReaderInterface".',
-                $reader
+                $className
             ));
         }
 

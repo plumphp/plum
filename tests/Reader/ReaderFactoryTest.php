@@ -46,6 +46,27 @@ class ReaderFactoryTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
+     * @covers Plum\Plum\Reader\ReaderFactory::addReader()
+     * @covers Plum\Plum\Reader\ReaderFactory::create()
+     * @covers Plum\Plum\Reader\ReaderFactory::createInstance()
+     */
+    public function createCreatesReaderWithCreateFunctionBasedOnAddedReaders()
+    {
+        $this->factory->addReader('Plum\Plum\Reader\ArrayReader', function ($input) {
+            return new ArrayReader(array_reverse($input));
+        });
+
+        $reader   = $this->factory->create(['foo', 'bar']);
+        $iterator = $reader->getIterator();
+
+        $this->assertInstanceOf('Plum\Plum\Reader\ArrayReader', $reader);
+        $this->assertSame('bar', current($iterator));
+        next($iterator);
+        $this->assertSame('foo', current($iterator));
+    }
+
+    /**
+     * @test
      * @covers                   Plum\Plum\Reader\ReaderFactory::addReader()
      * @covers                   Plum\Plum\Reader\ReaderFactory::create()
      * @covers                   Plum\Plum\Reader\ReaderFactory::createInstance()

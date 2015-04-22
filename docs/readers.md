@@ -205,8 +205,23 @@ example, a tool that reads either a CSV or an Excel file.
 ```php
 use Plum\Plum\Reader\ReaderFactory;
 
-$reader = new ReaderFactory();
-$reader->add('Plum\PlumCsv\CsvReader')
-       ->add('Plum\PlumExcel\ExcelReader');
-$workflow->process($reader->create($inputFile));
+$factory = new ReaderFactory();
+$factory->add('Plum\PlumCsv\CsvReader')
+        ->add('Plum\PlumExcel\ExcelReader');
+$reader = $factory->create($inputFile);
+```
+
+The above example would probably not work in practice, since often readers have a more complicated and different
+setup. However, you can pass a callback as the second parameter to `add()` that is used to create the instance of the
+reader.
+
+```php
+use Plum\Plum\Reader\ReaderFactory;
+
+$factory = new ReaderFactory();
+$factory->add('Plum\PlumCsv\CsvReader', function ($input) {
+    return new CsvReader($input, ';');
+});
+$factory->add('Plum\PlumExcel\ExcelReader');
+$reader = $factory->create($inputFile);
 ```
