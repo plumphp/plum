@@ -12,6 +12,7 @@
 namespace Plum\Plum;
 
 
+use ArrayIterator;
 use Plum\Plum\Reader\ReaderInterface;
 use Plum\Plum\Writer\WriterInterface;
 
@@ -28,11 +29,11 @@ class WorkflowConcatenator implements ReaderInterface, WriterInterface
     private $data = [];
 
     /**
-     * @return \ArrayIterator
+     * @return ArrayIterator
      */
     public function getIterator()
     {
-        return new \ArrayIterator($this->data);
+        return new ArrayIterator($this->data);
     }
 
     /**
@@ -71,5 +72,17 @@ class WorkflowConcatenator implements ReaderInterface, WriterInterface
      */
     public function finish()
     {
+    }
+
+    /**
+     * Returns `false` every time because no constructor that takes an input.
+     *
+     * @param mixed $input
+     *
+     * @return bool `true` if the reader accepts the given input, `false` if not
+     */
+    public static function accepts($input)
+    {
+        return false;
     }
 }

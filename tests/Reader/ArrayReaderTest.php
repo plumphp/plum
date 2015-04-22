@@ -59,4 +59,22 @@ class ArrayReaderTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals(1, $this->reader->count());
     }
+
+    /**
+     * @test
+     * @covers Plum\Plum\Reader\ArrayReader::accepts()
+     */
+    public function acceptsReturnsTrueIfInputIsArray()
+    {
+        $this->assertTrue($this->reader->accepts(['foo']));
+    }
+
+    /**
+     * @test
+     * @covers Plum\Plum\Reader\ArrayReader::accepts()
+     */
+    public function acceptsReturnsFalseIfInputIsNotAnArray()
+    {
+        $this->assertFalse(ArrayReader::accepts('foo'));
+    }
 }

@@ -76,4 +76,14 @@ class WorkflowConcatenatorTest extends \PHPUnit_Framework_TestCase
     {
         $this->concatenator->finish();
     }
+
+    /**
+     * @test
+     * @covers Plum\Plum\WorkflowConcatenator::accepts()
+     */
+    public function acceptsReturnsFalse()
+    {
+        // No constructor that takes an input, thus false
+        $this->assertFalse(WorkflowConcatenator::accepts([]));
+    }
 }
