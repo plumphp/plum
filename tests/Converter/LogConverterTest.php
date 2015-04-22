@@ -32,6 +32,7 @@ class LogConverterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
+     * @covers Plum\Plum\Converter\LogConverter::__construct()
      * @covers Plum\Plum\Converter\LogConverter::convert()
      */
     public function convertWithDefaultOptions()
@@ -46,6 +47,7 @@ class LogConverterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
+     * @covers Plum\Plum\Converter\LogConverter::__construct()
      * @covers Plum\Plum\Converter\LogConverter::convert()
      */
     public function convertWithOptions()
