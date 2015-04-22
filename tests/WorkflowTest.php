@@ -109,6 +109,28 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
+     * @covers Plum\Plum\Workflow::addFilter()
+     */
+    public function addFilterConvertsCallbackIntoCallbackConverter()
+    {
+        $this->workflow->addFilter(function ($item) { return $item; });
+
+        $this->assertInstanceOf('Plum\Plum\Filter\FilterInterface', $this->workflow->getFilters()[0]['filter']);
+    }
+
+    /**
+     * @test
+     * @covers Plum\Plum\Workflow::addFilter()
+     */
+    public function addFilterConvertsCallbackInArrayIntoCallbackConverter()
+    {
+        $this->workflow->addFilter(['filter' => function ($item) { return $item; }]);
+
+        $this->assertInstanceOf('Plum\Plum\Filter\FilterInterface', $this->workflow->getFilters()[0]['filter']);
+    }
+
+    /**
+     * @test
      * @covers            Plum\Plum\Workflow::addFilter()
      * @expectedException \InvalidArgumentException
      */
@@ -180,6 +202,34 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame($filter2, $this->workflow->getValueFilters()[0]['filter']);
         $this->assertSame($filter1, $this->workflow->getValueFilters()[1]['filter']);
+    }
+
+    /**
+     * @test
+     * @covers Plum\Plum\Workflow::addValueFilter()
+     */
+    public function addValueFilterConvertsCallbackIntoCallbackConverter()
+    {
+        $this->workflow->addValueFilter(function ($item) { return $item; }, ['foo']);
+
+        $this->assertInstanceOf(
+            'Plum\Plum\Filter\FilterInterface',
+            $this->workflow->getValueFilters()[0]['filter']
+        );
+    }
+
+    /**
+     * @test
+     * @covers Plum\Plum\Workflow::addValueFilter()
+     */
+    public function addValueFilterConvertsCallbackInArrayIntoCallbackConverter()
+    {
+        $this->workflow->addValueFilter(['filter' => function ($item) { return $item; }, 'field' => ['foo']]);
+
+        $this->assertInstanceOf(
+            'Plum\Plum\Filter\FilterInterface',
+            $this->workflow->getValueFilters()[0]['filter']
+        );
     }
 
     /**
@@ -279,6 +329,51 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
+     * @covers Plum\Plum\Workflow::addConverter()
+     */
+    public function addConverterConvertsCallbackIntoCallbackConverter()
+    {
+        $this->workflow->addConverter(function ($item) { return $item; });
+
+        $this->assertInstanceOf(
+            'Plum\Plum\Converter\ConverterInterface',
+            $this->workflow->getConverters()[0]['converter']
+        );
+    }
+
+    /**
+     * @test
+     * @covers Plum\Plum\Workflow::addConverter()
+     */
+    public function addConverterConvertsCallbackInArrayIntoCallbackConverter()
+    {
+        $this->workflow->addConverter(['converter' => function ($item) { return $item; }]);
+
+        $this->assertInstanceOf(
+            'Plum\Plum\Converter\ConverterInterface',
+            $this->workflow->getConverters()[0]['converter']
+        );
+    }
+
+    /**
+     * @test
+     * @covers Plum\Plum\Workflow::addConverter()
+     */
+    public function addConverterConvertsFilterCallbackInArrayIntoCallbackFilter()
+    {
+        $this->workflow->addConverter([
+            'converter' => $this->getMockConverter(),
+            'filter'    => function ($item) { return true; }
+        ]);
+
+        $this->assertInstanceOf(
+            'Plum\Plum\Filter\FilterInterface',
+            $this->workflow->getConverters()[0]['filter']
+        );
+    }
+
+    /**
+     * @test
      * @covers            Plum\Plum\Workflow::addConverter()
      * @expectedException \InvalidArgumentException
      */
@@ -354,6 +449,52 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame($converter2, $this->workflow->getValueConverters()[0]['converter']);
         $this->assertSame($converter1, $this->workflow->getValueConverters()[1]['converter']);
+    }
+
+    /**
+     * @test
+     * @covers Plum\Plum\Workflow::addValueConverter()
+     */
+    public function addValueConverterAcceptsCallbackAndCreatesCallbackConverter()
+    {
+        $this->workflow->addValueConverter(function ($item) { return $item; }, ['foo']);
+
+        $this->assertInstanceOf(
+            'Plum\Plum\Converter\ConverterInterface',
+            $this->workflow->getValueConverters()[0]['converter']
+        );
+    }
+
+    /**
+     * @test
+     * @covers Plum\Plum\Workflow::addValueConverter()
+     */
+    public function addValueConverterAcceptsCallbackInArrayAndCreatesCallbackConverter()
+    {
+        $this->workflow->addValueConverter(['converter' => function ($item) { return $item; }, 'field' => ['foo']]);
+
+        $this->assertInstanceOf(
+            'Plum\Plum\Converter\ConverterInterface',
+            $this->workflow->getValueConverters()[0]['converter']
+        );
+    }
+
+    /**
+     * @test
+     * @covers Plum\Plum\Workflow::addValueConverter()
+     */
+    public function addValueConverterAcceptsCallbackFilterInArrayAndCreatesCallbackFilter()
+    {
+        $this->workflow->addValueConverter([
+            'converter' => $this->getMockConverter(),
+            'field'     => ['foo'],
+            'filter'    => function ($item) { return true; }
+        ]);
+
+        $this->assertInstanceOf(
+            'Plum\Plum\Filter\FilterInterface',
+            $this->workflow->getValueConverters()[0]['filter']
+        );
     }
 
     /**
@@ -449,6 +590,23 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame($writer2, $this->workflow->getWriters()[0]['writer']);
         $this->assertSame($writer1, $this->workflow->getWriters()[1]['writer']);
+    }
+
+    /**
+     * @test
+     * @covers Plum\Plum\Workflow::addWriter()
+     */
+    public function addWriterConvertsFilterCallbackInArrayIntoCallbackFilter()
+    {
+        $this->workflow->addWriter([
+            'writer' => $this->getMockWriter(),
+            'filter' => function ($item) { return true; }
+        ]);
+
+        $this->assertInstanceOf(
+            'Plum\Plum\Filter\FilterInterface',
+            $this->workflow->getWriters()[0]['filter']
+        );
     }
 
     /**

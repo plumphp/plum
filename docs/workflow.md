@@ -18,6 +18,7 @@ Table of Contents
 - [Adding Converters, Filters, and Writers](#adding-converters-filters-and-writers)
 - [Conditional Converters](#conditional-converters)
 - [Pipeline Order](#pipeline-order)
+- [Callback Converters, and Filters](#callback-converters-and-filter)
 - [Result](#result)
 - [Concatenating Workflows](#concatenating-workflows)
 
@@ -108,6 +109,33 @@ $workflow->addFilter(['filter' => $filter, 'position' => Workflow::PREPEND]);
 $workflow->addConverter(['converter' => $converter, 'position' => Workflow::PREPEND]);
 $workflow->addWriter(['converter' => $converter, 'position' => Workflow::APPEND]);
 ```
+
+
+Callback Converters and Filters
+--------------------------------
+
+`CallbackConverter` is a converter that executes a callback to convert an item. When adding a converter or value
+converter to a `Workflow` you can just pass the callback and the workflow will automatically create a 
+`CallbackConverter`. This works for both the direct as well as the array syntax.
+
+```php
+$workflow->addConverter(function ($item) { return strtoupper($item); });
+$workflow->addConverter(['converter' => function ($item) { return strtoupper($item); }]);
+$workflow->addValueConverter(function ($item) { return strtoupper($item); }, ['foo']);
+$workflow->addValueConverter(['converter' => function ($item) { return strtoupper($item); }, 'field' => ['foo']]);
+```
+
+`CallbackFilter` is a filter that executes a callback and filters the item based on the return value of the callback.
+Just like with converters you can just pass the callback and the workflow will create a `CallbackConverter` for you.
+
+```php
+$workflow->addFilter(function ($item) { return strtoupper($item); });
+$workflow->addFilter(['filter' => function ($item) { return strtoupper($item); }]);
+$workflow->addValueFilter(function ($item) { return strtoupper($item); }, ['foo']);
+$workflow->addValueFilter(['filter' => function ($item) { return strtoupper($item); }, 'field' => ['foo']]);
+```
+
+In addition it is also possible to use callbacks as filters in conditional converters.
 
 
 Result
