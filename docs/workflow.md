@@ -135,6 +135,8 @@ $workflow->addValueFilter(function ($item) { return strtoupper($item); }, ['foo'
 $workflow->addValueFilter(['filter' => function ($item) { return strtoupper($item); }, 'field' => ['foo']]);
 ```
 
+In addition it is also possible to use callbacks as filters in conditional converters.
+
 
 Result
 ------
