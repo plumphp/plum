@@ -17,6 +17,7 @@ Table of Contents
 - [PdoStatementReader](#pdostatementreader)
 - [Custom Readers](#custom-readers)
 - [PHP 5.5 and Generators](#php-55-and-generators)
+- [Reader Factory](#reader-factory)
 
 
 ArrayReader
@@ -150,7 +151,10 @@ Custom Readers
 --------------
 
 As mentioned in the introduction `ReaderInterface` extends `IteratorAggregate` and readers therefore have to
-implement the `getIterator()` method.
+implement the `getIterator()` method. In addition readers must implement a static `accepts()` method that returns
+`true` if the reader can read the given resource (given to the constructor) and `false` if not. The method should
+also return `false` if the reader does not have a constructor. The accepts method is used by
+[ReaderFactory](#reader-factory).
 
 ```php
 use Plum\Plum\Reader\ReaderInterface;
@@ -168,6 +172,11 @@ class CollectionReader implements ReaderInterface
     {
         return new ArrayIterator($this->collection);
     }
+    
+    public static function accepts()
+    {
+        return false;
+    }
 }
 ```
 
@@ -184,4 +193,20 @@ public function getIterator()
         yield $item;
     }
 }
+```
+
+
+Reader Factory
+--------------
+
+Sometimes a workflow should be able to dynamically read from multiple readers depending on the input. Consider, for
+example, a tool that reads either a CSV or an Excel file.
+
+```php
+use Plum\Plum\Reader\ReaderFactory;
+
+$reader = new ReaderFactory();
+$reader->add('Plum\PlumCsv\CsvReader')
+       ->add('Plum\PlumExcel\ExcelReader');
+$workflow->process($reader->create($inputFile));
 ```
