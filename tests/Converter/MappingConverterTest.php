@@ -45,6 +45,21 @@ class MappingConverterTest extends PHPUnit_Framework_TestCase
      * @covers Plum\Plum\Converter\MappingConverter::addMapping()
      * @covers Plum\Plum\Converter\MappingConverter::convert()
      */
+    public function convertWithRemoveOptionDoesNotRemoveSource()
+    {
+        $this->converter->addMapping(['foo'], ['bar'], false);
+        $result = $this->converter->convert(['foo' => 'foobar']);
+
+        $this->assertCount(2, $result);
+        $this->assertSame('foobar', $result['foo']);
+        $this->assertSame('foobar', $result['bar']);
+    }
+
+    /**
+     * @test
+     * @covers Plum\Plum\Converter\MappingConverter::addMapping()
+     * @covers Plum\Plum\Converter\MappingConverter::convert()
+     */
     public function convertMapsBasedOnOrder()
     {
         $this->converter->addMapping(['foo'], ['bar']);

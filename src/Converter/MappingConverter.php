@@ -11,6 +11,7 @@
 
 namespace Plum\Plum\Converter;
 use Cocur\Vale\Vale;
+use InvalidArgumentException;
 
 /**
  * MappingConverter
@@ -33,18 +34,25 @@ class MappingConverter implements ConverterInterface
      */
     public function __construct(array $mappings = [])
     {
-        $this->mappings = $mappings;
+        foreach ($mappings as $mapping) {
+            $this->addMapping(
+                $mapping['from'],
+                $mapping['to'],
+                isset($mapping['remove']) ? $mapping['remove'] : true
+            );
+        }
     }
 
     /**
      * @param string|array $from
      * @param string|array $to
+     * @param bool         $remove
      *
      * @return MappingConverter
      */
-    public function addMapping($from, $to)
+    public function addMapping($from, $to, $remove = true)
     {
-        $this->mappings[] = ['from' => $from, 'to' => $to];
+        $this->mappings[] = ['from' => $from, 'to' => $to, 'remove' => $remove];
 
         return $this;
     }
@@ -65,7 +73,9 @@ class MappingConverter implements ConverterInterface
                 $item = Vale::get($item, $mapping['from']);
             } else {
                 $item = Vale::set($item, $mapping['to'], Vale::get($item, $mapping['from']));
-                $item = Vale::remove($item, $mapping['from']);
+                if ($mapping['remove']) {
+                    $item = Vale::remove($item, $mapping['from']);
+                }
             }
         }
 
