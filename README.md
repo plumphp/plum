@@ -73,6 +73,13 @@ packages which give you more functionality out of the box:
 Change Log
 ----------
 
+### Version 0.3 (28 April 2015)
+
+- Refactored `Workflow`
+- Improved adding of filters, converters and writers
+- Allow callback to be passed directly to filters and converters
+- Improved `MappingConverter`
+
 ### Version 0.2 (21 April 2015)
 
 - Add value converters and value filters
