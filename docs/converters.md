@@ -55,6 +55,20 @@ $converter->addMapping(['qoo'], ['bar']);
 $converter->convert(['foo' => 'foobar', 'qoo' => 'qoobar']); // -> ['bar' => 'qoobar']
 ```
 
+If the `from` mapping is empty, the converter creates a new array and sets the item as `to` element in that array:
+
+```php
+$converter->addMappiong('', 'bar');
+$converter->convert('foobar'); // -> ['bar' => 'foobar']
+```
+
+In contrast, if the `to` mapping is empty the `from` value will returned as item.
+ 
+```php
+$converter->addMapping('bar', '');
+$converter->convert(['bar' => 'foobar'); // -> 'foobar'
+```
+
 
 FileGetContentsConverter
 ------------------------
