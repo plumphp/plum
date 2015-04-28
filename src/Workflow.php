@@ -13,7 +13,9 @@ namespace Plum\Plum;
 
 use Cocur\Vale\Vale;
 use InvalidArgumentException;
+use Plum\Plum\Converter\CallbackConverter;
 use Plum\Plum\Converter\ConverterInterface;
+use Plum\Plum\Filter\CallbackFilter;
 use Plum\Plum\Filter\FilterInterface;
 use Plum\Plum\Reader\ReaderInterface;
 use Plum\Plum\Writer\WriterInterface;
@@ -86,6 +88,11 @@ class Workflow
      */
     public function addFilter($element)
     {
+        if (is_callable($element)) {
+            $element = new CallbackFilter($element);
+        } else if (is_array($element) && isset($element['filter']) && is_callable($element['filter'])) {
+            $element['filter'] = new CallbackFilter($element['filter']);
+        }
         if (is_object($element) && $element instanceof FilterInterface) {
             $element = ['filter' => $element];
         } else if (!is_array($element) || !isset($element['filter'])
@@ -119,6 +126,11 @@ class Workflow
      */
     public function addValueFilter($element, $field = null)
     {
+        if (is_callable($element)) {
+            $element = new CallbackFilter($element);
+        } else if (is_array($element) && isset($element['filter']) && is_callable($element['filter'])) {
+            $element['filter'] = new CallbackFilter($element['filter']);
+        }
         if (is_object($element) && $element instanceof FilterInterface && $field) {
             $element = ['filter' => $element, 'field' => $field];
         } else if (!is_array($element) || (!is_array($element) && !$field) || !isset($element['filter'])
@@ -143,7 +155,7 @@ class Workflow
     }
 
     /**
-     * @param array|ConverterInterface $element
+     * @param array|ConverterInterface|callback $element
      *
      * @return Workflow $this
      *
@@ -151,6 +163,15 @@ class Workflow
      */
     public function addConverter($element)
     {
+        if (is_callable($element)) {
+            $element = new CallbackConverter($element);
+        } else if (is_array($element) && isset($element['converter']) && is_callable($element['converter'])) {
+            $element['converter'] = new CallbackConverter($element['converter']);
+        }
+        if (is_array($element) && isset($element['filter']) && is_callable($element['filter'])) {
+            $element['filter'] = new CallbackFilter($element['filter']);
+        }
+
         if (is_object($element) && $element instanceof ConverterInterface) {
             $element = ['converter' => $element];
         } else if (!is_array($element) || !isset($element['converter'])
@@ -176,8 +197,8 @@ class Workflow
     }
 
     /**
-     * @param array|ConverterInterface $element
-     * @param string|null              $field
+     * @param array|ConverterInterface|callback $element
+     * @param string|null                       $field
      *
      * @return Workflow
      *
@@ -185,6 +206,15 @@ class Workflow
      */
     public function addValueConverter($element, $field = null)
     {
+        if (is_callable($element)) {
+            $element = new CallbackConverter($element);
+        } else if (is_array($element) && isset($element['converter']) && is_callable($element['converter'])) {
+            $element['converter'] = new CallbackConverter($element['converter']);
+        }
+        if (is_array($element) && isset($element['filter']) && is_callable($element['filter'])) {
+            $element['filter'] = new CallbackFilter($element['filter']);
+        }
+
         if (is_object($element) && $element instanceof ConverterInterface && $field) {
             $element = ['converter' => $element, 'field' => $field];
         } else if (!is_array($element) || (!is_array($element) && !$field) || !isset($element['converter'])
@@ -218,6 +248,9 @@ class Workflow
      */
     public function addWriter($element)
     {
+        if (is_array($element) && isset($element['filter']) && is_callable($element['filter'])) {
+            $element['filter'] = new CallbackFilter($element['filter']);
+        }
         if (is_object($element) && $element instanceof WriterInterface) {
             $element = ['writer' => $element];
         } else if (!is_array($element) || !isset($element['writer'])
