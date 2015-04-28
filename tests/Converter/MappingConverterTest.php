@@ -56,4 +56,40 @@ class MappingConverterTest extends PHPUnit_Framework_TestCase
         $this->assertCount(1, $result);
         $this->assertSame('qoobar', $result['bar']);
     }
+
+    /**
+     * @test
+     * @covers Plum\Plum\Converter\MappingConverter::convert()
+     */
+    public function convertSetsItemInEmptyArrayIfFromIsEmpty()
+    {
+        $this->converter->addMapping('', ['bar']);
+        $result = $this->converter->convert('foobar');
+
+        $this->assertCount(1, $result);
+        $this->assertSame('foobar', $result['bar']);
+    }
+
+    /**
+     * @test
+     * @covers Plum\Plum\Converter\MappingConverter::convert()
+     */
+    public function convertReturnsFromElementIfToIsEmpty()
+    {
+        $this->converter->addMapping(['foo'], '');
+        $result = $this->converter->convert(['foo' => 'foobar']);
+
+        $this->assertSame('foobar', $result);
+    }
+
+    /**
+     * @test
+     * @covers Plum\Plum\Converter\MappingConverter::convert()
+     */
+    public function convertReturnsItemIfFromAndToAreEmpty()
+    {
+        $this->converter->addMapping('', '');
+
+        $this->assertSame('foobar', $this->converter->convert('foobar'));
+    }
 }

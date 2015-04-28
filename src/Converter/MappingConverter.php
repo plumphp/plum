@@ -27,6 +27,16 @@ class MappingConverter implements ConverterInterface
     protected $mappings;
 
     /**
+     * @param array $mappings
+     *
+     * @codeCoverageIgnore
+     */
+    public function __construct(array $mappings = [])
+    {
+        $this->mappings = $mappings;
+    }
+
+    /**
      * @param string|array $from
      * @param string|array $to
      *
@@ -47,8 +57,16 @@ class MappingConverter implements ConverterInterface
     public function convert($item)
     {
         foreach ($this->mappings as $mapping) {
-            $item = Vale::set($item, $mapping['to'], Vale::get($item, $mapping['from']));
-            $item = Vale::remove($item, $mapping['from']);
+            if (empty($mapping['from']) && empty($mapping['to'])) {
+                // do nothing if mapping is from item to item
+            } else if (empty($mapping['from'])) {
+                $item = Vale::set([], $mapping['to'], $item);
+            } else if (empty($mapping['to'])) {
+                $item = Vale::get($item, $mapping['from']);
+            } else {
+                $item = Vale::set($item, $mapping['to'], Vale::get($item, $mapping['from']));
+                $item = Vale::remove($item, $mapping['from']);
+            }
         }
 
         return $item;
