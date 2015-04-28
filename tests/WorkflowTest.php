@@ -810,6 +810,37 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
      * @covers Plum\Plum\Workflow::processItem()
      * @covers Plum\Plum\Workflow::convertItem()
      */
+    public function processShouldApplyConverterIfFieldFilterReturnsTrueToReadItems()
+    {
+        $iterator = m::mock('\Iterator');
+        $iterator->shouldReceive('rewind');
+        $iterator->shouldReceive('valid')->andReturn(true)->once();
+        $iterator->shouldReceive('current')->andReturn(['foo' => 'foobar']);
+        $iterator->shouldReceive('next');
+        $iterator->shouldReceive('valid')->andReturn(false)->once();
+
+        $reader = $this->getMockReader();
+        $reader->shouldReceive('getIterator')->andReturn($iterator);
+
+        $converter = $this->getMockConverter();
+        $converter->shouldReceive('convert')->with(['foo' => 'foobar'])->once()->andReturn(['foo' => 'FOOBAR']);
+
+        $filter = $this->getMockFilter();
+        $filter->shouldReceive('filter')->with('foobar')->once()->andReturn(true);
+
+        $this->workflow->addConverter(['converter' => $converter, 'filter' => $filter, 'filterField' => 'foo']);
+
+        $result = $this->workflow->process($reader);
+
+        $this->assertEquals(1, $result->getReadCount());
+    }
+
+    /**
+     * @test
+     * @covers Plum\Plum\Workflow::process()
+     * @covers Plum\Plum\Workflow::processItem()
+     * @covers Plum\Plum\Workflow::convertItem()
+     */
     public function processShouldNotApplyConverterIfFilterReturnsFalseToReadItems()
     {
         $iterator = m::mock('\Iterator');
@@ -890,13 +921,55 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
         $converter->shouldReceive('convert')->with('foobar')->once()->andReturn('FOOBAR');
 
         $filter = $this->getMockFilter();
-        $filter->shouldReceive('filter')->with('foobar')->once()->andReturn(true);
+        $filter->shouldReceive('filter')->with(['foo' => 'foobar'])->once()->andReturn(true);
 
         $this->workflow->addValueConverter(['field' => ['foo'], 'converter' => $converter, 'filter' => $filter]);
 
         $writer = $this->getMockWriter();
         $writer->shouldReceive('prepare');
         $writer->shouldReceive('writeItem')->with(['foo' => 'FOOBAR'])->once();
+        $writer->shouldReceive('finish');
+        $this->workflow->addWriter($writer);
+
+        $result = $this->workflow->process($reader);
+
+        $this->assertEquals(1, $result->getReadCount());
+    }
+
+    /**
+     * @test
+     * @covers Plum\Plum\Workflow::process()
+     * @covers Plum\Plum\Workflow::processItem()
+     * @covers Plum\Plum\Workflow::convertItemValue()
+     */
+    public function processShouldApplyValueConverterIfFieldFilterReturnsTrueToReadItems()
+    {
+        $iterator = m::mock('\Iterator');
+        $iterator->shouldReceive('rewind');
+        $iterator->shouldReceive('valid')->andReturn(true)->once();
+        $iterator->shouldReceive('current')->andReturn(['foo' => 'foobar', 'bar' => 'baz']);
+        $iterator->shouldReceive('next');
+        $iterator->shouldReceive('valid')->andReturn(false)->once();
+
+        $reader = $this->getMockReader();
+        $reader->shouldReceive('getIterator')->andReturn($iterator);
+
+        $converter = $this->getMockConverter();
+        $converter->shouldReceive('convert')->with('foobar')->once()->andReturn('FOOBAR');
+
+        $filter = $this->getMockFilter();
+        $filter->shouldReceive('filter')->with('baz')->once()->andReturn(true);
+
+        $this->workflow->addValueConverter([
+            'field'       => 'foo',
+            'converter'   => $converter,
+            'filter'      => $filter,
+            'filterField' => 'bar'
+        ]);
+
+        $writer = $this->getMockWriter();
+        $writer->shouldReceive('prepare');
+        $writer->shouldReceive('writeItem')->with(['foo' => 'FOOBAR', 'bar' => 'baz'])->once();
         $writer->shouldReceive('finish');
         $this->workflow->addWriter($writer);
 
@@ -927,7 +1000,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
         $converter->shouldReceive('convert')->never();
 
         $filter = $this->getMockFilter();
-        $filter->shouldReceive('filter')->with('foobar')->once()->andReturn(false);
+        $filter->shouldReceive('filter')->with(['foo' => 'foobar'])->once()->andReturn(false);
 
         $this->workflow->addValueConverter(['field' => ['foo'], 'converter' => $converter, 'filter' => $filter]);
 

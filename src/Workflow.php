@@ -180,9 +180,10 @@ class Workflow
         }
 
         $element = array_merge([
-            'type'      => self::PIPELINE_TYPE_CONVERTER,
-            'filter'    => null,
-            'position'  => self::APPEND
+            'type'        => self::PIPELINE_TYPE_CONVERTER,
+            'filter'      => null,
+            'filterField' => null,
+            'position'    => self::APPEND
         ], $element);
 
         return $this->insertElement($element);
@@ -223,9 +224,10 @@ class Workflow
         }
 
         $element = array_merge([
-            'type'     => self::PIPELINE_TYPE_VALUE_CONVERTER,
-            'filter'   => null,
-            'position' => self::APPEND
+            'type'        => self::PIPELINE_TYPE_VALUE_CONVERTER,
+            'filter'      => null,
+            'filterField' => null,
+            'position'    => self::APPEND
         ], $element);
 
         return $this->insertElement($element);
@@ -344,12 +346,18 @@ class Workflow
                     return;
                 }
             } else if ($element['type'] === self::PIPELINE_TYPE_CONVERTER) {
-                $item = $this->convertItem($item, $element['converter'], $element['filter']);
+                $item = $this->convertItem($item, $element['converter'], $element['filter'], $element['filterField']);
                 if ($item === null) {
                     return;
                 }
             } else if ($element['type'] === self::PIPELINE_TYPE_VALUE_CONVERTER) {
-                $item = $this->convertItemValue($item, $element['field'], $element['converter'], $element['filter']);
+                $item = $this->convertItemValue(
+                    $item,
+                    $element['field'],
+                    $element['converter'],
+                    $element['filter'],
+                    $element['filterField']
+                );
             } else if ($element['type'] === self::PIPELINE_TYPE_WRITER) {
                 if ($this->writeItem($item, $element['writer'], $element['filter']) === true) {
                     $result->incWriteCount();
@@ -369,12 +377,18 @@ class Workflow
      * @param mixed                $item
      * @param ConverterInterface   $converter
      * @param FilterInterface|null $filter
+     * @param string|array|null    $filterField
      *
      * @return mixed
      */
-    protected function convertItem($item, ConverterInterface $converter, FilterInterface $filter = null)
-    {
-        if ($filter === null || $filter->filter($item) === true) {
+    protected function convertItem(
+        $item,
+        ConverterInterface $converter,
+        FilterInterface $filter = null,
+        $filterField = null
+    ) {
+        $filterValue = $filterField ? Vale::get($item, $filterField) : $item;
+        if ($filter === null || $filter->filter($filterValue) === true) {
             return $converter->convert($item);
         }
 
@@ -389,13 +403,20 @@ class Workflow
      * @param string|array       $field
      * @param ConverterInterface $converter
      * @param FilterInterface    $filter
+     * @param string|array|null  $filterField
      *
      * @return mixed
      */
-    protected function convertItemValue($item, $field, ConverterInterface $converter, FilterInterface $filter = null)
-    {
+    protected function convertItemValue(
+        $item,
+        $field,
+        ConverterInterface $converter,
+        FilterInterface $filter = null,
+        $filterField = null
+    ) {
         $value = Vale::get($item, $field);
-        if ($filter === null || $filter->filter($value) === true) {
+        $filterValue = $filterField ? Vale::get($item, $filterField) : $item;
+        if ($filter === null || $filter->filter($filterValue) === true) {
             $item = Vale::set($item, $field, $converter->convert($value));
         }
 
