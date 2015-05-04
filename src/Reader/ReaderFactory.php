@@ -27,12 +27,21 @@ class ReaderFactory
 
     /**
      * @param string $className
+     * @param array  $options
      *
      * @return ReaderFactory
      */
-    public function addReader($className, callable $createFunction = null)
+    public function addReader($className, array $options = [])
     {
-        $this->readers[] = ['className' => $className, 'createFunction' => $createFunction];
+        if (is_array($className)) {
+            $options   = $className;
+            $className = null;
+        }
+        $this->readers[] = [
+            'className' => $className,
+            'create'    => isset($options['create']) && is_callable($options['create']) ? $options['create'] : null,
+            'accepts'   => isset($options['accepts']) && is_callable($options['accepts']) ? $options['accepts'] : null
+        ];
 
         return $this;
     }
@@ -45,11 +54,13 @@ class ReaderFactory
     public function create($input)
     {
         foreach ($this->readers as $reader) {
-            if (call_user_func([$reader['className'], 'accepts'], $input)) {
-                if (!$reader['createFunction']) {
-                    return $this->createInstance($reader['className'], $input);
+            if ((isset($reader['accepts']) && call_user_func($reader['accepts'], $input))
+                || (method_exists($reader['className'], 'accepts')
+                    && call_user_func([$reader['className'], 'accepts'], $input))) {
+                if ($reader['create']) {
+                    return call_user_func($reader['create'], $input);
                 } else {
-                    return call_user_func($reader['createFunction'], $input);
+                    return $this->createInstance($reader['className'], $input);
                 }
             }
         }

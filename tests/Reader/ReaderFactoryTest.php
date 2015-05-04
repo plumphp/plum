@@ -10,6 +10,7 @@
  */
 
 namespace Plum\Plum\Reader;
+
 use Iterator;
 
 /**
@@ -53,11 +54,11 @@ class ReaderFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function createCreatesReaderWithCreateFunctionBasedOnAddedReaders()
     {
-        $this->factory->addReader('Plum\Plum\Reader\ArrayReader', function ($input) {
-            return new ArrayReader(array_reverse($input));
-        });
+        $this->factory->addReader('Plum\Plum\Reader\ArrayReader', [
+            'create' => function ($input) { return new ArrayReader(array_reverse($input)); }
+        ]);
 
-        $reader   = $this->factory->create(['foo', 'bar']);
+        $reader = $this->factory->create(['foo', 'bar']);
         /** @var Iterator $iterator */
         $iterator = $reader->getIterator();
 
@@ -65,6 +66,64 @@ class ReaderFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('bar', $iterator->current());
         $iterator->next();
         $this->assertSame('foo', $iterator->current());
+    }
+
+    /**
+     * @test
+     * @covers Plum\Plum\Reader\ReaderFactory::addReader()
+     * @covers Plum\Plum\Reader\ReaderFactory::create()
+     * @covers Plum\Plum\Reader\ReaderFactory::createInstance()
+     */
+    public function createCreatesReaderIfAcceptFunctionsReturnsTrue()
+    {
+        $this->factory->addReader('Plum\Plum\Reader\ArrayReader', [
+            'accepts' => function ($input) { return true; }
+        ]);
+
+        $reader = $this->factory->create(['foo', 'bar']);
+        /** @var Iterator $iterator */
+        $iterator = $reader->getIterator();
+
+        $this->assertInstanceOf('Plum\Plum\Reader\ArrayReader', $reader);
+        $this->assertSame('foo', $iterator->current());
+        $iterator->next();
+        $this->assertSame('bar', $iterator->current());
+    }
+
+    /**
+     * @test
+     * @covers Plum\Plum\Reader\ReaderFactory::addReader()
+     * @covers Plum\Plum\Reader\ReaderFactory::create()
+     * @covers Plum\Plum\Reader\ReaderFactory::createInstance()
+     */
+    public function createCreatesReaderWithoutReaderClassName()
+    {
+        $this->factory->addReader([
+            'create'  => function ($input) { return new ArrayReader(array_reverse($input)); },
+            'accepts' => function ($input) { return is_array($input); }
+        ]);
+
+        $reader = $this->factory->create(['foo', 'bar']);
+        /** @var Iterator $iterator */
+        $iterator = $reader->getIterator();
+
+        $this->assertInstanceOf('Plum\Plum\Reader\ArrayReader', $reader);
+        $this->assertSame('bar', $iterator->current());
+        $iterator->next();
+        $this->assertSame('foo', $iterator->current());
+    }
+
+    /**
+     * @test
+     * @covers Plum\Plum\Reader\ReaderFactory::addReader()
+     * @covers Plum\Plum\Reader\ReaderFactory::create()
+     * @covers Plum\Plum\Reader\ReaderFactory::createInstance()
+     */
+    public function createReturnsNullIfAcceptsCallbackReturnsFalse()
+    {
+        $this->factory->addReader(['accepts' => function ($input) { return false; }]);
+
+        $this->assertNull($this->factory->create(['foo', 'bar']));
     }
 
     /**

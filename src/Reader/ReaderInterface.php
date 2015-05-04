@@ -23,12 +23,4 @@ use Countable;
  */
 interface ReaderInterface extends IteratorAggregate, Countable
 {
-    /**
-     * Returns whether the constructor of the reader accepts the given input.
-     *
-     * @param mixed $input
-     *
-     * @return bool `true` if the reader accepts the given input, `false` if not
-     */
-    public static function accepts($input);
 }
