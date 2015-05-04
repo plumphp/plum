@@ -172,7 +172,7 @@ class CollectionReader implements ReaderInterface
     {
         return new ArrayIterator($this->collection);
     }
-    
+
     public static function accepts()
     {
         return false;
@@ -211,17 +211,32 @@ $factory->add('Plum\PlumCsv\CsvReader')
 $reader = $factory->create($inputFile);
 ```
 
-The above example would probably not work in practice, since often readers have a more complicated and different
-setup. However, you can pass a callback as the second parameter to `add()` that is used to create the instance of the
-reader.
+In the above example `ReaderFactory` iterates through the readers and passes the `$inputFile` parameter to the static
+`::accepts()` method of each reader. If the method returns `true`, the `->create()` creates the reader and returns it.
+If no reader returns `true` then `->create()` returns `null`.
+
+In practice things are often a little bit more complicated. Therefore you can pass an `accepts` and a `create` callback
+to the `->add()` method in form of an options array as second argument. If you pass a `create` callback the class name
+is not required and you can pass the options array to `->add()` as first argument.
+
+To demonstrate we will expand the previous example and allow `.tsv` (Tab-separated values) files in addition to `.csv`
+and `.xlsx` files. Additionally the values in `.csv` are separated by a semi-colon instead of a colon (which is the
+default).
 
 ```php
 use Plum\Plum\Reader\ReaderFactory;
 
 $factory = new ReaderFactory();
-$factory->add('Plum\PlumCsv\CsvReader', function ($input) {
-    return new CsvReader($input, ';');
-});
-$factory->add('Plum\PlumExcel\ExcelReader');
+// We don't need the class name if we provide both a `create` and a `accepts` callback.
+$factory->add([
+    'create'  => function ($input) { return new CsvReader($input, "\t"); },
+    'accepts' => function ($input) { return substr($input, -4) === '.tsv'; }
+]);
+// We want to use a custom `create` callback to initalize CsvReader with `;`
+$factory->add('Plum\PlumExcel\CsvReader', ['create' => function ($input) { return new CsvReader($input, ';'); }]);
+// We use an `accepts` callback that returns `true` only for `.xlsx` files
+$factory->add('Plum\PlumExcel\ExcelReader', [
+    'accepts' => function ($input) { return substr($input, -5) === '.xlsx'; }
+]);
 $reader = $factory->create($inputFile);
 ```
