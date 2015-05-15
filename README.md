@@ -73,6 +73,11 @@ packages which give you more functionality out of the box:
 Change Log
 ----------
 
+### Version 0.3.1 (15 May 2015)
+
+- `MappingConverter` allows to copy instead of move values
+- Conditional converters can now define the field the filter should be applied on
+
 ### Version 0.3 (28 April 2015)
 
 - Refactored `Workflow`
