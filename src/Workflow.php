@@ -93,7 +93,7 @@ class Workflow
         } else if (is_array($element) && isset($element['filter']) && is_callable($element['filter'])) {
             $element['filter'] = new CallbackFilter($element['filter']);
         }
-        if (is_object($element) && $element instanceof FilterInterface) {
+        if ($element instanceof FilterInterface) {
             $element = ['filter' => $element];
         } else if (!is_array($element) || !isset($element['filter'])
                 || !$element['filter'] instanceof FilterInterface) {
@@ -131,7 +131,7 @@ class Workflow
         } else if (is_array($element) && isset($element['filter']) && is_callable($element['filter'])) {
             $element['filter'] = new CallbackFilter($element['filter']);
         }
-        if (is_object($element) && $element instanceof FilterInterface && $field) {
+        if ($element instanceof FilterInterface && $field) {
             $element = ['filter' => $element, 'field' => $field];
         } else if (!is_array($element) || (!is_array($element) && !$field) || !isset($element['filter'])
                 || !isset($element['field']) || !$element['filter'] instanceof FilterInterface) {
@@ -172,7 +172,7 @@ class Workflow
             $element['filter'] = new CallbackFilter($element['filter']);
         }
 
-        if (is_object($element) && $element instanceof ConverterInterface) {
+        if ($element instanceof ConverterInterface) {
             $element = ['converter' => $element];
         } else if (!is_array($element) || !isset($element['converter'])
                 || !$element['converter'] instanceof ConverterInterface) {
@@ -216,7 +216,7 @@ class Workflow
             $element['filter'] = new CallbackFilter($element['filter']);
         }
 
-        if (is_object($element) && $element instanceof ConverterInterface && $field) {
+        if ($element instanceof ConverterInterface && $field) {
             $element = ['converter' => $element, 'field' => $field];
         } else if (!is_array($element) || (!is_array($element) && !$field) || !isset($element['converter'])
             || !isset($element['field']) || !$element['converter'] instanceof ConverterInterface) {
@@ -253,7 +253,7 @@ class Workflow
         if (is_array($element) && isset($element['filter']) && is_callable($element['filter'])) {
             $element['filter'] = new CallbackFilter($element['filter']);
         }
-        if (is_object($element) && $element instanceof WriterInterface) {
+        if ($element instanceof WriterInterface) {
             $element = ['writer' => $element];
         } else if (!is_array($element) || !isset($element['writer'])
                 || !$element['writer'] instanceof WriterInterface) {

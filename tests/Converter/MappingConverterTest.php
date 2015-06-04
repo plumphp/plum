@@ -33,7 +33,10 @@ class MappingConverterTest extends PHPUnit_Framework_TestCase
      */
     public function convertMapsOneFieldToAnother()
     {
-        $this->converter->addMapping(['foo'], ['bar']);
+        $this->assertInstanceOf(
+            'Plum\Plum\Converter\MappingConverter',
+            $this->converter->addMapping(['foo'], ['bar'])
+        );
         $result = $this->converter->convert(['foo' => 'foobar']);
 
         $this->assertCount(1, $result);

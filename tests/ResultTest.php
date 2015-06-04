@@ -11,6 +11,7 @@
 
 namespace Plum\Plum;
 
+use Exception;
 use \Mockery as m;
 
 /**
@@ -38,7 +39,10 @@ class ResultTest extends \PHPUnit_Framework_TestCase
      */
     public function incReadCountShouldIncreaseReadCount()
     {
-        $this->result->incReadCount();
+        $this->assertInstanceOf(
+            'Plum\Plum\Result',
+            $this->result->incReadCount()
+        );
 
         $this->assertEquals(1, $this->result->getReadCount());
     }
@@ -50,7 +54,10 @@ class ResultTest extends \PHPUnit_Framework_TestCase
      */
     public function incWriteCountShouldIncreaseWriteCount()
     {
-        $this->result->incWriteCount();
+        $this->assertInstanceOf(
+            'Plum\Plum\Result',
+            $this->result->incWriteCount()
+        );
 
         $this->assertEquals(1, $this->result->getWriteCount());
     }
@@ -62,7 +69,10 @@ class ResultTest extends \PHPUnit_Framework_TestCase
      */
     public function incItemWriteCountShouldIncreaseWriteCount()
     {
-        $this->result->incItemWriteCount();
+        $this->assertInstanceOf(
+            'Plum\Plum\Result',
+            $this->result->incItemWriteCount()
+        );
 
         $this->assertEquals(1, $this->result->getItemWriteCount());
     }
@@ -75,8 +85,11 @@ class ResultTest extends \PHPUnit_Framework_TestCase
      */
     public function addExceptionShouldAddException()
     {
-        $exception = new \Exception();
-        $this->result->addException($exception);
+        $exception = new Exception();
+        $this->assertInstanceOf(
+            'Plum\Plum\Result',
+            $this->result->addException($exception)
+        );
 
         $this->assertContains($exception, $this->result->getExceptions());
         $this->assertEquals(1, $this->result->getErrorCount());

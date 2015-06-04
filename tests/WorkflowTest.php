@@ -12,6 +12,7 @@
 namespace Plum\Plum;
 
 use \Mockery as m;
+use Plum\Plum\Reader\ArrayReader;
 use Plum\Plum\Writer\ArrayWriter;
 
 /**
@@ -71,7 +72,10 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
     public function addFilterWithFilterInstanceShouldAddFilterToWorkflow()
     {
         $filter = $this->getMockFilter();
-        $this->workflow->addFilter($filter);
+        $this->assertInstanceOf(
+            'Plum\Plum\Workflow',
+            $this->workflow->addFilter($filter)
+        );
 
         $this->assertSame($filter, $this->workflow->getFilters()[0]['filter']);
     }
@@ -168,7 +172,10 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
     public function addValueFilterWithFilterInstanceShouldAddValueFilterToWorkflow()
     {
         $filter = $this->getMockFilter();
-        $this->workflow->addValueFilter($filter, ['foo']);
+        $this->assertInstanceOf(
+            'Plum\Plum\Workflow',
+            $this->workflow->addValueFilter($filter, ['foo'])
+        );
 
         $this->assertSame($filter, $this->workflow->getValueFilters()[0]['filter']);
     }
@@ -291,7 +298,10 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
     public function addConverterWithConverterInstanceShouldAddConverterToWorkflow()
     {
         $converter = $this->getMockConverter();
-        $this->workflow->addConverter($converter);
+        $this->assertInstanceOf(
+            'Plum\Plum\Workflow',
+            $this->workflow->addConverter($converter)
+        );
 
         $this->assertSame($converter, $this->workflow->getConverters()[0]['converter']);
     }
@@ -411,7 +421,10 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
     public function addValueConverterWithConverterInstanceShouldAddValueConverterToWorkflow()
     {
         $converter = $this->getMockConverter();
-        $this->workflow->addValueConverter($converter, ['foo']);
+        $this->assertInstanceOf(
+            'Plum\Plum\Workflow',
+            $this->workflow->addValueConverter($converter, ['foo'])
+        );
 
         $this->assertSame($converter, $this->workflow->getValueConverters()[0]['converter']);
     }
@@ -556,7 +569,10 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
     public function addWriterWithWriterInstanceShouldAddWriterToWorkflow()
     {
         $writer = $this->getMockWriter();
-        $this->workflow->addWriter($writer);
+        $this->assertInstanceOf(
+            'Plum\Plum\Workflow',
+            $this->workflow->addWriter($writer)
+        );
 
         $this->assertSame($writer, $this->workflow->getWriters()[0]['writer']);
     }
@@ -667,9 +683,10 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
     {
         $iterator = m::mock('\Iterator');
         $iterator->shouldReceive('rewind');
-        $iterator->shouldReceive('valid')->andReturn(true)->once();
-        $iterator->shouldReceive('current')->andReturn('foobar');
-        $iterator->shouldReceive('next');
+        $iterator->shouldReceive('valid')->andReturn(true)->twice();
+        $iterator->shouldReceive('current')->andReturn('foobar')->once();
+        $iterator->shouldReceive('next')->twice();
+        $iterator->shouldReceive('current')->andReturn('foo')->once();
         $iterator->shouldReceive('valid')->andReturn(false)->once();
 
         $reader = $this->getMockReader();
@@ -677,12 +694,19 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
         $filter = $this->getMockFilter();
         $filter->shouldReceive('filter')->with('foobar')->once()->andReturn(false);
+        $filter->shouldReceive('filter')->with('foo')->once()->andReturn(true);
         $this->workflow->addFilter($filter);
+
+        $writer = $this->getMockWriter();
+        $writer->shouldReceive('prepare');
+        $writer->shouldReceive('finish');
+        $writer->shouldReceive('writeItem')->with('foo')->once();
+        $this->workflow->addWriter($writer);
 
         $result = $this->workflow->process($reader);
 
-        $this->assertEquals(1, $result->getReadCount());
-        $this->assertEquals(0, $result->getWriteCount());
+        $this->assertEquals(2, $result->getReadCount());
+        $this->assertEquals(1, $result->getWriteCount());
     }
 
     /**
@@ -694,9 +718,10 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
     {
         $iterator = m::mock('\Iterator');
         $iterator->shouldReceive('rewind');
-        $iterator->shouldReceive('valid')->andReturn(true)->once();
-        $iterator->shouldReceive('current')->andReturn(['foo' => 'foobar']);
-        $iterator->shouldReceive('next');
+        $iterator->shouldReceive('valid')->andReturn(true)->twice();
+        $iterator->shouldReceive('current')->andReturn(['foo' => 'foobar'])->once();
+        $iterator->shouldReceive('current')->andReturn(['foo' => 'foo'])->once();
+        $iterator->shouldReceive('next')->twice();
         $iterator->shouldReceive('valid')->andReturn(false)->once();
 
         $reader = $this->getMockReader();
@@ -704,12 +729,19 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
         $filter = $this->getMockFilter();
         $filter->shouldReceive('filter')->with('foobar')->once()->andReturn(false);
+        $filter->shouldReceive('filter')->with('foo')->once()->andReturn(true);
         $this->workflow->addValueFilter($filter, ['foo']);
+
+        $writer = $this->getMockWriter();
+        $writer->shouldReceive('prepare');
+        $writer->shouldReceive('finish');
+        $writer->shouldReceive('writeItem')->with(['foo' => 'foo'])->once();
+        $this->workflow->addWriter($writer);
 
         $result = $this->workflow->process($reader);
 
-        $this->assertEquals(1, $result->getReadCount());
-        $this->assertEquals(0, $result->getWriteCount());
+        $this->assertEquals(2, $result->getReadCount());
+        $this->assertEquals(1, $result->getWriteCount());
     }
 
     /**
@@ -749,9 +781,10 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
     {
         $iterator = m::mock('\Iterator');
         $iterator->shouldReceive('rewind');
-        $iterator->shouldReceive('valid')->andReturn(true)->once();
-        $iterator->shouldReceive('current')->andReturn('foobar');
-        $iterator->shouldReceive('next');
+        $iterator->shouldReceive('valid')->andReturn(true)->twice();
+        $iterator->shouldReceive('next')->twice();
+        $iterator->shouldReceive('current')->andReturn('foobar')->once();
+        $iterator->shouldReceive('current')->andReturn('foo')->once();
         $iterator->shouldReceive('valid')->andReturn(false)->once();
 
         $reader = $this->getMockReader();
@@ -759,18 +792,19 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
         $converter = $this->getMockConverter();
         $converter->shouldReceive('convert')->with('foobar')->once()->andReturn(null);
+        $converter->shouldReceive('convert')->with('foo')->once()->andReturn('foo');
         $this->workflow->addConverter($converter);
 
         $writer = $this->getMockWriter();
         $writer->shouldReceive('prepare')->once();
         $writer->shouldReceive('finish')->once();
-        $writer->shouldReceive('writeItem')->never();
+        $writer->shouldReceive('writeItem')->with('foo')->once();
         $this->workflow->addWriter($writer);
 
         $result = $this->workflow->process($reader);
 
-        $this->assertEquals(1, $result->getReadCount());
-        $this->assertEquals(0, $result->getWriteCount());
+        $this->assertEquals(2, $result->getReadCount());
+        $this->assertEquals(1, $result->getWriteCount());
     }
 
     /**
@@ -783,8 +817,9 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
     {
         $iterator = m::mock('\Iterator');
         $iterator->shouldReceive('rewind');
-        $iterator->shouldReceive('valid')->andReturn(true)->once();
-        $iterator->shouldReceive('current')->andReturn('foobar');
+        $iterator->shouldReceive('valid')->andReturn(true)->twice();
+        $iterator->shouldReceive('current')->andReturn('foobar')->once();
+        $iterator->shouldReceive('current')->andReturn('foo')->once();
         $iterator->shouldReceive('next');
         $iterator->shouldReceive('valid')->andReturn(false)->once();
 
@@ -793,15 +828,17 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
         $converter = $this->getMockConverter();
         $converter->shouldReceive('convert')->with('foobar')->once()->andReturn('FOOBAR');
+        $converter->shouldReceive('convert')->with('foo')->never();
 
         $filter = $this->getMockFilter();
         $filter->shouldReceive('filter')->with('foobar')->once()->andReturn(true);
+        $filter->shouldReceive('filter')->with('foo')->once()->andReturn(false);
 
         $this->workflow->addConverter(['converter' => $converter, 'filter' => $filter]);
 
         $result = $this->workflow->process($reader);
 
-        $this->assertEquals(1, $result->getReadCount());
+        $this->assertEquals(2, $result->getReadCount());
     }
 
     /**

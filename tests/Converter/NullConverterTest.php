@@ -30,6 +30,7 @@ class NullConverterTest extends \PHPUnit_Framework_TestCase
         $converter = new NullConverter();
 
         $this->assertEquals('', $converter->convert(null));
+        $this->assertEquals('foo', $converter->convert('foo'));
     }
 
     /**
