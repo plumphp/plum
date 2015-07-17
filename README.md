@@ -68,6 +68,7 @@ packages which give you more functionality out of the box:
 ### Libraries with Plum integrations
 
 - [**Slugify**](https://github.com/cocur/slugify): Converts a string to a slug.
+- [**Arff**](https://github.com/cocur/arff): Writes `.arff` files, required for Weka.
 
 
 Change Log
