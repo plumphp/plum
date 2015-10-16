@@ -1,5 +1,6 @@
-<img src="https://florian.ec/img/plum/logo.png" alt="Plum">
-====
+<p align="center">
+    <img src="http://cdn.florian.ec/plum-logo.svg" alt="Plum" width="300">
+</p>
 
 > Plum is a data processing pipeline that helps you to write structured, reusable and well tested data processing code.
 
@@ -19,6 +20,7 @@ Plum is a data processing pipeline, that means it reads data, filters and conver
 - Readers are iterators that can return values of arbitrary type: arrays, objects or scalars, it doesn't matter to Plum
 - Conditional converters that are only applied to an item if it passes a filter
 - Ability to concatenate workflow to create smaller and better reusable workflows
+- Read from multiple sources, i.e., merge data from different sources into an output
 
 *Plum has been greatly inspired by [ddeboer/data-import](https://github.com/ddeboer/data-import).*
 
@@ -26,10 +28,11 @@ Plum is a data processing pipeline, that means it reads data, filters and conver
 Installation
 ------------
 
-You can install Plum using [Composer](http://getcomposer.org).
+You can install Plum using [Composer](http://getcomposer.org) (recommended) or by downloading a
+[release](https://github.com/plumphp/plum/releases).
 
 ```shell
-$ composer require plumphp/plum:dev-master
+$ composer require plumphp/plum
 ```
 
 
@@ -43,10 +46,10 @@ Here is a quick preview, but please check out the
 use Plum\Plum\Workflow;
 
 $workflow = new Workflow();
-$workflow->addFilter($filter)
-         ->addConverter($converter)
-         ->addWriter($writer);
-$workflow->process($reader);
+$workflow->addFilter(/* filter */)
+         ->addConverter(/* converter */)
+         ->addWriter(/* writer */);
+$workflow->process(/* reader */);
 ```
 
 
