@@ -17,6 +17,7 @@ Table of Contents
 - [PdoStatementReader](#pdostatementreader)
 - [Custom Readers](#custom-readers)
 - [PHP 5.5 and Generators](#php-55-and-generators)
+- [Reader Factory](#reader-factory)
 
 
 ArrayReader
@@ -150,7 +151,10 @@ Custom Readers
 --------------
 
 As mentioned in the introduction `ReaderInterface` extends `IteratorAggregate` and readers therefore have to
-implement the `getIterator()` method.
+implement the `getIterator()` method. In addition readers must implement a static `accepts()` method that returns
+`true` if the reader can read the given resource (given to the constructor) and `false` if not. The method should
+also return `false` if the reader does not have a constructor. The accepts method is used by
+[ReaderFactory](#reader-factory).
 
 ```php
 use Plum\Plum\Reader\ReaderInterface;
@@ -168,6 +172,11 @@ class CollectionReader implements ReaderInterface
     {
         return new ArrayIterator($this->collection);
     }
+
+    public static function accepts()
+    {
+        return false;
+    }
 }
 ```
 
@@ -184,4 +193,50 @@ public function getIterator()
         yield $item;
     }
 }
+```
+
+
+Reader Factory
+--------------
+
+Sometimes a workflow should be able to dynamically read from multiple readers depending on the input. Consider, for
+example, a tool that reads either a CSV or an Excel file.
+
+```php
+use Plum\Plum\Reader\ReaderFactory;
+
+$factory = new ReaderFactory();
+$factory->add('Plum\PlumCsv\CsvReader')
+        ->add('Plum\PlumExcel\ExcelReader');
+$reader = $factory->create($inputFile);
+```
+
+In the above example `ReaderFactory` iterates through the readers and passes the `$inputFile` parameter to the static
+`::accepts()` method of each reader. If the method returns `true`, the `->create()` creates the reader and returns it.
+If no reader returns `true` then `->create()` returns `null`.
+
+In practice things are often a little bit more complicated. Therefore you can pass an `accepts` and a `create` callback
+to the `->add()` method in form of an options array as second argument. If you pass a `create` callback the class name
+is not required and you can pass the options array to `->add()` as first argument.
+
+To demonstrate we will expand the previous example and allow `.tsv` (Tab-separated values) files in addition to `.csv`
+and `.xlsx` files. Additionally the values in `.csv` are separated by a semi-colon instead of a colon (which is the
+default).
+
+```php
+use Plum\Plum\Reader\ReaderFactory;
+
+$factory = new ReaderFactory();
+// We don't need the class name if we provide both a `create` and a `accepts` callback.
+$factory->add([
+    'create'  => function ($input) { return new CsvReader($input, "\t"); },
+    'accepts' => function ($input) { return substr($input, -4) === '.tsv'; }
+]);
+// We want to use a custom `create` callback to initalize CsvReader with `;`
+$factory->add('Plum\PlumExcel\CsvReader', ['create' => function ($input) { return new CsvReader($input, ';'); }]);
+// We use an `accepts` callback that returns `true` only for `.xlsx` files
+$factory->add('Plum\PlumExcel\ExcelReader', [
+    'accepts' => function ($input) { return substr($input, -5) === '.xlsx'; }
+]);
+$reader = $factory->create($inputFile);
 ```

@@ -58,4 +58,14 @@ class ArrayReader implements ReaderInterface
     {
         return count($this->data);
     }
+
+    /**
+     * @param mixed $input
+     *
+     * @return bool `true` if the reader accepts the given input, `false` if not
+     */
+    public static function accepts($input)
+    {
+        return is_array($input);
+    }
 }
