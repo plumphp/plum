@@ -502,6 +502,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @covers Plum\Plum\Workflow::process()
+     * @covers Plum\Plum\Workflow::processReader()
      */
     public function processShouldDoNothingWhenNothingIsRead()
     {
@@ -521,6 +522,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @covers Plum\Plum\Workflow::process()
+     * @covers Plum\Plum\Workflow::processReader()
      * @covers Plum\Plum\Workflow::processItem()
      */
     public function processShouldApplyFilterToReadItems()
@@ -556,6 +558,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @covers Plum\Plum\Workflow::process()
+     * @covers Plum\Plum\Workflow::processReader()
      * @covers Plum\Plum\Workflow::processItem()
      */
     public function processShouldApplyValueFilterToReadItems()
@@ -591,6 +594,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @covers Plum\Plum\Workflow::process()
+     * @covers Plum\Plum\Workflow::processReader()
      * @covers Plum\Plum\Workflow::processItem()
      * @covers Plum\Plum\Workflow::convertItem()
      */
@@ -618,6 +622,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @covers Plum\Plum\Workflow::process()
+     * @covers Plum\Plum\Workflow::processReader()
      * @covers Plum\Plum\Workflow::processItem()
      * @covers Plum\Plum\Workflow::convertItem()
      */
@@ -654,6 +659,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @covers Plum\Plum\Workflow::process()
+     * @covers Plum\Plum\Workflow::processReader()
      * @covers Plum\Plum\Workflow::processItem()
      * @covers Plum\Plum\Workflow::convertItem()
      */
@@ -688,6 +694,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @covers Plum\Plum\Workflow::process()
+     * @covers Plum\Plum\Workflow::processReader()
      * @covers Plum\Plum\Workflow::processItem()
      * @covers Plum\Plum\Workflow::convertItem()
      */
@@ -719,6 +726,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @covers Plum\Plum\Workflow::process()
+     * @covers Plum\Plum\Workflow::processReader()
      * @covers Plum\Plum\Workflow::processItem()
      * @covers Plum\Plum\Workflow::convertItem()
      */
@@ -750,6 +758,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @covers Plum\Plum\Workflow::process()
+     * @covers Plum\Plum\Workflow::processReader()
      * @covers Plum\Plum\Workflow::processItem()
      * @covers Plum\Plum\Workflow::convertItemValue()
      */
@@ -783,6 +792,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @covers Plum\Plum\Workflow::process()
+     * @covers Plum\Plum\Workflow::processReader()
      * @covers Plum\Plum\Workflow::processItem()
      * @covers Plum\Plum\Workflow::convertItemValue()
      */
@@ -820,6 +830,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @covers Plum\Plum\Workflow::process()
+     * @covers Plum\Plum\Workflow::processReader()
      * @covers Plum\Plum\Workflow::processItem()
      * @covers Plum\Plum\Workflow::convertItemValue()
      */
@@ -862,6 +873,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @covers Plum\Plum\Workflow::process()
+     * @covers Plum\Plum\Workflow::processReader()
      * @covers Plum\Plum\Workflow::processItem()
      * @covers Plum\Plum\Workflow::convertItemValue()
      */
@@ -893,6 +905,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @covers Plum\Plum\Workflow::process()
+     * @covers Plum\Plum\Workflow::processReader()
      * @covers Plum\Plum\Workflow::processItem()
      * @covers Plum\Plum\Workflow::prepareWriters()
      * @covers Plum\Plum\Workflow::finishWriters()
@@ -1038,6 +1051,51 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @covers Plum\Plum\Workflow::process()
+     * @covers Plum\Plum\Workflow::processReader()
+     * @covers Plum\Plum\Workflow::processItem()
+     * @covers Plum\Plum\Workflow::prepareWriters()
+     * @covers Plum\Plum\Workflow::finishWriters()
+     * @covers Plum\Plum\Workflow::writeItem()
+     */
+    public function processShouldReadFromMultipleReaders()
+    {
+        $iterator1 = m::mock('\Iterator');
+        $iterator1->shouldReceive('rewind');
+        $iterator1->shouldReceive('valid')->andReturn(true)->once();
+        $iterator1->shouldReceive('current')->andReturn('foobar');
+        $iterator1->shouldReceive('next');
+        $iterator1->shouldReceive('valid')->andReturn(false)->once();
+
+        $reader1 = $this->getMockReader();
+        $reader1->shouldReceive('getIterator')->andReturn($iterator1);
+
+        $iterator2 = m::mock('\Iterator');
+        $iterator2->shouldReceive('rewind');
+        $iterator2->shouldReceive('valid')->andReturn(true)->once();
+        $iterator2->shouldReceive('current')->andReturn('foobar');
+        $iterator2->shouldReceive('next');
+        $iterator2->shouldReceive('valid')->andReturn(false)->once();
+
+        $reader2 = $this->getMockReader();
+        $reader2->shouldReceive('getIterator')->andReturn($iterator2);
+
+        $writer = $this->getMockWriter();
+        $writer->shouldReceive('prepare')->once();
+        $writer->shouldReceive('finish')->once();
+        $writer->shouldReceive('writeItem')->with('foobar')->twice();
+        $this->workflow->addWriter($writer);
+
+        $result = $this->workflow->process([$reader1, $reader2]);
+
+        $this->assertEquals(2, $result->getReadCount());
+        $this->assertEquals(2, $result->getWriteCount());
+        $this->assertEquals(2, $result->getItemWriteCount());
+    }
+
+    /**
+     * @test
+     * @covers Plum\Plum\Workflow::process()
+     * @covers Plum\Plum\Workflow::processReader()
      * @covers Plum\Plum\Workflow::processItem()
      */
     public function processShouldCollectExceptions()
