@@ -156,5 +156,5 @@ Sometimes you want to filter items on a single value in the item and Plum theref
 filters use [Vale](https://github.com/cocur/vale) to retrieve a value from an arbitrary array or object.
 
 ```php
-$workflow->addValueFilter($filter, ['foo, 'bar', 'qoo']);
+$workflow->addFilter(['filter' => $filter, 'field => ['foo, 'bar', 'qoo']]);
 ```
