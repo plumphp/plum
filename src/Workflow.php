@@ -96,7 +96,8 @@ class Workflow
         if ($pipe instanceof FilterInterface) {
             $pipe = ['filter' => $pipe];
         } else if (!is_array($pipe) || !isset($pipe['filter'])
-                || !$pipe['filter'] instanceof FilterInterface) {
+                   || !$pipe['filter'] instanceof FilterInterface
+        ) {
             throw new InvalidArgumentException('Workflow::addFilter() must be called with either an instance of '.
                                                '"Plum\Plum\Filter\FilterInterface" or an array that contains '.
                                                '"filter".');
@@ -147,7 +148,8 @@ class Workflow
         if ($pipe instanceof ConverterInterface) {
             $pipe = ['converter' => $pipe];
         } else if (!is_array($pipe) || !isset($pipe['converter'])
-                || !$pipe['converter'] instanceof ConverterInterface) {
+                   || !$pipe['converter'] instanceof ConverterInterface
+        ) {
             throw new InvalidArgumentException('Workflow::addConverter() must be called with either an instance of '.
                                                '"Plum\Plum\Converter\ConverterInterface" or with an array that '.
                                                'contains "converter".');
@@ -196,7 +198,8 @@ class Workflow
         if ($pipe instanceof WriterInterface) {
             $pipe = ['writer' => $pipe];
         } else if (!is_array($pipe) || !isset($pipe['writer'])
-                || !$pipe['writer'] instanceof WriterInterface) {
+                   || !$pipe['writer'] instanceof WriterInterface
+        ) {
             throw new InvalidArgumentException('Workflow::addWriter() must be called with either an instance of '.
                                                '"Plum\Plum\Writer\WriterInterface" or with an array that contains '.
                                                '"writer".');
@@ -220,16 +223,35 @@ class Workflow
     }
 
     /**
-     * @param ReaderInterface $reader
+     * @param ReaderInterface[]|ReaderInterface $readers
      *
      * @return Result
      */
-    public function process(ReaderInterface $reader)
+    public function process($readers)
     {
+        if (!is_array($readers)) {
+            $readers = [$readers];
+        }
+
         $result = new Result();
 
         $this->prepareWriters($this->getWriters());
 
+        foreach ($readers as $reader) {
+            $this->processReader($reader, $result);
+        }
+
+        $this->finishWriters($this->getWriters());
+
+        return $result;
+    }
+
+    /**
+     * @param ReaderInterface $reader
+     * @param Result          $result
+     */
+    protected function processReader(ReaderInterface $reader, Result $result)
+    {
         foreach ($reader as $item) {
             $result->incReadCount();
             try {
@@ -238,10 +260,6 @@ class Workflow
                 $result->addException($e);
             }
         }
-
-        $this->finishWriters($this->getWriters());
-
-        return $result;
     }
 
     /**
