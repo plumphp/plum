@@ -62,50 +62,52 @@ class Workflow
     /**
      * Inserts an element into the pipeline at the given position.
      *
-     * @param array $element
+     * @param array $pipe
      *
      * @return Workflow
      */
-    protected function insertElement($element)
+    protected function addPipe($pipe)
     {
-        $position = isset($element['position']) ? $element['position'] : self::APPEND;
+        $position = isset($pipe['position']) ? $pipe['position'] : self::APPEND;
 
         if ($position === self::PREPEND) {
-            array_unshift($this->pipeline, $element);
+            array_unshift($this->pipeline, $pipe);
         } else {
-            $this->pipeline[] = $element;
+            $this->pipeline[] = $pipe;
         }
 
         return $this;
     }
 
     /**
-     * @param array|FilterInterface $element
+     * @param array|FilterInterface $pipe
      *
      * @return Workflow
      *
      * @throws InvalidArgumentException
      */
-    public function addFilter($element)
+    public function addFilter($pipe)
     {
-        if (is_callable($element)) {
-            $element = new CallbackFilter($element);
-        } else if (is_array($element) && isset($element['filter']) && is_callable($element['filter'])) {
-            $element['filter'] = new CallbackFilter($element['filter']);
+        if (is_callable($pipe)) {
+            $pipe = new CallbackFilter($pipe);
+        } else if (is_array($pipe) && isset($pipe['filter']) && is_callable($pipe['filter'])) {
+            $pipe['filter'] = new CallbackFilter($pipe['filter']);
         }
-        if ($element instanceof FilterInterface) {
-            $element = ['filter' => $element];
-        } else if (!is_array($element) || !isset($element['filter'])
-                || !$element['filter'] instanceof FilterInterface) {
-            throw new InvalidArgumentException('Workflow::addFilter() must be called with either an instance of "Plum\Plum\Filter\FilterInterface" or an array that contains "filter".');
+        if ($pipe instanceof FilterInterface) {
+            $pipe = ['filter' => $pipe];
+        } else if (!is_array($pipe) || !isset($pipe['filter'])
+                || !$pipe['filter'] instanceof FilterInterface) {
+            throw new InvalidArgumentException('Workflow::addFilter() must be called with either an instance of '.
+                                               '"Plum\Plum\Filter\FilterInterface" or an array that contains '.
+                                               '"filter".');
         }
 
-        $element = array_merge([
-            'type'     => self::PIPELINE_TYPE_FILTER,
+        $pipe = array_merge([
+            'type'     => isset($pipe['field']) ? self::PIPELINE_TYPE_VALUE_FILTER : self::PIPELINE_TYPE_FILTER,
             'position' => self::APPEND
-        ], $element);
+        ], $pipe);
 
-        return $this->insertElement($element);
+        return $this->addPipe($pipe);
     }
 
     /**
@@ -117,36 +119,6 @@ class Workflow
     }
 
     /**
-     * @param array|FilterInterface $element
-     * @param string|null           $field
-     *
-     * @return Workflow
-     *
-     * @throws InvalidArgumentException
-     */
-    public function addValueFilter($element, $field = null)
-    {
-        if (is_callable($element)) {
-            $element = new CallbackFilter($element);
-        } else if (is_array($element) && isset($element['filter']) && is_callable($element['filter'])) {
-            $element['filter'] = new CallbackFilter($element['filter']);
-        }
-        if ($element instanceof FilterInterface && $field) {
-            $element = ['filter' => $element, 'field' => $field];
-        } else if (!is_array($element) || (!is_array($element) && !$field) || !isset($element['filter'])
-                || !isset($element['field']) || !$element['filter'] instanceof FilterInterface) {
-            throw new InvalidArgumentException('Workflow::addValueFilter() must be called with either an instance of "Plum\Plum\Filter\FilterInterface" and a field name or with an array that contains "filter" and "field".');
-        }
-
-        $element = array_merge([
-            'type'     => self::PIPELINE_TYPE_VALUE_FILTER,
-            'position' => self::APPEND
-        ], $element);
-
-        return $this->insertElement($element);
-    }
-
-    /**
      * @return FilterInterface[]
      */
     public function getValueFilters()
@@ -155,38 +127,42 @@ class Workflow
     }
 
     /**
-     * @param array|ConverterInterface|callback $element
+     * @param array|ConverterInterface|callback $pipe
      *
      * @return Workflow $this
      *
      * @throws InvalidArgumentException
      */
-    public function addConverter($element)
+    public function addConverter($pipe)
     {
-        if (is_callable($element)) {
-            $element = new CallbackConverter($element);
-        } else if (is_array($element) && isset($element['converter']) && is_callable($element['converter'])) {
-            $element['converter'] = new CallbackConverter($element['converter']);
+        if (is_callable($pipe)) {
+            $pipe = new CallbackConverter($pipe);
+        } else if (is_array($pipe) && isset($pipe['converter']) && is_callable($pipe['converter'])) {
+            $pipe['converter'] = new CallbackConverter($pipe['converter']);
         }
-        if (is_array($element) && isset($element['filter']) && is_callable($element['filter'])) {
-            $element['filter'] = new CallbackFilter($element['filter']);
-        }
-
-        if ($element instanceof ConverterInterface) {
-            $element = ['converter' => $element];
-        } else if (!is_array($element) || !isset($element['converter'])
-                || !$element['converter'] instanceof ConverterInterface) {
-            throw new InvalidArgumentException('Workflow::addConverter() must be called with either an instance of "Plum\Plum\Converter\ConverterInterface" or with an array that contains "converter".');
+        if (is_array($pipe) && isset($pipe['filter']) && is_callable($pipe['filter'])) {
+            $pipe['filter'] = new CallbackFilter($pipe['filter']);
         }
 
-        $element = array_merge([
-            'type'        => self::PIPELINE_TYPE_CONVERTER,
+        if ($pipe instanceof ConverterInterface) {
+            $pipe = ['converter' => $pipe];
+        } else if (!is_array($pipe) || !isset($pipe['converter'])
+                || !$pipe['converter'] instanceof ConverterInterface) {
+            throw new InvalidArgumentException('Workflow::addConverter() must be called with either an instance of '.
+                                               '"Plum\Plum\Converter\ConverterInterface" or with an array that '.
+                                               'contains "converter".');
+        }
+
+        $pipe = array_merge([
+            'type'        => isset($pipe['field']) ?
+                self::PIPELINE_TYPE_VALUE_CONVERTER :
+                self::PIPELINE_TYPE_CONVERTER,
             'filter'      => null,
             'filterField' => null,
             'position'    => self::APPEND
-        ], $element);
+        ], $pipe);
 
-        return $this->insertElement($element);
+        return $this->addPipe($pipe);
     }
 
     /**
@@ -198,42 +174,6 @@ class Workflow
     }
 
     /**
-     * @param array|ConverterInterface|callback $element
-     * @param string|null                       $field
-     *
-     * @return Workflow
-     *
-     * @throws InvalidArgumentException
-     */
-    public function addValueConverter($element, $field = null)
-    {
-        if (is_callable($element)) {
-            $element = new CallbackConverter($element);
-        } else if (is_array($element) && isset($element['converter']) && is_callable($element['converter'])) {
-            $element['converter'] = new CallbackConverter($element['converter']);
-        }
-        if (is_array($element) && isset($element['filter']) && is_callable($element['filter'])) {
-            $element['filter'] = new CallbackFilter($element['filter']);
-        }
-
-        if ($element instanceof ConverterInterface && $field) {
-            $element = ['converter' => $element, 'field' => $field];
-        } else if (!is_array($element) || (!is_array($element) && !$field) || !isset($element['converter'])
-            || !isset($element['field']) || !$element['converter'] instanceof ConverterInterface) {
-            throw new InvalidArgumentException('Workflow::addValueConverter() must be called with either an instance of "Plum\Plum\Converter\ConverterInterface" and a field name or with an array that contains "converter" and "field".');
-        }
-
-        $element = array_merge([
-            'type'        => self::PIPELINE_TYPE_VALUE_CONVERTER,
-            'filter'      => null,
-            'filterField' => null,
-            'position'    => self::APPEND
-        ], $element);
-
-        return $this->insertElement($element);
-    }
-
-    /**
      * @return ConverterInterface[]
      */
     public function getValueConverters()
@@ -242,31 +182,33 @@ class Workflow
     }
 
     /**
-     * @param array|WriterInterface $element
+     * @param array|WriterInterface $pipe
      *
      * @return Workflow
      *
      * @throws InvalidArgumentException
      */
-    public function addWriter($element)
+    public function addWriter($pipe)
     {
-        if (is_array($element) && isset($element['filter']) && is_callable($element['filter'])) {
-            $element['filter'] = new CallbackFilter($element['filter']);
+        if (is_array($pipe) && isset($pipe['filter']) && is_callable($pipe['filter'])) {
+            $pipe['filter'] = new CallbackFilter($pipe['filter']);
         }
-        if ($element instanceof WriterInterface) {
-            $element = ['writer' => $element];
-        } else if (!is_array($element) || !isset($element['writer'])
-                || !$element['writer'] instanceof WriterInterface) {
-            throw new InvalidArgumentException('Workflow::addWriter() must be called with either an instance of "Plum\Plum\Writer\WriterInterface" or with an array that contains "writer".');
+        if ($pipe instanceof WriterInterface) {
+            $pipe = ['writer' => $pipe];
+        } else if (!is_array($pipe) || !isset($pipe['writer'])
+                || !$pipe['writer'] instanceof WriterInterface) {
+            throw new InvalidArgumentException('Workflow::addWriter() must be called with either an instance of '.
+                                               '"Plum\Plum\Writer\WriterInterface" or with an array that contains '.
+                                               '"writer".');
         }
 
-        $element = array_merge([
+        $pipe = array_merge([
             'type'     => self::PIPELINE_TYPE_WRITER,
             'filter'   => null,
             'position' => self::APPEND
-        ], $element);
+        ], $pipe);
 
-        return $this->insertElement($element);
+        return $this->addPipe($pipe);
     }
 
     /**

@@ -65,7 +65,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Plum\Plum\Workflow::insertElement()
+     * @covers Plum\Plum\Workflow::addPipe()
      * @covers Plum\Plum\Workflow::addFilter()
      * @covers Plum\Plum\Workflow::getFilters()
      */
@@ -82,7 +82,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Plum\Plum\Workflow::insertElement()
+     * @covers Plum\Plum\Workflow::addPipe()
      * @covers Plum\Plum\Workflow::addFilter()
      * @covers Plum\Plum\Workflow::getFilters()
      */
@@ -96,7 +96,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Plum\Plum\Workflow::insertElement()
+     * @covers Plum\Plum\Workflow::addPipe()
      * @covers Plum\Plum\Workflow::addFilter()
      * @covers Plum\Plum\Workflow::getFilters()
      */
@@ -165,16 +165,16 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Plum\Plum\Workflow::insertElement()
-     * @covers Plum\Plum\Workflow::addValueFilter()
+     * @covers Plum\Plum\Workflow::addPipe()
+     * @covers Plum\Plum\Workflow::addFilter()
      * @covers Plum\Plum\Workflow::getValueFilters()
      */
-    public function addValueFilterWithFilterInstanceShouldAddValueFilterToWorkflow()
+    public function addFilterWithFieldAndFilterInstanceShouldAddValueFilterToWorkflow()
     {
         $filter = $this->getMockFilter();
         $this->assertInstanceOf(
             'Plum\Plum\Workflow',
-            $this->workflow->addValueFilter($filter, ['foo'])
+            $this->workflow->addFilter(['filter' => $filter, 'field' => ['foo']])
         );
 
         $this->assertSame($filter, $this->workflow->getValueFilters()[0]['filter']);
@@ -182,30 +182,16 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Plum\Plum\Workflow::insertElement()
-     * @covers Plum\Plum\Workflow::addValueFilter()
+     * @covers Plum\Plum\Workflow::addPipe()
+     * @covers Plum\Plum\Workflow::addFilter()
      * @covers Plum\Plum\Workflow::getValueFilters()
      */
-    public function addValueFilterWithArrayShouldAddValueFilterToWorkflow()
-    {
-        $filter = $this->getMockFilter();
-        $this->workflow->addValueFilter(['filter' => $filter, 'field' => ['foo']]);
-
-        $this->assertSame($filter, $this->workflow->getValueFilters()[0]['filter']);
-    }
-
-    /**
-     * @test
-     * @covers Plum\Plum\Workflow::insertElement()
-     * @covers Plum\Plum\Workflow::addValueFilter()
-     * @covers Plum\Plum\Workflow::getValueFilters()
-     */
-    public function addValueFilterWithPrependShouldPrependValueFilterToWorkflow()
+    public function addFilterWithFieldAndPrependShouldPrependValueFilterToWorkflow()
     {
         $filter1 = $this->getMockFilter();
         $filter2 = $this->getMockFilter();
-        $this->workflow->addValueFilter($filter1, ['foo']);
-        $this->workflow->addValueFilter(['field' => ['foo'], 'filter' => $filter2, 'position' => Workflow::PREPEND]);
+        $this->workflow->addFilter(['filter' => $filter1, 'field' => ['foo']]);
+        $this->workflow->addFilter(['field' => ['foo'], 'filter' => $filter2, 'position' => Workflow::PREPEND]);
 
         $this->assertSame($filter2, $this->workflow->getValueFilters()[0]['filter']);
         $this->assertSame($filter1, $this->workflow->getValueFilters()[1]['filter']);
@@ -213,11 +199,11 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Plum\Plum\Workflow::addValueFilter()
+     * @covers Plum\Plum\Workflow::addFilter()
      */
-    public function addValueFilterConvertsCallbackIntoCallbackConverter()
+    public function addFilterWithFieldConvertsCallbackIntoCallbackConverter()
     {
-        $this->workflow->addValueFilter(function ($item) { return $item; }, ['foo']);
+        $this->workflow->addFilter(['filter' => function ($item) { return $item; }, 'field' => ['foo']]);
 
         $this->assertInstanceOf(
             'Plum\Plum\Filter\FilterInterface',
@@ -227,71 +213,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Plum\Plum\Workflow::addValueFilter()
-     */
-    public function addValueFilterConvertsCallbackInArrayIntoCallbackConverter()
-    {
-        $this->workflow->addValueFilter(['filter' => function ($item) { return $item; }, 'field' => ['foo']]);
-
-        $this->assertInstanceOf(
-            'Plum\Plum\Filter\FilterInterface',
-            $this->workflow->getValueFilters()[0]['filter']
-        );
-    }
-
-    /**
-     * @test
-     * @covers            Plum\Plum\Workflow::addValueFilter()
-     * @expectedException \InvalidArgumentException
-     */
-    public function addValueFilterThrowsExceptionIfElementIsNotAnArrayAndNotAFilter()
-    {
-        $this->workflow->addValueFilter('invalid', ['foo']);
-    }
-
-    /**
-     * @test
-     * @covers            Plum\Plum\Workflow::addValueFilter()
-     * @expectedException \InvalidArgumentException
-     */
-    public function addValueFilterThrowsExceptionIfFieldIsMissing()
-    {
-        $this->workflow->addValueFilter($this->getMockFilter(), null);
-    }
-
-    /**
-     * @test
-     * @covers            Plum\Plum\Workflow::addValueFilter()
-     * @expectedException \InvalidArgumentException
-     */
-    public function addValueFilterThrowsExceptionIfFieldIsMissingInArray()
-    {
-        $this->workflow->addValueFilter(['filter' => $this->getMockFilter()]);
-    }
-
-    /**
-     * @test
-     * @covers            Plum\Plum\Workflow::addValueFilter()
-     * @expectedException \InvalidArgumentException
-     */
-    public function addValueFilterThrowsExceptionIfFilterIsMissingInArray()
-    {
-        $this->workflow->addValueFilter(['field' => ['foo']]);
-    }
-
-    /**
-     * @test
-     * @covers            Plum\Plum\Workflow::addValueFilter()
-     * @expectedException \InvalidArgumentException
-     */
-    public function addValueFilterThrowsExceptionIfFilterInArrayIsNotFilter()
-    {
-        $this->workflow->addValueFilter(['field' => ['foo'], 'filter' => 'invalid']);
-    }
-
-    /**
-     * @test
-     * @covers Plum\Plum\Workflow::insertElement()
+     * @covers Plum\Plum\Workflow::addPipe()
      * @covers Plum\Plum\Workflow::addConverter()
      * @covers Plum\Plum\Workflow::getConverters()
      */
@@ -308,7 +230,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Plum\Plum\Workflow::insertElement()
+     * @covers Plum\Plum\Workflow::addPipe()
      * @covers Plum\Plum\Workflow::addConverter()
      * @covers Plum\Plum\Workflow::getConverters()
      */
@@ -322,7 +244,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Plum\Plum\Workflow::insertElement()
+     * @covers Plum\Plum\Workflow::addPipe()
      * @covers Plum\Plum\Workflow::addConverter()
      * @covers Plum\Plum\Workflow::getConverters()
      */
@@ -414,16 +336,16 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Plum\Plum\Workflow::insertElement()
-     * @covers Plum\Plum\Workflow::addValueConverter()
+     * @covers Plum\Plum\Workflow::addPipe()
+     * @covers Plum\Plum\Workflow::addConverter()
      * @covers Plum\Plum\Workflow::getValueConverters()
      */
-    public function addValueConverterWithConverterInstanceShouldAddValueConverterToWorkflow()
+    public function addConverterWithFieldAndConverterInstanceShouldAddValueConverterToWorkflow()
     {
         $converter = $this->getMockConverter();
         $this->assertInstanceOf(
             'Plum\Plum\Workflow',
-            $this->workflow->addValueConverter($converter, ['foo'])
+            $this->workflow->addConverter(['converter' => $converter, 'field' => ['foo']])
         );
 
         $this->assertSame($converter, $this->workflow->getValueConverters()[0]['converter']);
@@ -431,30 +353,16 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Plum\Plum\Workflow::insertElement()
-     * @covers Plum\Plum\Workflow::addValueConverter()
+     * @covers Plum\Plum\Workflow::addPipe()
+     * @covers Plum\Plum\Workflow::addConverter()
      * @covers Plum\Plum\Workflow::getValueConverters()
      */
-    public function addValueConverterWithArrayShouldAddValueConverterToWorkflow()
-    {
-        $converter = $this->getMockConverter();
-        $this->workflow->addValueConverter(['converter' => $converter, 'field' => ['foo']]);
-
-        $this->assertSame($converter, $this->workflow->getValueConverters()[0]['converter']);
-    }
-
-    /**
-     * @test
-     * @covers Plum\Plum\Workflow::insertElement()
-     * @covers Plum\Plum\Workflow::addValueConverter()
-     * @covers Plum\Plum\Workflow::getValueConverters()
-     */
-    public function addValueConverterWithPrependShouldPrependValueConverterToWorkflow()
+    public function addConverterWithFieldAndPrependShouldPrependValueConverterToWorkflow()
     {
         $converter1 = $this->getMockConverter();
         $converter2 = $this->getMockConverter();
-        $this->workflow->addValueConverter($converter1, ['foo']);
-        $this->workflow->addValueConverter([
+        $this->workflow->addConverter(['converter' => $converter1, 'field' => ['foo']]);
+        $this->workflow->addConverter([
             'field'     => ['foo'],
             'converter' => $converter2,
             'position'  => Workflow::PREPEND
@@ -466,11 +374,11 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Plum\Plum\Workflow::addValueConverter()
+     * @covers Plum\Plum\Workflow::addConverter()
      */
-    public function addValueConverterAcceptsCallbackAndCreatesCallbackConverter()
+    public function addConverterWithFieldAcceptsCallbackAndCreatesCallbackConverter()
     {
-        $this->workflow->addValueConverter(function ($item) { return $item; }, ['foo']);
+        $this->workflow->addConverter(['converter' => function ($item) { return $item; }, 'field' => ['foo']]);
 
         $this->assertInstanceOf(
             'Plum\Plum\Converter\ConverterInterface',
@@ -480,25 +388,11 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Plum\Plum\Workflow::addValueConverter()
+     * @covers Plum\Plum\Workflow::addConverter()
      */
-    public function addValueConverterAcceptsCallbackInArrayAndCreatesCallbackConverter()
+    public function addConverterWithFieldAcceptsCallbackFilterInArrayAndCreatesCallbackFilter()
     {
-        $this->workflow->addValueConverter(['converter' => function ($item) { return $item; }, 'field' => ['foo']]);
-
-        $this->assertInstanceOf(
-            'Plum\Plum\Converter\ConverterInterface',
-            $this->workflow->getValueConverters()[0]['converter']
-        );
-    }
-
-    /**
-     * @test
-     * @covers Plum\Plum\Workflow::addValueConverter()
-     */
-    public function addValueConverterAcceptsCallbackFilterInArrayAndCreatesCallbackFilter()
-    {
-        $this->workflow->addValueConverter([
+        $this->workflow->addConverter([
             'converter' => $this->getMockConverter(),
             'field'     => ['foo'],
             'filter'    => function ($item) { return true; }
@@ -512,57 +406,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers            Plum\Plum\Workflow::addValueConverter()
-     * @expectedException \InvalidArgumentException
-     */
-    public function addValueConverterThrowsExceptionIfElementIsNotAnArrayAndNotAConverter()
-    {
-        $this->workflow->addValueConverter('invalid', ['foo']);
-    }
-
-    /**
-     * @test
-     * @covers            Plum\Plum\Workflow::addValueConverter()
-     * @expectedException \InvalidArgumentException
-     */
-    public function addValueConverterThrowsExceptionIfFieldIsMissing()
-    {
-        $this->workflow->addValueConverter($this->getMockConverter(), null);
-    }
-
-    /**
-     * @test
-     * @covers            Plum\Plum\Workflow::addValueConverter()
-     * @expectedException \InvalidArgumentException
-     */
-    public function addValueConverterThrowsExceptionIfFieldIsMissingInArray()
-    {
-        $this->workflow->addValueConverter(['converter' => $this->getMockConverter()]);
-    }
-
-    /**
-     * @test
-     * @covers            Plum\Plum\Workflow::addValueConverter()
-     * @expectedException \InvalidArgumentException
-     */
-    public function addValueConverterThrowsExceptionIfConverterIsMissingInArray()
-    {
-        $this->workflow->addValueConverter(['field' => ['foo']]);
-    }
-
-    /**
-     * @test
-     * @covers            Plum\Plum\Workflow::addValueConverter()
-     * @expectedException \InvalidArgumentException
-     */
-    public function addValueConverterThrowsExceptionIfConverterIsInArrayIsNotConverter()
-    {
-        $this->workflow->addValueConverter(['field' => ['foo'], 'converter' => 'invalid']);
-    }
-
-    /**
-     * @test
-     * @covers Plum\Plum\Workflow::insertElement()
+     * @covers Plum\Plum\Workflow::addPipe()
      * @covers Plum\Plum\Workflow::addWriter()
      * @covers Plum\Plum\Workflow::getWriters()
      */
@@ -579,7 +423,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Plum\Plum\Workflow::insertElement()
+     * @covers Plum\Plum\Workflow::addPipe()
      * @covers Plum\Plum\Workflow::addWriter()
      * @covers Plum\Plum\Workflow::getWriters()
      */
@@ -593,7 +437,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @covers Plum\Plum\Workflow::insertElement()
+     * @covers Plum\Plum\Workflow::addPipe()
      * @covers Plum\Plum\Workflow::addWriter()
      * @covers Plum\Plum\Workflow::getWriters()
      */
@@ -730,7 +574,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
         $filter = $this->getMockFilter();
         $filter->shouldReceive('filter')->with('foobar')->once()->andReturn(false);
         $filter->shouldReceive('filter')->with('foo')->once()->andReturn(true);
-        $this->workflow->addValueFilter($filter, ['foo']);
+        $this->workflow->addFilter(['filter' => $filter, 'field' => ['foo']]);
 
         $writer = $this->getMockWriter();
         $writer->shouldReceive('prepare');
@@ -923,7 +767,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
         $converter = $this->getMockConverter();
         $converter->shouldReceive('convert')->with('foobar')->once()->andReturn('FOOBAR');
-        $this->workflow->addValueConverter($converter, ['foo']);
+        $this->workflow->addConverter(['converter' => $converter, 'field' => ['foo']]);
 
         $writer = $this->getMockWriter();
         $writer->shouldReceive('prepare');
@@ -960,7 +804,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
         $filter = $this->getMockFilter();
         $filter->shouldReceive('filter')->with(['foo' => 'foobar'])->once()->andReturn(true);
 
-        $this->workflow->addValueConverter(['field' => ['foo'], 'converter' => $converter, 'filter' => $filter]);
+        $this->workflow->addConverter(['field' => ['foo'], 'converter' => $converter, 'filter' => $filter]);
 
         $writer = $this->getMockWriter();
         $writer->shouldReceive('prepare');
@@ -997,7 +841,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
         $filter = $this->getMockFilter();
         $filter->shouldReceive('filter')->with('baz')->once()->andReturn(true);
 
-        $this->workflow->addValueConverter([
+        $this->workflow->addConverter([
             'field'       => 'foo',
             'converter'   => $converter,
             'filter'      => $filter,
@@ -1039,7 +883,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
         $filter = $this->getMockFilter();
         $filter->shouldReceive('filter')->with(['foo' => 'foobar'])->once()->andReturn(false);
 
-        $this->workflow->addValueConverter(['field' => ['foo'], 'converter' => $converter, 'filter' => $filter]);
+        $this->workflow->addConverter(['field' => ['foo'], 'converter' => $converter, 'filter' => $filter]);
 
         $result = $this->workflow->process($reader);
 
