@@ -178,3 +178,9 @@ $workflow1->process($reader);
 // Process the second workflow with the concatenator as reader.
 $workflow->process($concatenator):
 ```
+
+---
+
+<p align="right">
+    Continue with <a href="readers.md">Readers</a>
+</p>

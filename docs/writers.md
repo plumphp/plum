@@ -155,3 +155,9 @@ $workflow->addWriter($writer, $filter);
 ```
 
 An item is only written to a conditional writer, if the filter returns `true` for the item.
+
+---
+
+<p align="right">
+    Continue with <a href="filters.md">Filters</a>
+</p>

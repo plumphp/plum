@@ -1,5 +1,12 @@
-Converters
-==========
+<p align="center">
+    <img src="http://cdn.florian.ec/plum-logo.svg" alt="Plum" width="300">
+</p>
+
+> Plum is a data processing pipeline that helps you to write structured, reusable and well tested data processing code.
+
+Developed by [Florian Eckerstorfer](https://florian.ec) in Vienna, Europe.
+
+---
 
 Converters take an item and convert it into something else. They must implement `ConverterInterface` which has a single
 `convert()` method.
