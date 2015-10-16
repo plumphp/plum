@@ -1,16 +1,15 @@
+<p align="center">
+    <img src="http://cdn.florian.ec/plum-logo.svg" alt="Plum" width="300">
+</p>
+
+> Plum is a data processing pipeline that helps you to write structured, reusable and well tested data processing code.
+
+Developed by [Florian Eckerstorfer](https://florian.ec) in Vienna, Europe.
+
+---
+
 Workflow
 ========
-
-```php
-use Plum\Plum\Workflow;
-
-$workflow = new Workflow();
-$workflow->addFilter($filter)
-         ->addConverter($converter)
-         ->addWriter($writer);
-$workflow->process($reader);
-```
-
 
 Table of Contents
 -----------------
@@ -21,7 +20,6 @@ Table of Contents
 - [Callback Converters, and Filters](#callback-converters-and-filter)
 - [Result](#result)
 - [Concatenating Workflows](#concatenating-workflows)
-
 
 Adding Converters, Filters, and Writers
 -------------------------------------
@@ -53,8 +51,7 @@ $workflow->addFilter(['filter' => $filter]);
 ### Value Filters
 
 ```php
-$workflow->addValueFilter($filter, ['key']);
-$workflow->addValueFilter(['filter' => $filter, 'field' => ['key']]);
+$workflow->addFilter(['field' => 'key', 'filter' => $filter));
 ```
 
 ### Writers
@@ -87,7 +84,7 @@ Conditional converters also work for value converters:
 ```php
 $converter = new CallbackConverter(function ($item) { return strtoupper($item); });
 $filter    = new CallbackFilter(function ($item) { return preg_match('/foo/', $item); });
-$workflow->addValueConverter(['converter' => $converter, 'filter' => $filter], ['k']);
+$workflow->addConverter(['field' => 'k', 'converter' => $converter, 'filter' => $filter]);
 
 // ["k" => "foobar"] -> ["k" => "FOOBAR"]
 // ["k" => "bazbar"] -> ["k" => "bazbar"]
@@ -121,18 +118,16 @@ converter to a `Workflow` you can just pass the callback and the workflow will a
 ```php
 $workflow->addConverter(function ($item) { return strtoupper($item); });
 $workflow->addConverter(['converter' => function ($item) { return strtoupper($item); }]);
-$workflow->addValueConverter(function ($item) { return strtoupper($item); }, ['foo']);
-$workflow->addValueConverter(['converter' => function ($item) { return strtoupper($item); }, 'field' => ['foo']]);
+$workflow->addConverter(['field' => ['foo'], 'converter' => function ($item) { return strtoupper($item); }]);
 ```
 
 `CallbackFilter` is a filter that executes a callback and filters the item based on the return value of the callback.
 Just like with converters you can just pass the callback and the workflow will create a `CallbackConverter` for you.
 
 ```php
-$workflow->addFilter(function ($item) { return strtoupper($item); });
-$workflow->addFilter(['filter' => function ($item) { return strtoupper($item); }]);
-$workflow->addValueFilter(function ($item) { return strtoupper($item); }, ['foo']);
-$workflow->addValueFilter(['filter' => function ($item) { return strtoupper($item); }, 'field' => ['foo']]);
+$workflow->addFilter(function ($item) { return !empty($item['price']; });
+$workflow->addFilter(['filter' => function ($item) { return !empty($item['price']; }]);
+$workflow->addFilter(['field' => ['foo'], 'filter' => function ($item) { return $item === 'bar'; }]);
 ```
 
 In addition it is also possible to use callbacks as filters in conditional converters.
@@ -177,6 +172,20 @@ $workflow1->process($reader);
 
 // Process the second workflow with the concatenator as reader.
 $workflow->process($concatenator):
+```
+
+
+Multiple Readers
+----------------
+
+You can process data from multiple readers with one call to `process()`. In practice you can use this to merge 
+multiple data sources into a single target.
+
+```php
+use Plum\Plum\Workflow;
+
+$workflow = new Workflow();
+$workflow->process([$reader1, $reader2]);
 ```
 
 ---

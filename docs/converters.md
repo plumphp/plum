@@ -8,6 +8,9 @@ Developed by [Florian Eckerstorfer](https://florian.ec) in Vienna, Europe.
 
 ---
 
+Converters
+==========
+
 Converters take an item and convert it into something else. They must implement `ConverterInterface` which has a single
 `convert()` method.
 
