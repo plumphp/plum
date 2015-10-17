@@ -18,6 +18,18 @@
 
 ---
 
+The true power of Plum comes from its extensibility. On this page we list all currently available packages for Plum
+as well as libraries that provide Plum integration.
+
+
+Table of Contents
+-----------------
+
+1. [Additional Packages](#additonal-packages)
+2. [Integrations](#integrations)
+3. [Missing Packages or Integrations?](#missing-packages-or-integrations)
+
+
 Additional packages
 -------------------
 
@@ -68,6 +80,13 @@ Additionally there exists libraries with Plum integrations built in:
 
 - [**Slugify**](https://github.com/cocur/slugify): Converts a string to a slug.
 - [**Arff**](https://github.com/cocur/arff): Writes `.arff` files, required for Weka.
+
+
+Missing Packages or Integrations?
+---------------------------------
+
+If you have integrated Plum into your library or software or have created an Plum package not listed on this page
+please submit a **pull request** for this page. Thank you very much.
 
 ---
 
