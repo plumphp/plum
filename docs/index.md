@@ -30,20 +30,25 @@ $workflow = new Workflow();
 $workflow->addFilter($filter)
          ->addConverter($converter)
          ->addWriter($writer);
-$workflow->process($reader);
+$result = $workflow->process($reader);
 ```
 
 Table of Contents
 -----------------
 
-- [Workflow](workflow.md)
-- [Readers](readers.md)
-- [Writers](writers.md)
-- [Filters](filters.md)
-- [Converters](converters.md)
+1. [Workflow](workflow.md)
+2. [Readers](readers.md)
+3. [Writers](writers.md)
+4. [Filters](filters.md)
+5. [Converters](converters.md)
 
 ---
 
-<p align="right">
-    Continue with <a href="workflow.md">Workflow</a>
+<p align="center">
+    <strong>Index</strong>
+    <a href="workflow.md">Workflow</a>
+    <a href="readers.md">Readers</a>
+    <a href="writers.md">Writers</a>
+    <a href="filters.md">Filters</a>
+    <a href="converters.md">Converters</a>
 </p>

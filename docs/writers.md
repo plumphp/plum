@@ -8,6 +8,7 @@
 
 <p align="center">
     <a href="index.md">Index</a>
+    <a href="workflow.md">Workflow</a>
     <a href="readers.md">Readers</a>
     <strong>Writers</strong>
     <a href="filters.md">Filters</a>
@@ -125,6 +126,7 @@ $writer->getData() // -> [...]
 
 <p align="center">
     <a href="index.md">Index</a>
+    <a href="workflow.md">Workflow</a>
     <a href="readers.md">Readers</a>
     <strong>Writers</strong>
     <a href="filters.md">Filters</a>

@@ -8,6 +8,7 @@
 
 <p align="center">
     <a href="index.md">Index</a>
+    <a href="workflow.md">Workflow</a>
     <strong>Readers</strong>
     <a href="writers.md">Writers</a>
     <a href="filters.md">Filters</a>
@@ -124,6 +125,7 @@ public function getIterator()
 
 <p align="center">
     <a href="index.md">Index</a>
+    <a href="workflow.md">Workflow</a>
     <strong>Readers</strong>
     <a href="writers.md">Writers</a>
     <a href="filters.md">Filters</a>

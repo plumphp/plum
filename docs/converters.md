@@ -8,6 +8,7 @@
 
 <p align="center">
     <a href="index.md">Index</a>
+    <a href="workflow.md">Workflow</a>
     <a href="readers.md">Readers</a>
     <a href="writers.md">Writers</a>
     <a href="filters.md">Filters</a>
@@ -290,6 +291,7 @@ class Rot13Converter implements ConverterInterface
 
 <p align="center">
     <a href="index.md">Index</a>
+    <a href="workflow.md">Workflow</a>
     <a href="readers.md">Readers</a>
     <a href="writers.md">Writers</a>
     <a href="filters.md">Filters</a>

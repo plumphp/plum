@@ -8,6 +8,7 @@
 
 <p align="center">
     <a href="index.md">Index</a>
+    <a href="workflow.md">Workflow</a>
     <a href="readers.md">Readers</a>
     <a href="writers.md">Writers</a>
     <strong>Filters</strong>
@@ -174,6 +175,7 @@ class RegExpFilter implements FilterInterface
 
 <p align="center">
     <a href="index.md">Index</a>
+    <a href="workflow.md">Workflow</a>
     <a href="readers.md">Readers</a>
     <a href="writers.md">Writers</a>
     <strong>Filters</strong>
