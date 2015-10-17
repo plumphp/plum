@@ -20,7 +20,7 @@ frequently required in data processing tasks.
 - Read from multiple sources, i.e., merge data from different sources into an output
 - By providing you with clean interfaces and a strong separation of concern your data processing code will be more
 structured, better reusable and well tested.
-- Plums power comes from its extendability, check out [additional packages and integrations](docs/extensions.md)
+- Plums power comes from its extendability, check out [additional packages and integrations](extensions.md)
 
 *Plum has been greatly inspired by [ddeboer/data-import](https://github.com/ddeboer/data-import).*
 
