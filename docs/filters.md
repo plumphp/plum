@@ -4,17 +4,35 @@
 
 > Plum is a data processing pipeline that helps you to write structured, reusable and well tested data processing code.
 
-Developed by [Florian Eckerstorfer](https://florian.ec) in Vienna, Europe.
-
 ---
 
 <p align="center">
-    <img src="http://cdn.florian.ec/plum-filter.svg" alt="filter" width="300">
+    <a href="index.md">Index</a>
+    <a href="readers.md">Readers</a>
+    <a href="writers.md">Writers</a>
+    <strong>Filters</strong>
+    <a href="converters.md">Converters</a>
 </p>
+
+---
+
+<h1 align="center">
+    <img src="http://cdn.florian.ec/plum-filter.svg" alt="filter" width="300">
+</h1>
 
 You use filters to remove items from the pipeline. A filter can be either an instance of 
 `Plum\Plum\Filter\FilterInterface` or a function. Every item of the pipeline is passed to the filter and if the return
 value evaluates to `false` (`false`, `null`, `0`, ...) the item is no further processed.
+
+
+Table of Contents
+-----------------
+
+1. [Adding Filters](#adding-filters)
+2. [Value Filters](#value-filters)
+3. [Default Filters](#default-filters)
+4. [Custom Filters](#custom-filters)
+
 
 Adding Filters
 --------------
@@ -61,6 +79,9 @@ $workflow->addFilter([
     'position' => Workflow::PREPEND,
 ]);
 ```
+
+Value Filters
+-------------
 
 In all the previous examples the full item is passed to the filter. However, if you pass the `field` option to
 `addFilter()` only this field is passed to the filter. This gives you the ability to reuse filters more easily, since
@@ -151,7 +172,11 @@ class RegExpFilter implements FilterInterface
 
 ---
 
-<p align="right">
-    Continue with <a href="converters.md">Converters</a>
+<p align="center">
+    <a href="index.md">Index</a>
+    <a href="readers.md">Readers</a>
+    <a href="writers.md">Writers</a>
+    <strong>Filters</strong>
+    <a href="converters.md">Converters</a>
 </p>
 
