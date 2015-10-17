@@ -20,9 +20,6 @@
     <img src="http://cdn.florian.ec/plum-write.svg" alt="filter" width="300">
 </h1>
 
-Writers
-=======
-
 Use writers to write the result of the workflow. The target doesn't necessarily have to write to a persistent storage,
 you can also write, for example, into arrays or objects. Writers must implement the `WriterInterface` that provides
 three methods: `writeItem()`, `prepare()` and `finish()`. The workflow calls `prepare()` before it reads the first item

@@ -37,8 +37,7 @@ $workflow->addConverter(['converter' => $converter]);
 ### Value Converters
 
 ```php
-$workflow->addValueConverter($converter, ['key']);
-$workflow->addValueConverter(['converter' => $converter, 'field' => ['key']]);
+$workflow->addConverter(['converter' => $converter, 'field' => ['key']]);
 ```
 
 ### Filters
