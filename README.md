@@ -57,6 +57,12 @@ $workflow->process(/* reader */);
 Change Log
 ----------
 
+### Version 0.4 (17 October 2015)
+
+- [#8](https://github.com/plumphp/plum/pull/8) Remove `Workflow::addValueConverter()` and `Workflow::addValueFilter()`
+and handle value filters and converter by `::addConverter()` and `::addFilter()`.
+- [#9](https://github.com/plumphp/plum/pull/9) Allowing processing of multiple readers.
+
 ### Version 0.3.1 (15 May 2015)
 
 - `MappingConverter` allows to copy instead of move values
