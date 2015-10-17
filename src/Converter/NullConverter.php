@@ -21,22 +21,27 @@ namespace Plum\Plum\Converter;
 class NullConverter implements ConverterInterface
 {
     /**
+     * @var mixed
+     */
+    protected $nullValue;
+
+    /**
+     * @param mixed $nullValue
+     */
+    public function __construct($nullValue = '')
+    {
+        $this->nullValue = $nullValue;
+    }
+
+    /**
      * @param mixed $item
      *
      * @return mixed
      */
     public function convert($item)
     {
-        if (is_array($item)) {
-            foreach ($item as $key => $value) {
-                if ($value === null) {
-                    $item[$key] = '';
-                }
-            }
-        } else {
-            if ($item === null) {
-                $item = '';
-            }
+        if ($item === null) {
+            $item = $this->nullValue;
         }
 
         return $item;

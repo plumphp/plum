@@ -261,13 +261,22 @@ $converter->convert(['bar' => 'foobar'); // -> 'foobar'
 
 ### `NullConverter`
 
-`Plum\Plum\Converter\NullConverter` converts `null` values into an empty string.
+`Plum\Plum\Converter\NullConverter` converts `null` values into a null value (by default the empty string).
 
 ```php
 use Plum\Plum\Converter\NullConverter;
 
 $converter = new NullConverter();
 $converter->convert(null); // -> ""
+```
+
+You can also define which value `null` values should have assigned to.
+
+```php
+use Plum\Plum\Converter\NullConverter;
+
+$converter = new NullConverter(0);
+$converter->convert(null); // -> 0
 ```
 
 
