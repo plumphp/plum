@@ -37,7 +37,7 @@ Table of Contents
 Adding Filters
 --------------
 
-An filter is attached to the workflow by calling the `addFilter()` method. The `addFilter()` method expects an array
+A filter is attached to the workflow by calling the `addFilter()` method. The `addFilter()` method expects an array
 with options as its parameter.
 
 In the following example we are going to attach `Plum\Plum\Filter\SkipFirstFilter`, which filters the first `x`
