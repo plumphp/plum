@@ -4,36 +4,68 @@
 
 > Plum is a data processing pipeline that helps you to write structured, reusable and well tested data processing code.
 
-Developed by [Florian Eckerstorfer](https://florian.ec) in Vienna, Europe.
+---
+
+<p align="center">
+    <a href="index.md">Index</a>
+    <strong>Readers</strong>
+    <a href="writers.md">Writers</a>
+    <a href="filters.md">Filters</a>
+    <a href="converters.md">Converters</a>
+</p>
 
 ---
 
-Readers
-=======
-
-You read data using an object that implements `ReaderInterface`. This interface extends `\IteratorAggregate` interface
-and therefore you need to implement the `getIterator()` method.
+You read data using an object that implements `ReaderInterface`. This interface extends `\IteratorAggregate` and
+ `\Countable` interfaces and therefore you need to implement the `getIterator()` and `count()` methods.
 
 
 Table of Contents
 -----------------
 
-- [ArrayReader](#arrayreader)
-- [CsvReader](#csvreader)
-- [ExcelReader](#excelreader)
-- [FinderReader](#finderreader)
-- [JsonFileReader](#jsonfilereader)
-- [JsonReader](#jsonreader)
-- [PdoStatementReader](#pdostatementreader)
+- [Adding Readers](#adding-readers)
+- [Default Readers](#default-readers)
 - [Custom Readers](#custom-readers)
 - [PHP 5.5 and Generators](#php-55-and-generators)
 
 
-ArrayReader
------------
+Adding Readers
+--------------
 
-The `ArrayReader` feeds the elements of an array to the workflow. In addition to the methods required by
-`ReaderInterface` it provides a `getData()` methods that returns the full array.
+Readers are different than all other pipeline elements you can add to a workflow because you don't *add* them to the
+workflow, but pass them to the workflows `process()` method which starts processing the read items.
+
+```php
+use Plum\Plum\Reader\ArrayReader;
+
+$reader = new ArrayReader([2, 3, 5, 7, 11]);
+
+$workflow->process($reader);
+```
+
+Instead of an instance of `ReaderInterface` you can also pass an array that contains multiple instances of 
+`ReaderInterface` to `process()`.
+
+```php
+use Plum\Plum\Reader\ArrayReader;
+
+$reader1 = new ArrayReader([2, 3, 5, 7, 11]);
+$reader2 = new ArrayReader([101, 103, 107, 109, 113]);
+
+$workflow->process([$reader1, $reader2]);
+```
+
+
+Default Readers
+---------------
+
+The core Plum package contains `ArrayReader`.
+
+
+### `ArrayReader`
+
+The `Plum\Plum\Reader\ArrayReader` feeds the elements of an array to the workflow. In addition to the methods required
+by `ReaderInterface` it provides a `getData()` methods that returns the full array.
 
 ```php
 use Plum\Plum\Reader\ArrayReader;
@@ -43,124 +75,11 @@ $reader->getData(); // -> ['Stark', 'Lannister', 'Targaryen', ...]
 ```
 
 
-CsvReader
----------
-
-You can use the `CsvReader` to read data from a `.csv` file. You need to add the `plum-csv`
-package to your project using Composer: `composer require plumphp/plum-csv:@stable`. Plum uses
-[League\CSV](https://github.com/thephpleague/csv) to actually read the CSV files.
-
-```php
-use Plum\PlumCsv\CsvReader;
-
-$reader = new CsvReader('countries.csv');
-```
-
-Optionally you can also pass the delimiter and enclosure to the constructor.
-
-```php
-$reader = new CsvReader('countries.csv`, ',', '"');
-```
-
-Most CSV files have a header row. Because Plum processes a CSV file row by row you need to add `HeaderConverter` to
-change the index of each read item. In addition you can use the `SkipFirstFilter` to skip the header row.
-
-```php
-use Plum\Plum\Converter\HeaderConverter;
-use Plum\Plum\Filter\SkipFirstFilter;
-
-$workflow = new Workflow();
-$workflow->addConverter(new HeaderConverter());
-$workflow->addFilter(new SkipFirstFilter(1));
-$reader = new CsvReader('countries.csv`, ',', '"');
-```
-
-
-ExcelReader
------------
-
-You can use the `ExcelReader` to read data from an Excel (`.xlsx` or `.xls`) file. You need to add the `plum-excel`
-package to your project using Composer: `composer require plumphp/plum-excel:@stable`. Plum uses
-[PHPExcel](https://github.com/PHPOffice/PHPExcel) to actually read the Excel files.
-
-```php
-use Plum\PlumExcel\ExcelReader;
-
-$reader = new ExcelReader(PHPExcel_IOFactory::load('countries.xlsx'));
-$reader->setHeaderRow(0); // First row contains the header
-```
-
-
-FinderReader
-------------
-
-You can read directories and files using the [Symfony Finder](http://symfony.com/doc/current/components/finder.html)
-component and `FinderReader`. You need to add the `plum-finder` package to your project using Composer:
-`composer require plumphp/plum-finder:@stable`.
-
-```php
-use Plum\PlumFinder\FinderReader;
-use Symfony\Component\Finder\Finder;
-
-$finder = new Finder();
-// Further configuration of Finder
-
-$reader = new FinderReader($finder);
-```
-
-JsonReader
-----------
-
-`JsonReader` reads a JSON string. If you want to read a `.json` file checkout [JsonFileReader](#jsonfilereader). You
-need to add the `plum-json` package to your project using Composer: `composer require plumphp/plum-json:@stable`.
-
-```php
-use Plum\PlumJson\JsonReader;
-
-$reader = new JsonReader('[{'key1': 'value1', 'key2': 'value2'}]');
-$reader->getIterator(); // -> \ArrayIterator
-$reader->count();
-```
-
-JsonFileReader
---------------
-
-`JsonFileReader` reads a `.json` file. You need add the `plum-json` package to your project using Composer:
-`composer require plumphp/plum-json:@stable`.
-
-```php
-use Plum\PlumJson\JsonFileReader;
-
-$reader = new JsonFileReader('foo.json');
-$reader->getIterator(); // -> \ArrayIterator
-$reader->count();
-```
-
-PdoStatementReader
-------------------
-
-`PdoStatementReader` returns an iterator for the result set of a `PDOStatement`. The `execute()` method has to be
-called before. You need to add the `plum-pdo` package to your project using Composer:
-`composer require plumphp/plum-pdo:@stable`.
-
-```php
-use Plum\PlumPdo\PdoStatementReader;
-
-$statement = $pdo->prepare('SELECT * FROM users WHERE age >= :min_age');
-$statement->bindValue(':min_age', 18);
-$statement->execute();
-
-$reader = new PdoStatementReader($statement);
-$reader->getIterator(); // -> \ArrayIterator
-$reader->count();
-```
-
-
 Custom Readers
 --------------
 
-As mentioned in the introduction `ReaderInterface` extends `IteratorAggregate` and readers therefore have to
-implement the `getIterator()` method.
+As mentioned in the introduction `ReaderInterface` extends `IteratorAggregate` and `Countable` and readers therefore
+have to implement the `getIterator()` and `count()` methods.
 
 ```php
 use Plum\Plum\Reader\ReaderInterface;
@@ -177,6 +96,11 @@ class CollectionReader implements ReaderInterface
     public function getIterator()
     {
         return new ArrayIterator($this->collection);
+    }
+    
+    public function count()
+    {
+        return count($this->collection();
     }
 }
 ```
@@ -198,6 +122,11 @@ public function getIterator()
 
 ---
 
-<p align="right">
-    Continue with <a href="writers.md">Writers</a>
+<p align="center">
+    <a href="index.md">Index</a>
+    <strong>Readers</strong>
+    <a href="writers.md">Writers</a>
+    <a href="filters.md">Filters</a>
+    <a href="converters.md">Converters</a>
 </p>
+
