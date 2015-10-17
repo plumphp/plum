@@ -24,10 +24,13 @@ Table of Contents
 -----------------
 
 - [Adding Converters, Filters, and Writers](#adding-converters-filters-and-writers)
+- [Retrieving Converters, Filters and Writers](#retrieving-converters-filters-and-writers)
 - [Pipeline Order](#pipeline-order)
 - [Callback Converters, and Filters](#callback-converters-and-filter)
 - [Result](#result)
 - [Concatenating Workflows](#concatenating-workflows)
+- [Merging Data](#merging-data)
+- [Splitting Data](#splitting-data)
 
 Adding Converters, Filters, and Writers
 -------------------------------------
@@ -123,6 +126,26 @@ $workflow->addWriter([
 ```
 
 Learn more about [conditional writers](writers.md#conditional-writers).
+
+
+Retrieving Converters, Filters and Writers
+------------------------------------------
+
+`Workflow` provides you with getters to retrieve elements from the pipeline.
+
+```php
+$workflow->getPipeline(); // -> Plum\Plum\PipelineInterface[]
+```
+
+In addition there are methods to retrieve elements of a specific type, i.e., filters, converters and writers.
+
+```php
+$workflow->getFilters(); // -> Plum\Plum\Filter\FilterInterface[]
+$workflow->getValueFilters(); // -> Plum\Plum\Filter\FilterInterface[]
+$workflow->getConverters(); // -> Plum\Plum\Converter\ConverterInterface[]
+$workflow->getValueConverters(); // -> Plum\Plum\Converter\ConverterInterface[]
+$workflow->getWriters(); // -> Plum\Plum\Writer\WriterInterface[]
+```
 
 
 Pipeline Order
