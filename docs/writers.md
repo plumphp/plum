@@ -6,6 +6,20 @@
 
 ---
 
+<p align="center">
+    <a href="index.md">Index</a>
+    <a href="readers.md">Readers</a>
+    <strong>Writers</strong>
+    <a href="filters.md">Filters</a>
+    <a href="converters.md">Converters</a>
+</p>
+
+---
+
+<h1 align="center">
+    <img src="http://cdn.florian.ec/plum-write.svg" alt="filter" width="300">
+</h1>
+
 Writers
 =======
 
@@ -21,19 +35,85 @@ them somewhere, further filter them and then write them elsewhere.
 Table of Contents
 -----------------
 
-- [ArrayWriter](#arraywriter)
-- [ConsoleProgressWriter](#consoleprogresswriter)
-- [CsvWriter](#csvwriter)
-- [ExcelWriter](#excelwriter)
-- [JsonFileWriter](#jsonfilewriter)
-- [JsonWriter](#jsonwriter)
+- [Adding Writers](#adding-writers)
 - [Conditional Writers](#conditional-writers)
+- [Default Writers](#default-writers)
+- [Custom Writers](#custom-writers)
 
 
-ArrayWriter
------------
+Adding Writers
+--------------
 
-The `ArrayWriter` writes the data into an array that can be retrieved using the `getData()` method.
+Writer can be added to a workflow by calling `addWriter()` with an instance of `Plum\Plum\Writer\WriterInterface`.
+
+```php
+use Plum\Plum\Writer\ArrayWriter;
+
+$workflow = new Workflow();
+$workflow->addWriter(['writer' => new ArrayWriter()]);
+```
+
+You can also directly pass the writer to `addWriter()` if you don't want to set any other options.
+
+```php
+use Plum\Plum\Writer\ArrayWriter;
+
+$workflow = new Workflow();
+$workflow->addWriter(new ArrayWriter());
+```
+
+By default writers are appended at the end of the workflow. You can use the `position` option to change the default
+behaviour.
+
+```php
+use Plum\Plum\Writer\ArrayWriter;
+
+$workflow = new Workflow();
+$workflow->addWriter([
+    'writer'   => new ArrayWriter(),
+    'position' => Workflow::PREPEND
+]);
+```
+
+
+Conditional Writers
+-------------------
+
+Very much like [Conditional Converters](converters.md#conditional-converters) writers can be conditional and an item
+will only be written if a filter returns `true` for the given item. Filters can be an instance of 
+`Plum\Plum\Filter\FilterInterface` or a function.
+
+```php
+$workflow->addWriter([
+    'writer' => $writer,
+    'filter' => $filter,
+]);
+```
+
+Unlike converters, writers currently do not support the `filterField` option.
+
+Conditional writers can be used to split data from one source and write it to different targets. For example,
+
+```php
+$workflow->addWriter([
+    'writer' => $writer1,
+    'filter' => function ($item) { return $item['year'] < 2010; },
+]);
+$workflow->addWriter([
+    'writer' => $writer2,
+    'filter' => function ($item) { return $item['year'] >= 2010; },
+]);
+```
+
+
+Default Writers
+---------------
+
+The core Plum package currently contains only `ArrayWriter`.
+
+### `ArrayWriter`
+
+The `Plum\Plum\Writer\ArrayWriter` writes the data into an array that can be retrieved using the `getData()` method.
 
 ```php
 use Plum\Plum\Writer\ArrayWriter;
@@ -44,128 +124,12 @@ $writer->getData() // -> [...]
 ```
 
 
-ConsoleProgressWriter
----------------------
-
-In a console application that uses the Symfony [Console](http://symfony.com/doc/current/components/console/index.html)
-component you can use `ConsoleProgressWriter` to give the user feedback on the progress of the workflow. You need to
-install the `plum-console` package to use it: `composer require plumphp-plum-console@stable`.
-
-```php
-use Plum\PlumConsole\ConsoleProgressWriter;
-
-$worklow->addWriter(new ConsoleProgressWriter($progressBar));
-$worklow->addWriter($otherWriter);
-```
-
-
-CsvWriter
----------
-
-The `CsvWriter` allows you to write the data into a `.csv` file. You need to install the `plum-csv` package to use it:
-`composer require plumphp/plum-csv@dev-master`.
-
-```php
-use Plum\PlumCsv\CsvWriter;
-
-$writer = new CsvWriter('foobar.csv', ',', '"');
-$writer->prepare();
-$writer->writeItem(['value 1', 'value 2', 'value 3');
-$writer->finish();
-```
-
-The second and third argument of `__construct()` are optional and by default `,` and `"` respectively. In addition
-the `setHeader()` method can be used to define the names of the columns. It has to be called before the `prepare()`.
-
-```php
-$writer = new CsvWriter('foobar.csv');
-$writer->setHeader(['column 1', 'column 2', 'column 3']);
-$writer->prepare();
-```
-
-When you read data dynamically you probably don't want to set the header columns manually. You can call 
-`autoDetectHeader()` to use the array keys of the first item written to `CsvWriter` as headers.
-
-```php
-$writer = new CsvWriter('foobar.csv');
-$writer->autoDetectHeader(); // Must be called before the first `writeItem()`
-```
-
-
-ExcelWriter
------------
-
-The `ExcelWriter` allows you to write the data into a Microsoft Excel (`.xlsx` and `.xls`) file. You need to install the
-`plum-excel` package to use it: `composer require plumphp/plum-excel@stable`.
-
-```php
-$writer = new ExcelWriter('cities.xlsx');
-$writer->autoDetectHeader();
-$writer->prepare();
-$writer->writeItem(['Town' => 'Vienna', 'Country' => 'Austria']);
-$writer->writeItem(['Town' => 'Hamburg', 'Country' => 'Germany']);
-$writer->finish();
-```
-
-The call to `autoDetectHeader()` will cause `ExcelWriter` to add a header column as row using the keys from the first
-written item.
-
-Instead of only passing the filename to the constructor, you can also directly pass a `PHPExcel` object. 
-
-```php
-$writer = new ExcelWriter('cities.xlsx', new PHPExcel());
-```
-
-
-JsonFileWriter
---------------
-
-`JsonFileWriter` writes the items as JSON into a file.  You need add the `plum-json` package to your project using
-Composer: `composer require plumphp/plum-json:@stable`.
-
-```php
-use Plum\PlumJson\JsonFileWriter;
-
-$writer = new JsonFileWriter('foobar.json');
-$writer->writeItem(['key1' => 'value1', 'key2' => 'value2'));
-$writer->finish();
-```
-
-It is essential that `finish()` is called, because there happens the actual writing. The `prepare()` method does
-nothing.
-
-JsonWriter
-----------
-
-`JsonWriter` converts the items into JSON format. Please checkout [JsonFileWriter](#jsonfilewriter) if you want to
-write the JSON into a file. You need add the `plum-json` package to your project using Composer:
-`composer require plumphp/plum-json:@stable`.
-
-```php
-use Plum\PlumJson\JsonWriter;
-
-$writer = new JsonWriter();
-$writer->writeItem(['key1' => 'value1', 'key2' => 'value2'));
-echo $writer->getJson(); // [{'key1': 'value1', 'key2': 'value2'}]
-```
-
-It is essential that `finish()` is called, because there happens the actual writing. The `prepare()` method does
-nothing.
-
-
-Conditional Writers
--------------------
-
-Writers can be conditional if a filter is passed to the `addWriter()` method.
-
-```php
-$workflow->addWriter($writer, $filter);
-```
-
-An item is only written to a conditional writer, if the filter returns `true` for the item.
-
 ---
 
-<p align="right">
-    Continue with <a href="filters.md">Filters</a>
+<p align="center">
+    <a href="index.md">Index</a>
+    <a href="readers.md">Readers</a>
+    <strong>Writers</strong>
+    <a href="filters.md">Filters</a>
+    <a href="converters.md">Converters</a>
 </p>
