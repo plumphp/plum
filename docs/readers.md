@@ -13,6 +13,7 @@
     <a href="writers.md">Writers</a>
     <a href="filters.md">Filters</a>
     <a href="converters.md">Converters</a>
+    <a href="extensions.md">Extensions</a>
 </p>
 
 ---
@@ -130,5 +131,6 @@ public function getIterator()
     <a href="writers.md">Writers</a>
     <a href="filters.md">Filters</a>
     <a href="converters.md">Converters</a>
+    <a href="extensions.md">Extensions</a>
 </p>
 

@@ -41,6 +41,7 @@ Table of Contents
 3. [Writers](writers.md)
 4. [Filters](filters.md)
 5. [Converters](converters.md)
+6. [Extensions](extensions.md)
 
 ---
 
@@ -51,4 +52,5 @@ Table of Contents
     <a href="writers.md">Writers</a>
     <a href="filters.md">Filters</a>
     <a href="converters.md">Converters</a>
+    <a href="extensions.md">Extensions</a>
 </p>

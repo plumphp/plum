@@ -21,6 +21,7 @@ Plum is a data processing pipeline, that means it reads data, filters and conver
 - Conditional converters that are only applied to an item if it passes a filter
 - Ability to concatenate workflow to create smaller and better reusable workflows
 - Read from multiple sources, i.e., merge data from different sources into an output
+- Plums power comes from its extendability, check out [additional packages and integrations](docs/extensions.md)
 
 *Plum has been greatly inspired by [ddeboer/data-import](https://github.com/ddeboer/data-import).*
 
@@ -51,27 +52,6 @@ $workflow->addFilter(/* filter */)
          ->addWriter(/* writer */);
 $workflow->process(/* reader */);
 ```
-
-
-Additional packages
--------------------
-
-The core of Plum (the `plumphp/plum` package) contains only the essential classes. However, we provide additional
-packages which give you more functionality out of the box:
-
-- [**plum-csv**](https://github.com/plumphp/plum-csv): Readers and writers for CSV files.
-- [**plum-json**](https://github.com/plumphp/plum-json): Readers and writers for JSON strings and files.
-- [**plum-finder**](https://github.com/plumphp/plum-finder): Integration for the Symfony Finder component.
-- [**plum-console**](https://github.com/plumphp/plum-console): Integration for the Symfony Console component.
-- [**plum-pdo**](https://github.com/plumphp/plum-pdo): Integration for PDO.
-- [**plum-excel**](https://github.com/plumphp/plum-excel): Readers and writers for Microsoft Excel files.
-- [**plum-file**](https://github.com/plumphp/plum-file): Converters and filters for working with files.
-- [**plum-markdown**](https://github.com/plumphp/plum-markdown): Markdown converter.
-
-### Libraries with Plum integrations
-
-- [**Slugify**](https://github.com/cocur/slugify): Converts a string to a slug.
-- [**Arff**](https://github.com/cocur/arff): Writes `.arff` files, required for Weka.
 
 
 Change Log

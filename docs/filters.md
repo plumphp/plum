@@ -13,6 +13,7 @@
     <a href="writers.md">Writers</a>
     <strong>Filters</strong>
     <a href="converters.md">Converters</a>
+    <a href="extensions.md">Extensions</a>
 </p>
 
 ---
@@ -180,5 +181,6 @@ class RegExpFilter implements FilterInterface
     <a href="writers.md">Writers</a>
     <strong>Filters</strong>
     <a href="converters.md">Converters</a>
+    <a href="extensions.md">Extensions</a>
 </p>
 

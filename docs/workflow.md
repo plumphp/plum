@@ -13,6 +13,7 @@
     <a href="writers.md">Writers</a>
     <a href="filters.md">Filters</a>
     <a href="converters.md">Converters</a>
+    <a href="extensions.md">Extensions</a>
 </p>
 
 ---
@@ -286,5 +287,6 @@ $workflow->addWriter(['writer' => $writer2, 'filter' => $filter2]);
     <a href="writers.md">Writers</a>
     <a href="filters.md">Filters</a>
     <a href="converters.md">Converters</a>
+    <a href="extensions.md">Extensions</a>
 </p>
 

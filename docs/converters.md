@@ -13,6 +13,7 @@
     <a href="writers.md">Writers</a>
     <a href="filters.md">Filters</a>
     <strong>Converters</strong>
+    <a href="extensions.md">Extensions</a>
 </p>
 
 ---
@@ -296,4 +297,5 @@ class Rot13Converter implements ConverterInterface
     <a href="writers.md">Writers</a>
     <a href="filters.md">Filters</a>
     <strong>Converters</strong>
+    <a href="extensions.md">Extensions</a>
 </p>

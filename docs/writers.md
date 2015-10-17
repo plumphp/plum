@@ -13,6 +13,7 @@
     <strong>Writers</strong>
     <a href="filters.md">Filters</a>
     <a href="converters.md">Converters</a>
+    <a href="extensions.md">Extensions</a>
 </p>
 
 ---
@@ -131,4 +132,5 @@ $writer->getData() // -> [...]
     <strong>Writers</strong>
     <a href="filters.md">Filters</a>
     <a href="converters.md">Converters</a>
+    <a href="extensions.md">Extensions</a>
 </p>
