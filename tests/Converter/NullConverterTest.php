@@ -29,18 +29,19 @@ class NullConverterTest extends \PHPUnit_Framework_TestCase
     {
         $converter = new NullConverter();
 
-        $this->assertEquals('', $converter->convert(null));
-        $this->assertEquals('foo', $converter->convert('foo'));
+        $this->assertSame('', $converter->convert(null));
+        $this->assertSame('foo', $converter->convert('foo'));
     }
 
     /**
      * @test
+     * @covers Plum\Plum\Converter\NullConverter::__construct()
      * @covers Plum\Plum\Converter\NullConverter::convert()
      */
-    public function convertShouldConvertNullToEmptyStringInArray()
+    public function convertShouldConvertNullToDefinedNullValue()
     {
-        $converter = new NullConverter();
+        $converter = new NullConverter(0);
 
-        $this->assertEquals(['a', ''], $converter->convert(['a', null]));
+        $this->assertSame(0, $converter->convert(null));
     }
 }
