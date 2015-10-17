@@ -6,16 +6,35 @@
 
 Developed by [Florian Eckerstorfer](https://florian.ec) in Vienna, Europe.
 
-
-Overview
+Features
 --------
 
-An overview of the features and a quick installation guide is provided in the 
-[README](https://github.com/plumphp/plum/blob/master/README.md).
+Plum is a data processing pipeline, that means it reads data, filters and converts it and then writes the data.
 
-The base `plum` package contains the base classes, interfaces and some very generic filters, converters, readers and
-writers. Specific readers, writers, filter and converters can be added as separate packages. A list of 
-[Plum packages](https://github.com/plumphp) can be found on Github.
+- Plum provides you with readers and writers for common data formats as well as converters and filters that are 
+frequently required in data processing tasks.
+- Filters, converters and even writers are pipeline elements that can be attached to a workflow in arbitrary order
+- Readers are iterators that can return values of arbitrary type: arrays, objects or scalars, it doesn't matter to Plum
+- Conditional converters that are only applied to an item if it passes a filter
+- Ability to concatenate workflow to create smaller and better reusable workflows
+- Read from multiple sources, i.e., merge data from different sources into an output
+- By providing you with clean interfaces and a strong separation of concern your data processing code will be more
+structured, better reusable and well tested.
+- Plums power comes from its extendability, check out [additional packages and integrations](docs/extensions.md)
+
+*Plum has been greatly inspired by [ddeboer/data-import](https://github.com/ddeboer/data-import).*
+
+
+Installation
+------------
+
+You can install Plum using [Composer](http://getcomposer.org) (recommended) or by downloading a
+[release](https://github.com/plumphp/plum/releases).
+
+```shell
+$ composer require plumphp/plum
+```
+
 
 Workflow
 --------
@@ -32,6 +51,27 @@ $workflow->addFilter($filter)
          ->addWriter($writer);
 $result = $workflow->process($reader);
 ```
+
+
+Example
+-------
+
+To give you a quick example of the power of Plum here is a simple *CSV to Excel* converter.
+ 
+```php
+use Plum\Plum\Workflow;
+use Plum\Plum\Converter\HeaderConverter;
+use Plum\Plum\Filter\SkipFirstFilter;
+use Plum\PlumCsv\CsvReader;
+use Plum\PlumExcel\ExcelWriter;
+
+$workflow = new Workflow();
+$workflow->addConverter(new HeaderConverter())
+         ->addFilter(new SkipFirstFilter(1))
+         ->addWriter((new ExcelWriter('output/countries.xlsx'))->autoDetectHeader());
+$result = $workflow->process(new CsvReader('input/countries.csv'));
+```
+
 
 Table of Contents
 -----------------
