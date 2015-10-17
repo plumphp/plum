@@ -1,26 +1,42 @@
+<p align="center">
+    <img src="http://cdn.florian.ec/plum-logo.svg" alt="Plum" width="300">
+</p>
+
+> Plum is a data processing pipeline that helps you to write structured, reusable and well tested data processing code.
+
+---
+
+<p align="center">
+    <a href="index.md">Index</a>
+    <strong>Workflow</strong>
+    <a href="readers.md">Readers</a>
+    <a href="writers.md">Writers</a>
+    <a href="filters.md">Filters</a>
+    <a href="converters.md">Converters</a>
+</p>
+
+---
+
 Workflow
 ========
 
-```php
-use Plum\Plum\Workflow;
-
-$workflow = new Workflow();
-$workflow->addFilter($filter)
-         ->addConverter($converter)
-         ->addWriter($writer);
-$workflow->process($reader);
-```
+The workflow is the central element in the data processing pipeline provided by Plum. The workflow is represented by
+the class `Plum\Plum\Workflow` and you attach filters, converters and writers to it and, when ready, process it by
+passing one or more readers to it. The order in which filters, converters and writers can be attached is arbitrary and
+the type of the items returned by readers does not matter to Plum.
 
 
 Table of Contents
 -----------------
 
 - [Adding Converters, Filters, and Writers](#adding-converters-filters-and-writers)
-- [Conditional Converters](#conditional-converters)
+- [Retrieving Converters, Filters and Writers](#retrieving-converters-filters-and-writers)
 - [Pipeline Order](#pipeline-order)
 - [Callback Converters, and Filters](#callback-converters-and-filter)
 - [Result](#result)
 - [Concatenating Workflows](#concatenating-workflows)
+- [Merging Data](#merging-data)
+- [Splitting Data](#splitting-data)
 
 
 Adding Converters, Filters, and Writers
@@ -32,65 +48,110 @@ object as its first argument or you provide an array with options.
 ### Converters
 
 ```php
+$converter = ...; // Instance of ConverterInterface or function
 $workflow->addConverter($converter);
-$workflow->addConverter(['converter' => $converter]);
+$workflow->addConverter([
+    'converter' => $converter,
+    'position'  => Workflow::APPEND,
+]);
 ```
+
+Learn more about [adding converters](#converters.md#adding-converters).
 
 ### Value Converters
 
 ```php
-$workflow->addValueConverter($converter, ['key']);
-$workflow->addValueConverter(['converter' => $converter, 'field' => ['key']]);
+$converter = ...; // Instance of ConverterInterface or function
+$workflow->addConverter([
+    'field'     => 'key',
+    'converter' => $converter,
+]);
 ```
+
+Learn more about [value converters](#converters.md#value-converters).
+
+### Conditional Converters
+
+```php
+$converter = ...; // Instance of ConverterInterface or function
+$filter    = ...; // Instance of FilterInterface or function
+
+$workflow->addConverter([
+    'converter' => $converter,
+    'filter'    => $filter,
+]);
+$workflow->addConverter([
+    'converter'   => $converter,
+    'filter'      => $filter,
+    'filterField' => 'key'
+]);
+```
+
+Learn more about [conditional converters](#converters.md#conditional-converters).
 
 ### Filters
 
 ```php
+$filter = ...; // Instance of FilterInterface or function
 $workflow->addFilter($filter);
 $workflow->addFilter(['filter' => $filter]);
 ```
 
+Learn more about [adding filters](#filters.md#adding-filters).
+
 ### Value Filters
 
 ```php
-$workflow->addValueFilter($filter, ['key']);
-$workflow->addValueFilter(['filter' => $filter, 'field' => ['key']]);
+$filter = ...; // Instance of FilterInterface or function
+$workflow->addFilter([
+    'field'  => 'key',
+    'filter' => $filter,
+));
 ```
+
+Learn more about [value filters](#filters.md#value-filters).
 
 ### Writers
 
 ```php
+$writer = ...; // Instance of WriterInterface
 $workflow->addWriter($writer);
 $workflow->addWriter(['writer' => $writer]);
 ```
 
+Learn more about [adding writers](writers.md#adding-writers).
 
-Conditional Converters
-----------------------
-
-The `addConverter()` method accepts an filter, that is, an instance `Plum\Plum\Filter\FilterInterface`. You need
-to call `addConverter()` with an array as its element. If a
-filter is provided the converter is only applied to an item if the filter returns `true` for the given item. Otherwise
-the original item is returned by the converter.
+### Conditional Writers
 
 ```php
-$converter = new CallbackConverter(function ($item) { return strtoupper($item); });
-$filter    = new CallbackFilter(function ($item) { return preg_match('/foo/', $item); });
-$workflow->addConverter(['converter' => $converter, 'filter' => $filter]);
-
-// "foobar" -> "FOOBAR"
-// "bazbar" -> "bazbar"
+$writer = ...; // Instance of WriterInterface
+$filter = ...; // Instance of FilterInterface or function
+$workflow->addWriter([
+    'writer' => $writer,
+    'filter  => $filter,
+]);
 ```
 
-Conditional converters also work for value converters:
+Learn more about [conditional writers](writers.md#conditional-writers).
+
+
+Retrieving Converters, Filters and Writers
+------------------------------------------
+
+`Workflow` provides you with getters to retrieve elements from the pipeline.
 
 ```php
-$converter = new CallbackConverter(function ($item) { return strtoupper($item); });
-$filter    = new CallbackFilter(function ($item) { return preg_match('/foo/', $item); });
-$workflow->addValueConverter(['converter' => $converter, 'filter' => $filter], ['k']);
+$workflow->getPipeline(); // -> Plum\Plum\PipelineInterface[]
+```
 
-// ["k" => "foobar"] -> ["k" => "FOOBAR"]
-// ["k" => "bazbar"] -> ["k" => "bazbar"]
+In addition there are methods to retrieve elements of a specific type, i.e., filters, converters and writers.
+
+```php
+$workflow->getFilters(); // -> Plum\Plum\Filter\FilterInterface[]
+$workflow->getValueFilters(); // -> Plum\Plum\Filter\FilterInterface[]
+$workflow->getConverters(); // -> Plum\Plum\Converter\ConverterInterface[]
+$workflow->getValueConverters(); // -> Plum\Plum\Converter\ConverterInterface[]
+$workflow->getWriters(); // -> Plum\Plum\Writer\WriterInterface[]
 ```
 
 
@@ -114,25 +175,34 @@ $workflow->addWriter(['converter' => $converter, 'position' => Workflow::APPEND]
 Callback Converters and Filters
 --------------------------------
 
-`CallbackConverter` is a converter that executes a callback to convert an item. When adding a converter or value
-converter to a `Workflow` you can just pass the callback and the workflow will automatically create a 
+`Plum\Plum\Converter\CallbackConverter` is a converter that executes a callback to convert an item. When adding a 
+converter or value converter to a `Workflow` you can just pass the callback and the workflow will automatically create a 
 `CallbackConverter`. This works for both the direct as well as the array syntax.
 
 ```php
 $workflow->addConverter(function ($item) { return strtoupper($item); });
-$workflow->addConverter(['converter' => function ($item) { return strtoupper($item); }]);
-$workflow->addValueConverter(function ($item) { return strtoupper($item); }, ['foo']);
-$workflow->addValueConverter(['converter' => function ($item) { return strtoupper($item); }, 'field' => ['foo']]);
+$workflow->addConverter([
+    'converter' => function ($item) { return strtoupper($item); }
+]);
+$workflow->addConverter([
+    'field'     => 'foo', 
+    'converter' => function ($item) { return strtoupper($item); }
+]);
 ```
 
-`CallbackFilter` is a filter that executes a callback and filters the item based on the return value of the callback.
-Just like with converters you can just pass the callback and the workflow will create a `CallbackConverter` for you.
+`Plum\Plum\Filter\CallbackFilter` is a filter that executes a callback and filters the item based on the return value 
+of the callback. Just like with converters you can just pass the callback and the workflow will create a 
+`CallbackConverter` for you.
 
 ```php
-$workflow->addFilter(function ($item) { return strtoupper($item); });
-$workflow->addFilter(['filter' => function ($item) { return strtoupper($item); }]);
-$workflow->addValueFilter(function ($item) { return strtoupper($item); }, ['foo']);
-$workflow->addValueFilter(['filter' => function ($item) { return strtoupper($item); }, 'field' => ['foo']]);
+$workflow->addFilter(function ($item) { return !empty($item['price']; });
+$workflow->addFilter([
+    'filter' => function ($item) { return !empty($item['price']; }
+]);
+$workflow->addFilter([
+    'field'  => 'foo', 
+    'filter' => function ($item) { return $item === 'bar'; }
+]);
 ```
 
 In addition it is also possible to use callbacks as filters in conditional converters.
@@ -178,3 +248,43 @@ $workflow1->process($reader);
 // Process the second workflow with the concatenator as reader.
 $workflow->process($concatenator):
 ```
+
+
+Merging Data
+------------
+
+You can process data from multiple readers with one call to `process()`. In practice you can use this to merge 
+multiple data sources into a single target.
+
+```php
+use Plum\Plum\Workflow;
+
+$workflow = new Workflow();
+$workflow->process([$reader1, $reader2]);
+```
+
+
+Splitting Data
+--------------
+
+Plum also allows you to split data from one source into multiple targets. You can leverage the power of conditional
+writers to achieve this.
+
+In the following example `$filter2` should be the negation of `$filter1`.
+
+```php
+$workflow->addWriter(['writer' => $writer1, 'filter' => $filter1]);
+$workflow->addWriter(['writer' => $writer2, 'filter' => $filter2]);
+```
+
+---
+
+<p align="center">
+    <a href="index.md">Index</a>
+    <strong>Workflow</strong>
+    <a href="readers.md">Readers</a>
+    <a href="writers.md">Writers</a>
+    <a href="filters.md">Filters</a>
+    <a href="converters.md">Converters</a>
+</p>
+

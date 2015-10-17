@@ -1,123 +1,146 @@
-Filters
-=======
+<p align="center">
+    <img src="http://cdn.florian.ec/plum-logo.svg" alt="Plum" width="300">
+</p>
 
-You use filters to remove items from the pipeline. Filters implement `FilterInterface` and must provide a `filter()`
-method. Every item of the pipeline is passed to the filter and if the return value evaluates to `false` (`false`,
-`null`, `0`, ...) the item is no further processed.
+> Plum is a data processing pipeline that helps you to write structured, reusable and well tested data processing code.
 
-Plum comes with some default filters, but you can also create your own custom filters.
+---
+
+<p align="center">
+    <a href="index.md">Index</a>
+    <a href="workflow.md">Workflow</a>
+    <a href="readers.md">Readers</a>
+    <a href="writers.md">Writers</a>
+    <strong>Filters</strong>
+    <a href="converters.md">Converters</a>
+</p>
+
+---
+
+<h1 align="center">
+    <img src="http://cdn.florian.ec/plum-filter.svg" alt="filter" width="300">
+</h1>
+
+You use filters to remove items from the pipeline. A filter can be either an instance of 
+`Plum\Plum\Filter\FilterInterface` or a function. Every item of the pipeline is passed to the filter and if the return
+value evaluates to `false` (`false`, `null`, `0`, ...) the item is no further processed.
 
 
 Table of Contents
 -----------------
 
-- [CallbackFilter](#callbackfilter)
-- [FileExtensionFilter](#fileextensionfilter)
-- [ModificationTimeFilter](#modificationtimefilter)
-- [SkipFirstFilter](#skipfirstfilter)
-- [Custom Filters](#custom-filters)
-- [Value Filters](#value-filters)
+1. [Adding Filters](#adding-filters)
+2. [Value Filters](#value-filters)
+3. [Default Filters](#default-filters)
+4. [Custom Filters](#custom-filters)
 
 
-CallbackFilter
+Adding Filters
 --------------
 
-The `CallbackFilter` calls a function and checks the return value of that function.
+A filter is attached to the workflow by calling the `addFilter()` method. The `addFilter()` method expects an array
+with options as its parameter.
+
+In the following example we are going to attach `Plum\Plum\Filter\SkipFirstFilter`, which filters the first `x`
+items from the workflow.
 
 ```php
-use Plum\Plum\Filter\CallbackFilter;
-
-$filter = new CallbackFilter(function ($item) {
-    return preg_match('/https?:\/\/[a-z0-9-]+\.[a-z]+/', $item);
-});
-$filter->filter('https://florian.ec'); // -> true
+$workflow = new Workflow();
+$workflow->addFilter(['filter' => new SkipFirstFilter(5)]);
 ```
 
-
-FileExtensionFilter
--------------------
-
-Checks if the file extension of a file name matches. The filter is part of `plum-file`.
+Since the above code is pretty common there is a shortcut:
 
 ```php
-use Plum\PlumFile\FileExtensionFilter;
-
-$filter = new FileExtensionFilter('md');
-$filter->filter('README.md'); // -> true
-$filter->filter('README.html'); // -> false
+$workflow = new Workflow();
+$workflow->addFilter(new SkipFirstFilter(5));
 ```
 
-If the item is are more complex structure, for example, an array or an object `FileExtensionFilter` uses Symfonys
-[PropertyAccess](http://symfony.com/doc/current/components/property_access/introduction.html) to retrieve the filename
-from the item. You can pass the path to the property as the second argument to the constructor.
+We can also use a function as filter:
 
 ```php
-use Plum\PlumFile\FileExtensionFilter;
-
-$filterArray = new FileExtensionFilter('md', '[filename]');
-$filterArray->filter(['filename' => 'README.md']); // -> true
-$filterArray->filter(['filename' => 'README.html']); // -> false
-
-$item = new stdClass();
-$item->filename = 'README.md';
-$filterObject = new FileExtensionFilter('md', 'filename');
-$filterObject->filter($item); // -> true
-$item->filename = 'README.html';
-$filterObject->filter($item); // -> false
+$workflow = new Workflow();
+$workflow->addFilter(['filter' => function ($item) { return !empty($item['price']) }]);
 ```
 
-The extension passed to the constructor can also be an array. The filter returns `true` if the given item matches any
-of the extensions in the array.
+There is also a shortcut for passing in a function:
 
 ```php
-$filter = new FileExtensionFilter(['md', 'html']);
-$filter->filter('file.md');   // -> true
-$filter->filter('file.html'); // -> false
-$filter->filter('file.csv`);  // -> false
+$workflow = new Workflow();
+$workflow->addFilter(function ($item) { return !empty($item['price']) });
 ```
 
-Just like the [`FileExtensionFilter`](#fileextensionfilter) the `ModificationTimeFilter` uses the Property Access
-component to retrieve the filename. You can pass the path to the property as second argument to the constructor. The
-file can be either a string or an instance of `SplFileInfo`.
-
-
-ModificationTimeFilter
-----------------------
-
-The `ModificationTimeFilter` returns if a file was modified before and/or after a certain time. It is part of the
-`plum-file` package.
+By default filters are always prepended at the end of the workflow. However, you can change the default behaviour
+by using the `position` option.
 
 ```php
-use Plum\PlumFile\ModificationTimeFilter;
-
-$after = new ModificationTimeFilter(['after' => new DateTime('-3 days')]);
-$after->filter('modified-2-days-ago.txt'); // -> true
-$after->filter('modified-4-days-ago.txt'); // -> false
-
-$before = new ModificationTimeFilter(['before' => new DateTime('-3 days')]);
-$before->filter('modified-4-days-ago.txt'); // -> true
-$before->filter('modified-2-days-ago.txt'); // -> false
-
-$range = new ModificationTimeFilter(['after' => new DateTime('-6 days'), 'before' => new DateTime('-3 days')]);
-$range->filter('modified-4-days-ago.txt'); // -> true
-$range->filter('modified-8-days-ago.txt'); // -> false
-$range->filter('modified-2-days-ago.txt'); // -> false
+$workflow = new Workflow();
+$workflow->addFilter([
+    'filter'   => new SkipFirstFilter(5),
+    'position' => Workflow::PREPEND,
+]);
 ```
 
+Value Filters
+-------------
 
-SkipFirstFilter
---------------
+In all the previous examples the full item is passed to the filter. However, if you pass the `field` option to
+`addFilter()` only this field is passed to the filter. This gives you the ability to reuse filters more easily, since
+your filters do not depend on the structure of the item. We call these type of filters *value filters* because they
+filter the item based on the value of a specific field of the item.
 
-The `SkipFirstFilter` skips the first items. The amount of items skipped is passed in as a constructor argument. It
-can be used to skip the header of a CSV or Excel file.
+```php
+$workflow = new Workflow();
+$workflow->addFilter([
+    'field   => 'age',
+    'filter' => function ($v) { return $v === 42; },
+]);
+```
+
+Internally Plum uses [Vale](https://github.com/cocur/vale) to access the value of the field, that is, you can not only
+access values in associative arrays, but even values in deeply nested arrays and objects.
+
+```php
+$workflow = new Workflow();
+$workflow->addFilter([
+    'field   => ['children'][0]['age'],
+    'filter' => function ($v) { return $v === 42; },
+]);
+```
+
+Default Filters
+---------------
+
+Plum ships with some default filters. Additional filters are available in official and third-party packages and you
+can always implement your own filters.
+
+### `SkipFirstFilter`
+
+The `Plum\Plum\Filter\SkipFirstFilter` removes the first `x` elements from a workflow. The first and only argument
+to the constructor is the number of elements it should skip.
 
 ```php
 use Plum\Plum\Filter\SkipFirstFilter;
 
-$filter = new SkipFirstFilter(1);
-$filter->filter('foo'); // -> false
-$filter->filter('bar'); // -> true
+$workflow = new Workflow();
+$workflow->addFilter(new SkipFirstFilter(5));
 ```
+
+### `CallbackFilter`
+
+`Plum\Plum\Filter\CallbackFilter` calls a function to filter the item.
+
+```php
+use Plum\Plum\Filter\CallbackFilter;
+
+$workflow = new Workflow();
+$workflow->addFilter(new CallbackFilter(function ($item) {
+    return !empty($item['price']);
+}));
+```
+
+However, you can achieve the same result by passing just the function to `addFilter()`, in fact, internally when a
+function is passed to `addFilter()` it is automatically wrapped in a `CallbackFilter`.
 
 
 Custom Filters
@@ -148,13 +171,14 @@ class RegExpFilter implements FilterInterface
 }
 ```
 
+---
 
-Value Filters
--------------
+<p align="center">
+    <a href="index.md">Index</a>
+    <a href="workflow.md">Workflow</a>
+    <a href="readers.md">Readers</a>
+    <a href="writers.md">Writers</a>
+    <strong>Filters</strong>
+    <a href="converters.md">Converters</a>
+</p>
 
-Sometimes you want to filter items on a single value in the item and Plum therefore supports value filters. Value
-filters use [Vale](https://github.com/cocur/vale) to retrieve a value from an arbitrary array or object.
-
-```php
-$workflow->addFilter(['filter' => $filter, 'field => ['foo, 'bar', 'qoo']]);
-```

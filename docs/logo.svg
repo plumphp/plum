@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="473px" height="190px" viewBox="0 0 473 190" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.3.3 (12072) - http://www.bohemiancoding.com/sketch -->
+    <title>logo</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="13" y="8" width="447" height="41"></rect>
+        <rect id="path-2" x="0" y="0.5" width="25" height="57"></rect>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="logo" sketch:type="MSLayerGroup" transform="translate(0.000000, -24.000000)">
+            <text id="Plum" sketch:type="MSTextLayer" font-family="Hack" font-size="144" font-weight="bold" fill="#50E3C2">
+                <tspan x="63" y="134">Plum</tspan>
+            </text>
+            <g id="Rectangle-1-+-Rectangle-1-Copy-2-+-Rectangle-1-Copy-3" transform="translate(0.000000, 156.000000)">
+                <g id="Rectangle-1">
+                    <use fill="#50E3C2" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                    <use fill="none" xlink:href="#path-1"></use>
+                </g>
+                <rect id="Rectangle-1-Copy-2" fill="#40C8A9" sketch:type="MSShapeGroup" x="448" y="0.5" width="25" height="57"></rect>
+                <g id="Rectangle-1-Copy-3">
+                    <use fill="#40C8A9" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-2"></use>
+                    <use fill="none" xlink:href="#path-2"></use>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
