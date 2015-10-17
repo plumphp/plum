@@ -40,6 +40,7 @@ class LogConverter implements ConverterInterface
     /**
      * @param LoggerInterface $logger
      * @param string          $level
+     * @param string          $message
      */
     public function __construct(LoggerInterface $logger, $level = 'debug', $message = null)
     {

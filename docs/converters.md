@@ -173,7 +173,7 @@ The core Plum library contains some basic and general converters.
 
 ### `CallbackConverter`
 
-The `CallbackConverter` calls a callback to convert a given item.
+The `Plum\Plum\Converter\CallbackConverter` calls a callback to convert a given item.
 
 ```php
 use Plum\Plum\Converter\CallbackConverter;
@@ -184,6 +184,38 @@ $converter->convert('foo'); // -> FOO
 
 As you can see that this has the same effect as passing a function directly to `addConverter()` and in fact, if you
 pass a function to `addConverter()` Plum internally wraps the function in a `CallbackConverter`.
+
+
+### `HeaderConverter`
+
+You can use `Plum\Plum\Converter\HeaderConverter` to make the first item in the workflow the header and use these values
+as keys for the other items. This is the case, for example, in CSV or Excel files where the first row contains the
+names of the columns. 
+
+```php
+use Plum\Plum\Converter\HeaderConverter;
+
+$workflow->addConverter(new HeaderConverter());
+$workflow->addFilter(new SkipFirstFilter(1)); // Remove header
+$workflow->process(new ArrayReader([['name', 'age'], ['x', 21], ['y', 42]]));
+// -> [["name" => "x", "age" => 21], ["name" => "y", "age" => 42]]
+```
+
+
+### `LogConverter`
+
+`Plum\Plum\Converter\LogConverter` logs the item to a [PSR-3 compatible logger](http://www.php-fig.org/psr/psr-3/). The
+item is not modified by this converter. In addition to the logger you can also pass the desired log level and the log
+message to the constructor.
+
+```php
+use Plum\Plum\Converter\LogConverter;
+
+$converter = new LogConverter($logger, 'debug', 'Item:');
+$converter->convert(['foo' => 'bar']);
+// Will call
+// $logger->log('debug', 'Item:', ['foo' = 'bar']);
+```
 
 
 ### `MappingConverter`
@@ -223,6 +255,17 @@ In contrast, if the `to` mapping is empty the `from` value will returned as item
 ```php
 $converter->addMapping('bar', '');
 $converter->convert(['bar' => 'foobar'); // -> 'foobar'
+```
+
+### `NullConverter`
+
+`Plum\Plum\Converter\NullConverter` converts `null` values into an empty string.
+
+```php
+use Plum\Plum\Converter\NullConverter;
+
+$converter = new NullConverter();
+$converter->convert(null); // -> ""
 ```
 
 
