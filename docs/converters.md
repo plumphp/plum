@@ -59,7 +59,7 @@ $workflow = new Workflow();
 $workflow->addConverter(new NullConverter());
 ```
 
-We can also use a function as filter:
+We can also use a function as converter:
 
 ```php
 $workflow = new Workflow();
