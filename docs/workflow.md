@@ -20,6 +20,12 @@
 Workflow
 ========
 
+The workflow is the central element in the data processing pipeline provided by Plum. The workflow is represented by
+the class `Plum\Plum\Workflow` and you attach filters, converters and writers to it and, when ready, process it by
+passing one or more readers to it. The order in which filters, converters and writers can be attached is arbitrary and
+the type of the items returned by readers does not matter to Plum.
+
+
 Table of Contents
 -----------------
 
@@ -31,6 +37,7 @@ Table of Contents
 - [Concatenating Workflows](#concatenating-workflows)
 - [Merging Data](#merging-data)
 - [Splitting Data](#splitting-data)
+
 
 Adding Converters, Filters, and Writers
 -------------------------------------
