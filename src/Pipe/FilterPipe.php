@@ -24,6 +24,8 @@ use Plum\Plum\Filter\FilterInterface;
  */
 class FilterPipe extends Pipe
 {
+    protected $type = Pipe::TYPE_FILTER;
+
     /**
      * @param FilterInterface|callable|array $element
      *
@@ -48,10 +50,7 @@ class FilterPipe extends Pipe
         $pipe         = new self($element);
         $pipe->filter = $filter;
         if (is_array($element) && isset($element['field'])) {
-            $pipe->setType(self::PIPELINE_TYPE_VALUE_FILTER);
             $pipe->setField($element['field']);
-        } else {
-            $pipe->setType(self::PIPELINE_TYPE_FILTER);
         }
 
         return $pipe;

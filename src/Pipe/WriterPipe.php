@@ -24,6 +24,8 @@ use Plum\Plum\Writer\WriterInterface;
  */
 class WriterPipe extends Pipe
 {
+    protected $type = Pipe::TYPE_WRITER;
+
     /**
      * @param WriterInterface|array $element
      *
@@ -42,7 +44,6 @@ class WriterPipe extends Pipe
         }
 
         $pipe         = new self($element);
-        $pipe->type   = self::PIPELINE_TYPE_WRITER;
         $pipe->writer = $writer;
         if (is_array($element) && isset($element['filter']) && is_callable($element['filter'])) {
             $pipe->setFilter(new CallbackFilter($element['filter']));

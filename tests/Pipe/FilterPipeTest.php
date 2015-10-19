@@ -29,7 +29,7 @@ class FilterPipeTest extends PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('\Plum\Plum\Pipe\FilterPipe', $pipe);
         $this->assertEquals($filter, $pipe->getFilter());
-        $this->assertEquals(Pipe::PIPELINE_TYPE_FILTER, $pipe->getType());
+        $this->assertEquals(Pipe::TYPE_FILTER, $pipe->getType());
     }
 
     /**
@@ -99,7 +99,6 @@ class FilterPipeTest extends PHPUnit_Framework_TestCase
      * @covers Plum\Plum\Pipe\Pipe::getFilter()
      * @covers Plum\Plum\Pipe\Pipe::setField()
      * @covers Plum\Plum\Pipe\Pipe::getField()
-     * @covers Plum\Plum\Pipe\Pipe::setType()
      * @covers Plum\Plum\Pipe\Pipe::getType()
      */
     public function createFilterTakesFieldInArray()
@@ -110,6 +109,6 @@ class FilterPipeTest extends PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('\Plum\Plum\Pipe\FilterPipe', $pipe);
         $this->assertEquals('foo', $pipe->getField());
-        $this->assertEquals(Pipe::PIPELINE_TYPE_VALUE_FILTER, $pipe->getType());
+        $this->assertEquals(Pipe::TYPE_FILTER, $pipe->getType());
     }
 }

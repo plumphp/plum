@@ -25,11 +25,9 @@ use Plum\Plum\Writer\WriterInterface;
  */
 abstract class Pipe
 {
-    const PIPELINE_TYPE_FILTER          = 1;
-    const PIPELINE_TYPE_CONVERTER       = 2;
-    const PIPELINE_TYPE_WRITER          = 3;
-    const PIPELINE_TYPE_VALUE_FILTER    = 4;
-    const PIPELINE_TYPE_VALUE_CONVERTER = 5;
+    const TYPE_FILTER          = 1;
+    const TYPE_CONVERTER       = 2;
+    const TYPE_WRITER          = 3;
 
     /**
      * @var int
@@ -139,18 +137,6 @@ abstract class Pipe
     public function getType()
     {
         return $this->type;
-    }
-
-    /**
-     * @param int $type
-     *
-     * @return Pipe
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
-
-        return $this;
     }
 
     /**

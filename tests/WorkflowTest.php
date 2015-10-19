@@ -12,6 +12,7 @@
 namespace Plum\Plum;
 
 use \Mockery as m;
+use Plum\Plum\Pipe\Pipe;
 use Plum\Plum\Reader\ArrayReader;
 use Plum\Plum\Writer\ArrayWriter;
 
@@ -60,7 +61,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
         $this->workflow->addFilter($filter);
         $this->workflow->addConverter($converter);
 
-        $this->assertCount(1, $this->workflow->getPipeline(Workflow::PIPELINE_TYPE_FILTER));
+        $this->assertCount(1, $this->workflow->getPipeline(Pipe::TYPE_FILTER));
     }
 
     /**
@@ -167,7 +168,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
      * @test
      * @covers Plum\Plum\Workflow::addPipe()
      * @covers Plum\Plum\Workflow::addFilter()
-     * @covers Plum\Plum\Workflow::getValueFilters()
+     * @covers Plum\Plum\Workflow::getFilters()
      */
     public function addFilterWithFieldAndFilterInstanceShouldAddValueFilterToWorkflow()
     {
@@ -177,14 +178,14 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
             $this->workflow->addFilter(['filter' => $filter, 'field' => ['foo']])
         );
 
-        $this->assertSame($filter, $this->workflow->getValueFilters()[0]->getFilter());
+        $this->assertSame($filter, $this->workflow->getFilters()[0]->getFilter());
     }
 
     /**
      * @test
      * @covers Plum\Plum\Workflow::addPipe()
      * @covers Plum\Plum\Workflow::addFilter()
-     * @covers Plum\Plum\Workflow::getValueFilters()
+     * @covers Plum\Plum\Workflow::getFilters()
      */
     public function addFilterWithFieldAndPrependShouldPrependValueFilterToWorkflow()
     {
@@ -193,8 +194,8 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
         $this->workflow->addFilter(['filter' => $filter1, 'field' => ['foo']]);
         $this->workflow->addFilter(['field' => ['foo'], 'filter' => $filter2, 'position' => Workflow::PREPEND]);
 
-        $this->assertSame($filter2, $this->workflow->getValueFilters()[0]->getFilter());
-        $this->assertSame($filter1, $this->workflow->getValueFilters()[1]->getFilter());
+        $this->assertSame($filter2, $this->workflow->getFilters()[0]->getFilter());
+        $this->assertSame($filter1, $this->workflow->getFilters()[1]->getFilter());
     }
 
     /**
@@ -207,7 +208,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf(
             'Plum\Plum\Filter\FilterInterface',
-            $this->workflow->getValueFilters()[0]->getFilter()
+            $this->workflow->getFilters()[0]->getFilter()
         );
     }
 
@@ -338,7 +339,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
      * @test
      * @covers Plum\Plum\Workflow::addPipe()
      * @covers Plum\Plum\Workflow::addConverter()
-     * @covers Plum\Plum\Workflow::getValueConverters()
+     * @covers Plum\Plum\Workflow::getConverters()
      */
     public function addConverterWithFieldAndConverterInstanceShouldAddValueConverterToWorkflow()
     {
@@ -348,14 +349,14 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
             $this->workflow->addConverter(['converter' => $converter, 'field' => ['foo']])
         );
 
-        $this->assertSame($converter, $this->workflow->getValueConverters()[0]->getConverter());
+        $this->assertSame($converter, $this->workflow->getConverters()[0]->getConverter());
     }
 
     /**
      * @test
      * @covers Plum\Plum\Workflow::addPipe()
      * @covers Plum\Plum\Workflow::addConverter()
-     * @covers Plum\Plum\Workflow::getValueConverters()
+     * @covers Plum\Plum\Workflow::getConverters()
      */
     public function addConverterWithFieldAndPrependShouldPrependValueConverterToWorkflow()
     {
@@ -368,8 +369,8 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
             'position'  => Workflow::PREPEND
         ]);
 
-        $this->assertSame($converter2, $this->workflow->getValueConverters()[0]->getConverter());
-        $this->assertSame($converter1, $this->workflow->getValueConverters()[1]->getConverter());
+        $this->assertSame($converter2, $this->workflow->getConverters()[0]->getConverter());
+        $this->assertSame($converter1, $this->workflow->getConverters()[1]->getConverter());
     }
 
     /**
@@ -382,7 +383,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf(
             'Plum\Plum\Converter\ConverterInterface',
-            $this->workflow->getValueConverters()[0]->getConverter()
+            $this->workflow->getConverters()[0]->getConverter()
         );
     }
 
@@ -400,7 +401,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf(
             'Plum\Plum\Filter\FilterInterface',
-            $this->workflow->getValueConverters()[0]->getFilter()
+            $this->workflow->getConverters()[0]->getFilter()
         );
     }
 

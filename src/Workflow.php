@@ -13,9 +13,7 @@ namespace Plum\Plum;
 
 use Cocur\Vale\Vale;
 use InvalidArgumentException;
-use Plum\Plum\Converter\CallbackConverter;
 use Plum\Plum\Converter\ConverterInterface;
-use Plum\Plum\Filter\CallbackFilter;
 use Plum\Plum\Filter\FilterInterface;
 use Plum\Plum\Pipe\ConverterPipe;
 use Plum\Plum\Pipe\FilterPipe;
@@ -33,12 +31,6 @@ use Plum\Plum\Writer\WriterInterface;
  */
 class Workflow
 {
-    const PIPELINE_TYPE_FILTER          = 1;
-    const PIPELINE_TYPE_CONVERTER       = 2;
-    const PIPELINE_TYPE_WRITER          = 3;
-    const PIPELINE_TYPE_VALUE_FILTER    = 4;
-    const PIPELINE_TYPE_VALUE_CONVERTER = 5;
-
     const APPEND  = 1;
     const PREPEND = 2;
 
@@ -100,15 +92,7 @@ class Workflow
      */
     public function getFilters()
     {
-        return $this->getPipeline(self::PIPELINE_TYPE_FILTER);
-    }
-
-    /**
-     * @return FilterPipe[]
-     */
-    public function getValueFilters()
-    {
-        return $this->getPipeline(self::PIPELINE_TYPE_VALUE_FILTER);
+        return $this->getPipeline(Pipe::TYPE_FILTER);
     }
 
     /**
@@ -129,15 +113,7 @@ class Workflow
      */
     public function getConverters()
     {
-        return $this->getPipeline(self::PIPELINE_TYPE_CONVERTER);
-    }
-
-    /**
-     * @return ConverterPipe[]
-     */
-    public function getValueConverters()
-    {
-        return $this->getPipeline(self::PIPELINE_TYPE_VALUE_CONVERTER);
+        return $this->getPipeline(Pipe::TYPE_CONVERTER);
     }
 
     /**
@@ -158,7 +134,7 @@ class Workflow
      */
     public function getWriters()
     {
-        return $this->getPipeline(self::PIPELINE_TYPE_WRITER);
+        return $this->getPipeline(Pipe::TYPE_WRITER);
     }
 
     /**

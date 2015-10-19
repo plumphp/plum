@@ -29,7 +29,7 @@ class WriterPipeTest extends PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('\Plum\Plum\Pipe\WriterPipe', $pipe);
         $this->assertEquals($writer, $pipe->getWriter());
-        $this->assertEquals(Pipe::PIPELINE_TYPE_WRITER, $pipe->getType());
+        $this->assertEquals(Pipe::TYPE_WRITER, $pipe->getType());
     }
 
     /**

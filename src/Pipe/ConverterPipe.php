@@ -25,6 +25,8 @@ use Plum\Plum\Filter\CallbackFilter;
  */
 class ConverterPipe extends Pipe
 {
+    protected $type = Pipe::TYPE_CONVERTER;
+
     /**
      * @param ConverterInterface|callable|array $element
      *
@@ -50,9 +52,6 @@ class ConverterPipe extends Pipe
         $pipe->converter = $converter;
         if (is_array($element) && isset($element['field'])) {
             $pipe->setField($element['field']);
-            $pipe->setType(self::PIPELINE_TYPE_VALUE_CONVERTER);
-        } else {
-            $pipe->setType(self::PIPELINE_TYPE_CONVERTER);
         }
 
         if (is_array($element) && isset($element['filter']) && is_callable($element['filter'])) {

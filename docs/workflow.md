@@ -142,17 +142,15 @@ Retrieving Converters, Filters and Writers
 `Workflow` provides you with getters to retrieve elements from the pipeline.
 
 ```php
-$workflow->getPipeline(); // -> Plum\Plum\PipelineInterface[]
+$workflow->getPipeline(); // -> Plum\Plum\Pipe\Pipe[]
 ```
 
 In addition there are methods to retrieve elements of a specific type, i.e., filters, converters and writers.
 
 ```php
-$workflow->getFilters(); // -> Plum\Plum\Filter\FilterInterface[]
-$workflow->getValueFilters(); // -> Plum\Plum\Filter\FilterInterface[]
-$workflow->getConverters(); // -> Plum\Plum\Converter\ConverterInterface[]
-$workflow->getValueConverters(); // -> Plum\Plum\Converter\ConverterInterface[]
-$workflow->getWriters(); // -> Plum\Plum\Writer\WriterInterface[]
+$workflow->getFilters(); // -> Plum\Plum\Pipe\FilterPipe[]
+$workflow->getConverters(); // -> Plum\Plum\Pipe\ConverterPipe[]
+$workflow->getWriters(); // -> Plum\Plum\Pipe\WriterPipe[]
 ```
 
 

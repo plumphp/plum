@@ -30,7 +30,7 @@ class ConverterPipeTest extends PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('Plum\Plum\Pipe\ConverterPipe', $pipe);
         $this->assertEquals($converter, $pipe->getConverter());
-        $this->assertEquals(Pipe::PIPELINE_TYPE_CONVERTER, $pipe->getType());
+        $this->assertEquals(Pipe::TYPE_CONVERTER, $pipe->getType());
     }
 
     /**
@@ -46,7 +46,7 @@ class ConverterPipeTest extends PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('Plum\Plum\Pipe\ConverterPipe', $pipe);
         $this->assertInstanceOf('Plum\Plum\Converter\CallbackConverter', $pipe->getConverter());
-        $this->assertEquals(Pipe::PIPELINE_TYPE_CONVERTER, $pipe->getType());
+        $this->assertEquals(Pipe::TYPE_CONVERTER, $pipe->getType());
     }
 
     /**
@@ -63,7 +63,7 @@ class ConverterPipeTest extends PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('Plum\Plum\Pipe\ConverterPipe', $pipe);
         $this->assertEquals($converter, $pipe->getConverter());
-        $this->assertEquals(Pipe::PIPELINE_TYPE_CONVERTER, $pipe->getType());
+        $this->assertEquals(Pipe::TYPE_CONVERTER, $pipe->getType());
     }
 
     /**
@@ -80,7 +80,7 @@ class ConverterPipeTest extends PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('Plum\Plum\Pipe\ConverterPipe', $pipe);
         $this->assertInstanceOf('Plum\Plum\Converter\CallbackConverter', $pipe->getConverter());
-        $this->assertEquals(Pipe::PIPELINE_TYPE_CONVERTER, $pipe->getType());
+        $this->assertEquals(Pipe::TYPE_CONVERTER, $pipe->getType());
     }
 
     /**
@@ -107,7 +107,6 @@ class ConverterPipeTest extends PHPUnit_Framework_TestCase
      * @test
      * @covers Plum\Plum\Pipe\ConverterPipe::createConverter()
      * @covers Plum\Plum\Pipe\Pipe::getConverter()
-     * @covers Plum\Plum\Pipe\Pipe::setType()
      * @covers Plum\Plum\Pipe\Pipe::getType()
      * @covers Plum\Plum\Pipe\Pipe::setField()
      * @covers Plum\Plum\Pipe\Pipe::getField()
@@ -119,7 +118,7 @@ class ConverterPipeTest extends PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('Plum\Plum\Pipe\ConverterPipe', $pipe);
         $this->assertEquals($converter, $pipe->getConverter());
-        $this->assertEquals(Pipe::PIPELINE_TYPE_VALUE_CONVERTER, $pipe->getType());
+        $this->assertEquals(Pipe::TYPE_CONVERTER, $pipe->getType());
         $this->assertEquals('foo', $pipe->getField());
     }
 
