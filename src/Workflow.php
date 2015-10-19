@@ -236,34 +236,23 @@ class Workflow
         $written = false;
 
         foreach ($this->pipeline as $element) {
-            if ($element->getType() === self::PIPELINE_TYPE_FILTER) {
-                if ($element->getFilter()->filter($item) === false) {
-                    return;
-                }
-            } else if ($element->getType() === self::PIPELINE_TYPE_VALUE_FILTER) {
+            if ($element instanceof FilterPipe && $element->getField()) {
                 if ($element->getFilter()->filter(Vale::get($item, $element->getField())) === false) {
                     return;
                 }
-            } else if ($element->getType() === self::PIPELINE_TYPE_CONVERTER) {
-                $item = $this->convertItem(
-                    $item,
-                    $element->getConverter(),
-                    $element->getFilter(),
-                    $element->getFilterField()
-                );
+            } else if ($element instanceof FilterPipe) {
+                if ($element->getFilter()->filter($item) === false) {
+                    return;
+                }
+            } else if ($element instanceof ConverterPipe && $element->getField()) {
+                $item = $this->convertItemValue($item, $element);
+            } else if ($element instanceof ConverterPipe) {
+                $item = $this->convertItem($item, $element);
                 if ($item === null) {
                     return;
                 }
-            } else if ($element->getType() === self::PIPELINE_TYPE_VALUE_CONVERTER) {
-                $item = $this->convertItemValue(
-                    $item,
-                    $element->getField(),
-                    $element->getConverter(),
-                    $element->getFilter(),
-                    $element->getFilterField()
-                );
-            } else if ($element->getType() === self::PIPELINE_TYPE_WRITER) {
-                if ($this->writeItem($item, $element->getWriter(), $element->getFilter()) === true) {
+            } else if ($element instanceof WriterPipe) {
+                if ($this->writeItem($item, $element) === true) {
                     $result->incWriteCount();
                     $written = true;
                 }
@@ -278,22 +267,17 @@ class Workflow
     /**
      * Applies the given converter to the given item either if no filter is given or if the filter returns `true`.
      *
-     * @param mixed                $item
-     * @param ConverterInterface   $converter
-     * @param FilterInterface|null $filter
-     * @param string|array|null    $filterField
+     * @param mixed         $item
+     * @param ConverterPipe $pipe
      *
      * @return mixed
+     *
      */
-    protected function convertItem(
-        $item,
-        ConverterInterface $converter,
-        FilterInterface $filter = null,
-        $filterField = null
-    ) {
-        $filterValue = $filterField ? Vale::get($item, $filterField) : $item;
-        if ($filter === null || $filter->filter($filterValue) === true) {
-            return $converter->convert($item);
+    protected function convertItem($item, ConverterPipe $pipe)
+    {
+        $filterValue = $pipe->getFilterField() ? Vale::get($item, $pipe->getFilterField()) : $item;
+        if ($pipe->getFilter() === null || $pipe->getFilter()->filter($filterValue) === true) {
+            return $pipe->getConverter()->convert($item);
         }
 
         return $item;
@@ -303,26 +287,19 @@ class Workflow
      * Applies the given converter to the given field in the given item if no filter is given or if the filters returns
      * `true` for the field.
      *
-     * @param mixed                $item
-     * @param string|array         $field
-     * @param ConverterInterface   $converter
-     * @param FilterInterface|null $filter
-     * @param string|array|null    $filterField
+     * @param mixed         $item
+     * @param ConverterPipe $pipe
      *
      * @return mixed
+     *
      */
-    protected function convertItemValue(
-        $item,
-        $field,
-        ConverterInterface $converter,
-        FilterInterface $filter = null,
-        $filterField = null
-    ) {
-        $value       = Vale::get($item, $field);
-        $filterValue = $filterField ? Vale::get($item, $filterField) : $item;
+    protected function convertItemValue($item, ConverterPipe $pipe)
+    {
+        $value       = Vale::get($item, $pipe->getField());
+        $filterValue = $pipe->getFilterField() ? Vale::get($item, $pipe->getFilterField()) : $item;
 
-        if ($filter === null || $filter->filter($filterValue) === true) {
-            $item = Vale::set($item, $field, $converter->convert($value));
+        if ($pipe->getFilter() === null || $pipe->getFilter()->filter($filterValue) === true) {
+            $item = Vale::set($item, $pipe->getField(), $pipe->getConverter()->convert($value));
         }
 
         return $item;
@@ -331,16 +308,16 @@ class Workflow
     /**
      * Writes the given item to the given writer if the no filter is given or the filter returns `true`.
      *
-     * @param mixed                $item
-     * @param WriterInterface      $writer
-     * @param FilterInterface|null $filter
+     * @param mixed      $item
+     * @param WriterPipe $pipe
      *
      * @return bool `true` if the item has been written, `false` if not.
+     *
      */
-    protected function writeItem($item, WriterInterface $writer, FilterInterface $filter = null)
+    protected function writeItem($item, WriterPipe $pipe)
     {
-        if ($filter === null || $filter->filter($item) === true) {
-            $writer->writeItem($item);
+        if ($pipe->getFilter() === null || $pipe->getFilter()->filter($item) === true) {
+            $pipe->getWriter()->writeItem($item);
 
             return true;
         }
