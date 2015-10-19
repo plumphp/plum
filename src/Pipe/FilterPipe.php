@@ -22,9 +22,9 @@ use Plum\Plum\Filter\FilterInterface;
  * @author    Florian Eckerstorfer
  * @copyright 2014-2015 Florian Eckerstorfer
  */
-class FilterPipe extends Pipe
+class FilterPipe extends AbstractPipe
 {
-    protected $type = Pipe::TYPE_FILTER;
+    protected $type = AbstractPipe::TYPE_FILTER;
 
     /**
      * @param FilterInterface|callable|array $element

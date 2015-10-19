@@ -24,7 +24,7 @@ use Plum\Plum\Writer\WriterInterface;
  * @author    Florian Eckerstorfer
  * @copyright 2014-2015 Florian Eckerstorfer
  */
-abstract class Pipe
+abstract class AbstractPipe
 {
     const TYPE_FILTER    = 1;
     const TYPE_CONVERTER = 2;
@@ -137,7 +137,7 @@ abstract class Pipe
     /**
      * @param int $position
      *
-     * @return Pipe
+     * @return AbstractPipe
      */
     public function setPosition($position)
     {
@@ -157,7 +157,7 @@ abstract class Pipe
     /**
      * @param FilterInterface $filter
      *
-     * @return Pipe
+     * @return AbstractPipe
      */
     public function setFilter(FilterInterface $filter)
     {

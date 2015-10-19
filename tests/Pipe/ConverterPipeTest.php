@@ -19,8 +19,8 @@ class ConverterPipeTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      * @covers Plum\Plum\Pipe\ConverterPipe::createConverter()
-     * @covers Plum\Plum\Pipe\Pipe::getConverter()
-     * @covers Plum\Plum\Pipe\Pipe::getType()
+     * @covers Plum\Plum\Pipe\AbstractPipe::getConverter()
+     * @covers Plum\Plum\Pipe\AbstractPipe::getType()
      */
     public function createConverterTakesConverterInterface()
     {
@@ -30,14 +30,14 @@ class ConverterPipeTest extends PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('Plum\Plum\Pipe\ConverterPipe', $pipe);
         $this->assertEquals($converter, $pipe->getConverter());
-        $this->assertEquals(Pipe::TYPE_CONVERTER, $pipe->getType());
+        $this->assertEquals(AbstractPipe::TYPE_CONVERTER, $pipe->getType());
     }
 
     /**
      * @test
      * @covers Plum\Plum\Pipe\ConverterPipe::createConverter()
-     * @covers Plum\Plum\Pipe\Pipe::getConverter()
-     * @covers Plum\Plum\Pipe\Pipe::getType()
+     * @covers Plum\Plum\Pipe\AbstractPipe::getConverter()
+     * @covers Plum\Plum\Pipe\AbstractPipe::getType()
      */
     public function createConverterTakesCallback()
     {
@@ -46,15 +46,15 @@ class ConverterPipeTest extends PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('Plum\Plum\Pipe\ConverterPipe', $pipe);
         $this->assertInstanceOf('Plum\Plum\Converter\CallbackConverter', $pipe->getConverter());
-        $this->assertEquals(Pipe::TYPE_CONVERTER, $pipe->getType());
+        $this->assertEquals(AbstractPipe::TYPE_CONVERTER, $pipe->getType());
     }
 
     /**
      * @test
      * @covers Plum\Plum\Pipe\ConverterPipe::createConverter()
      * @covers Plum\Plum\Pipe\ConverterPipe::hasElementConverter()
-     * @covers Plum\Plum\Pipe\Pipe::getConverter()
-     * @covers Plum\Plum\Pipe\Pipe::getType()
+     * @covers Plum\Plum\Pipe\AbstractPipe::getConverter()
+     * @covers Plum\Plum\Pipe\AbstractPipe::getType()
      */
     public function createConverterTakesConverterInterfaceInArray()
     {
@@ -63,15 +63,15 @@ class ConverterPipeTest extends PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('Plum\Plum\Pipe\ConverterPipe', $pipe);
         $this->assertEquals($converter, $pipe->getConverter());
-        $this->assertEquals(Pipe::TYPE_CONVERTER, $pipe->getType());
+        $this->assertEquals(AbstractPipe::TYPE_CONVERTER, $pipe->getType());
     }
 
     /**
      * @test
      * @covers Plum\Plum\Pipe\ConverterPipe::createConverter()
      * @covers Plum\Plum\Pipe\ConverterPipe::hasElementCallbackConverter()
-     * @covers Plum\Plum\Pipe\Pipe::getConverter()
-     * @covers Plum\Plum\Pipe\Pipe::getType()
+     * @covers Plum\Plum\Pipe\AbstractPipe::getConverter()
+     * @covers Plum\Plum\Pipe\AbstractPipe::getType()
      */
     public function createConverterTakesCallbackInArray()
     {
@@ -80,7 +80,7 @@ class ConverterPipeTest extends PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('Plum\Plum\Pipe\ConverterPipe', $pipe);
         $this->assertInstanceOf('Plum\Plum\Converter\CallbackConverter', $pipe->getConverter());
-        $this->assertEquals(Pipe::TYPE_CONVERTER, $pipe->getType());
+        $this->assertEquals(AbstractPipe::TYPE_CONVERTER, $pipe->getType());
     }
 
     /**
@@ -106,10 +106,11 @@ class ConverterPipeTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      * @covers Plum\Plum\Pipe\ConverterPipe::createConverter()
-     * @covers Plum\Plum\Pipe\Pipe::getConverter()
-     * @covers Plum\Plum\Pipe\Pipe::getType()
-     * @covers Plum\Plum\Pipe\Pipe::setField()
-     * @covers Plum\Plum\Pipe\Pipe::getField()
+     * @covers Plum\Plum\Pipe\AbstractPipe::getConverter()
+     * @covers Plum\Plum\Pipe\AbstractPipe::getType()
+     * @covers Plum\Plum\Pipe\AbstractPipe::__construct()
+     * @covers Plum\Plum\Pipe\AbstractPipe::setField()
+     * @covers Plum\Plum\Pipe\AbstractPipe::getField()
      */
     public function createConverterCreatesValueConverterIfFieldIsPresent()
     {
@@ -118,15 +119,16 @@ class ConverterPipeTest extends PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('Plum\Plum\Pipe\ConverterPipe', $pipe);
         $this->assertEquals($converter, $pipe->getConverter());
-        $this->assertEquals(Pipe::TYPE_CONVERTER, $pipe->getType());
+        $this->assertEquals(AbstractPipe::TYPE_CONVERTER, $pipe->getType());
         $this->assertEquals('foo', $pipe->getField());
     }
 
     /**
      * @test
      * @covers Plum\Plum\Pipe\ConverterPipe::createConverter()
-     * @covers Plum\Plum\Pipe\Pipe::setFilter()
-     * @covers Plum\Plum\Pipe\Pipe::getFilter()
+     * @covers Plum\Plum\Pipe\AbstractPipe::__construct()
+     * @covers Plum\Plum\Pipe\AbstractPipe::setFilter()
+     * @covers Plum\Plum\Pipe\AbstractPipe::getFilter()
      */
     public function createConverterTakesFilterInArray()
     {
@@ -142,8 +144,9 @@ class ConverterPipeTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      * @covers Plum\Plum\Pipe\ConverterPipe::createConverter()
-     * @covers Plum\Plum\Pipe\Pipe::setFilter()
-     * @covers Plum\Plum\Pipe\Pipe::getFilter()
+     * @covers Plum\Plum\Pipe\AbstractPipe::__construct()
+     * @covers Plum\Plum\Pipe\AbstractPipe::setFilter()
+     * @covers Plum\Plum\Pipe\AbstractPipe::getFilter()
      */
     public function createConvertersTakesCallbackFilterInArray()
     {
@@ -159,8 +162,9 @@ class ConverterPipeTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      * @covers Plum\Plum\Pipe\ConverterPipe::createConverter()
-     * @covers Plum\Plum\Pipe\Pipe::setFilterField()
-     * @covers Plum\Plum\Pipe\Pipe::getFilterField()
+     * @covers Plum\Plum\Pipe\AbstractPipe::__construct()
+     * @covers Plum\Plum\Pipe\AbstractPipe::setFilterField()
+     * @covers Plum\Plum\Pipe\AbstractPipe::getFilterField()
      */
     public function createConverterTakesFilterFieldInArray()
     {
@@ -175,9 +179,9 @@ class ConverterPipeTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      * @covers Plum\Plum\Pipe\ConverterPipe::createConverter()
-     * @covers Plum\Plum\Pipe\Pipe::__construct()
-     * @covers Plum\Plum\Pipe\Pipe::setPosition()
-     * @covers Plum\Plum\Pipe\Pipe::getPosition()
+     * @covers Plum\Plum\Pipe\AbstractPipe::__construct()
+     * @covers Plum\Plum\Pipe\AbstractPipe::setPosition()
+     * @covers Plum\Plum\Pipe\AbstractPipe::getPosition()
      */
     public function createConverterTakesPositionInArray()
     {

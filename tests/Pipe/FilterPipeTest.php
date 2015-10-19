@@ -18,8 +18,8 @@ class FilterPipeTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      * @covers Plum\Plum\Pipe\FilterPipe::createFilter()
-     * @covers Plum\Plum\Pipe\Pipe::getFilter()
-     * @covers Plum\Plum\Pipe\Pipe::getType()
+     * @covers Plum\Plum\Pipe\AbstractPipe::getFilter()
+     * @covers Plum\Plum\Pipe\AbstractPipe::getType()
      */
     public function createFilterTakesFilterInterface()
     {
@@ -29,7 +29,7 @@ class FilterPipeTest extends PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('\Plum\Plum\Pipe\FilterPipe', $pipe);
         $this->assertEquals($filter, $pipe->getFilter());
-        $this->assertEquals(Pipe::TYPE_FILTER, $pipe->getType());
+        $this->assertEquals(AbstractPipe::TYPE_FILTER, $pipe->getType());
     }
 
     /**
@@ -48,7 +48,7 @@ class FilterPipeTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      * @covers Plum\Plum\Pipe\FilterPipe::createFilter()
-     * @covers Plum\Plum\Pipe\Pipe::getFilter()
+     * @covers Plum\Plum\Pipe\AbstractPipe::getFilter()
      */
     public function createFilterTakesFilterInterfaceInArray()
     {
@@ -96,10 +96,11 @@ class FilterPipeTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      * @covers Plum\Plum\Pipe\FilterPipe::createFilter()
-     * @covers Plum\Plum\Pipe\Pipe::getFilter()
-     * @covers Plum\Plum\Pipe\Pipe::setField()
-     * @covers Plum\Plum\Pipe\Pipe::getField()
-     * @covers Plum\Plum\Pipe\Pipe::getType()
+     * @covers Plum\Plum\Pipe\AbstractPipe::__construct()
+     * @covers Plum\Plum\Pipe\AbstractPipe::getFilter()
+     * @covers Plum\Plum\Pipe\AbstractPipe::setField()
+     * @covers Plum\Plum\Pipe\AbstractPipe::getField()
+     * @covers Plum\Plum\Pipe\AbstractPipe::getType()
      */
     public function createFilterTakesFieldInArray()
     {
@@ -109,6 +110,6 @@ class FilterPipeTest extends PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('\Plum\Plum\Pipe\FilterPipe', $pipe);
         $this->assertEquals('foo', $pipe->getField());
-        $this->assertEquals(Pipe::TYPE_FILTER, $pipe->getType());
+        $this->assertEquals(AbstractPipe::TYPE_FILTER, $pipe->getType());
     }
 }

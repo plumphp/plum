@@ -22,9 +22,9 @@ use Plum\Plum\Writer\WriterInterface;
  * @author    Florian Eckerstorfer
  * @copyright 2014-2015 Florian Eckerstorfer
  */
-class WriterPipe extends Pipe
+class WriterPipe extends AbstractPipe
 {
-    protected $type = Pipe::TYPE_WRITER;
+    protected $type = AbstractPipe::TYPE_WRITER;
 
     /**
      * @param WriterInterface|array $element

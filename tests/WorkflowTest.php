@@ -12,7 +12,7 @@
 namespace Plum\Plum;
 
 use \Mockery as m;
-use Plum\Plum\Pipe\Pipe;
+use Plum\Plum\Pipe\AbstractPipe;
 use Plum\Plum\Reader\ArrayReader;
 use Plum\Plum\Writer\ArrayWriter;
 
@@ -61,7 +61,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
         $this->workflow->addFilter($filter);
         $this->workflow->addConverter($converter);
 
-        $this->assertCount(1, $this->workflow->getPipeline(Pipe::TYPE_FILTER));
+        $this->assertCount(1, $this->workflow->getPipeline(AbstractPipe::TYPE_FILTER));
     }
 
     /**

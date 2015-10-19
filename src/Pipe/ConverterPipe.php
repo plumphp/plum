@@ -14,7 +14,6 @@ namespace Plum\Plum\Pipe;
 use InvalidArgumentException;
 use Plum\Plum\Converter\CallbackConverter;
 use Plum\Plum\Converter\ConverterInterface;
-use Plum\Plum\Filter\CallbackFilter;
 
 /**
  * ConverterPipe
@@ -23,9 +22,9 @@ use Plum\Plum\Filter\CallbackFilter;
  * @author    Florian Eckerstorfer
  * @copyright 2014-2015 Florian Eckerstorfer
  */
-class ConverterPipe extends Pipe
+class ConverterPipe extends AbstractPipe
 {
-    protected $type = Pipe::TYPE_CONVERTER;
+    protected $type = AbstractPipe::TYPE_CONVERTER;
 
     /**
      * @param ConverterInterface|callable|array $element

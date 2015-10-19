@@ -17,7 +17,7 @@ use Plum\Plum\Converter\ConverterInterface;
 use Plum\Plum\Filter\FilterInterface;
 use Plum\Plum\Pipe\ConverterPipe;
 use Plum\Plum\Pipe\FilterPipe;
-use Plum\Plum\Pipe\Pipe;
+use Plum\Plum\Pipe\AbstractPipe;
 use Plum\Plum\Pipe\WriterPipe;
 use Plum\Plum\Reader\ReaderInterface;
 use Plum\Plum\Writer\WriterInterface;
@@ -34,13 +34,13 @@ class Workflow
     const APPEND  = 1;
     const PREPEND = 2;
 
-    /** @var Pipe[] */
+    /** @var AbstractPipe[] */
     private $pipeline = [];
 
     /**
      * @param string|null $type
      *
-     * @return Pipe[]
+     * @return AbstractPipe[]
      */
     public function getPipeline($type = null)
     {
@@ -58,11 +58,11 @@ class Workflow
     /**
      * Inserts an element into the pipeline at the given position.
      *
-     * @param Pipe $pipe
+     * @param AbstractPipe $pipe
      *
      * @return Workflow
      */
-    protected function addPipe(Pipe $pipe)
+    protected function addPipe(AbstractPipe $pipe)
     {
         if ($pipe->getPosition() === self::PREPEND) {
             array_unshift($this->pipeline, $pipe);
@@ -92,7 +92,7 @@ class Workflow
      */
     public function getFilters()
     {
-        return $this->getPipeline(Pipe::TYPE_FILTER);
+        return $this->getPipeline(AbstractPipe::TYPE_FILTER);
     }
 
     /**
@@ -113,7 +113,7 @@ class Workflow
      */
     public function getConverters()
     {
-        return $this->getPipeline(Pipe::TYPE_CONVERTER);
+        return $this->getPipeline(AbstractPipe::TYPE_CONVERTER);
     }
 
     /**
@@ -134,7 +134,7 @@ class Workflow
      */
     public function getWriters()
     {
-        return $this->getPipeline(Pipe::TYPE_WRITER);
+        return $this->getPipeline(AbstractPipe::TYPE_WRITER);
     }
 
     /**
