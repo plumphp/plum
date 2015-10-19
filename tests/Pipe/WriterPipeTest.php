@@ -18,7 +18,6 @@ class WriterPipeTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      * @covers Plum\Plum\Pipe\WriterPipe::createWriter()
-     * @covers Plum\Plum\Pipe\AbstractPipe::getType()
      * @covers Plum\Plum\Pipe\AbstractPipe::getWriter()
      */
     public function createWriterTakesWriterInterface()
@@ -29,7 +28,6 @@ class WriterPipeTest extends PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('\Plum\Plum\Pipe\WriterPipe', $pipe);
         $this->assertEquals($writer, $pipe->getWriter());
-        $this->assertEquals(AbstractPipe::TYPE_WRITER, $pipe->getType());
     }
 
     /**

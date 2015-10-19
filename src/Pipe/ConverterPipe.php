@@ -24,8 +24,6 @@ use Plum\Plum\Converter\ConverterInterface;
  */
 class ConverterPipe extends AbstractPipe
 {
-    protected $type = AbstractPipe::TYPE_CONVERTER;
-
     /**
      * @param ConverterInterface|callable|array $element
      *

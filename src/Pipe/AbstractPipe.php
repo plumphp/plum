@@ -26,15 +26,6 @@ use Plum\Plum\Writer\WriterInterface;
  */
 abstract class AbstractPipe
 {
-    const TYPE_FILTER    = 1;
-    const TYPE_CONVERTER = 2;
-    const TYPE_WRITER    = 3;
-
-    /**
-     * @var int
-     */
-    protected $type;
-
     /**
      * @var int
      */
@@ -144,14 +135,6 @@ abstract class AbstractPipe
         $this->position = $position;
 
         return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getType()
-    {
-        return $this->type;
     }
 
     /**

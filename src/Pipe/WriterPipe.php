@@ -24,8 +24,6 @@ use Plum\Plum\Writer\WriterInterface;
  */
 class WriterPipe extends AbstractPipe
 {
-    protected $type = AbstractPipe::TYPE_WRITER;
-
     /**
      * @param WriterInterface|array $element
      *

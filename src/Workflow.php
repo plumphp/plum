@@ -47,7 +47,7 @@ class Workflow
         $pipeline = [];
 
         foreach ($this->pipeline as $element) {
-            if ($type === null || $element->getType() === $type) {
+            if ($type === null || get_class($element) === $type) {
                 $pipeline[] = $element;
             }
         }
@@ -92,7 +92,7 @@ class Workflow
      */
     public function getFilters()
     {
-        return $this->getPipeline(AbstractPipe::TYPE_FILTER);
+        return $this->getPipeline('Plum\Plum\Pipe\FilterPipe');
     }
 
     /**
@@ -113,7 +113,7 @@ class Workflow
      */
     public function getConverters()
     {
-        return $this->getPipeline(AbstractPipe::TYPE_CONVERTER);
+        return $this->getPipeline('Plum\Plum\Pipe\ConverterPipe');
     }
 
     /**
@@ -134,7 +134,7 @@ class Workflow
      */
     public function getWriters()
     {
-        return $this->getPipeline(AbstractPipe::TYPE_WRITER);
+        return $this->getPipeline('Plum\Plum\Pipe\WriterPipe');
     }
 
     /**

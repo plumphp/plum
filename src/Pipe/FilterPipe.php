@@ -24,8 +24,6 @@ use Plum\Plum\Filter\FilterInterface;
  */
 class FilterPipe extends AbstractPipe
 {
-    protected $type = AbstractPipe::TYPE_FILTER;
-
     /**
      * @param FilterInterface|callable|array $element
      *
