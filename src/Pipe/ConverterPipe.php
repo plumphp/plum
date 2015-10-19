@@ -34,11 +34,11 @@ class ConverterPipe extends Pipe
     {
         if (is_callable($element)) {
             $converter = new CallbackConverter($element);
-        } else if (self::elementHasCallbackConverter($element)) {
+        } else if (self::hasElementCallbackConverter($element)) {
             $converter = new CallbackConverter($element['converter']);
         } else if ($element instanceof ConverterInterface) {
             $converter = $element;
-        } else if (self::elementHasConverter($element)) {
+        } else if (self::hasElementConverter($element)) {
             $converter = $element['converter'];
         } else {
             throw new InvalidArgumentException('Workflow::addConverter() must be called with either an instance of '.
@@ -46,7 +46,7 @@ class ConverterPipe extends Pipe
                                                'contains "converter".');
         }
 
-        $pipe = new self($element);
+        $pipe            = new self($element);
         $pipe->converter = $converter;
         if (is_array($element) && isset($element['field'])) {
             $pipe->setField($element['field']);
@@ -68,24 +68,24 @@ class ConverterPipe extends Pipe
     }
 
     /**
-     * @param array $element
+     * @param array|callable|ConverterInterface $element
      *
      * @return bool
      */
-    protected static function elementHasCallbackConverter($element)
+    protected static function hasElementCallbackConverter($element)
     {
         return is_array($element) && isset($element['converter']) && is_callable($element['converter']);
     }
 
     /**
-     * @param array $element
+     * @param array|callable|ConverterInterface $element
      *
      * @return bool
      */
-    protected static function elementHasConverter($element)
+    protected static function hasElementConverter($element)
     {
-        return is_array($element) &&
-               isset($element['converter']) &&
-               $element['converter'] instanceof ConverterInterface;
+        return is_array($element)
+               && isset($element['converter'])
+               && $element['converter'] instanceof ConverterInterface;
     }
 }

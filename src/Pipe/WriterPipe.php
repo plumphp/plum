@@ -41,8 +41,8 @@ class WriterPipe extends Pipe
                                                '"writer".');
         }
 
-        $pipe = new self($element);
-        $pipe->type = self::PIPELINE_TYPE_WRITER;
+        $pipe         = new self($element);
+        $pipe->type   = self::PIPELINE_TYPE_WRITER;
         $pipe->writer = $writer;
         if (is_array($element) && isset($element['filter']) && is_callable($element['filter'])) {
             $pipe->setFilter(new CallbackFilter($element['filter']));

@@ -45,7 +45,7 @@ class FilterPipe extends Pipe
                                                '"filter".');
         }
 
-        $pipe = new self($element);
+        $pipe         = new self($element);
         $pipe->filter = $filter;
         if (is_array($element) && isset($element['field'])) {
             $pipe->setType(self::PIPELINE_TYPE_VALUE_FILTER);

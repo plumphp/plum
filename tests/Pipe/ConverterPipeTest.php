@@ -52,7 +52,7 @@ class ConverterPipeTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      * @covers Plum\Plum\Pipe\ConverterPipe::createConverter()
-     * @covers Plum\Plum\Pipe\ConverterPipe::elementHasConverter()
+     * @covers Plum\Plum\Pipe\ConverterPipe::hasElementConverter()
      * @covers Plum\Plum\Pipe\Pipe::getConverter()
      * @covers Plum\Plum\Pipe\Pipe::getType()
      */
@@ -69,7 +69,7 @@ class ConverterPipeTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      * @covers Plum\Plum\Pipe\ConverterPipe::createConverter()
-     * @covers Plum\Plum\Pipe\ConverterPipe::elementHasCallbackConverter()
+     * @covers Plum\Plum\Pipe\ConverterPipe::hasElementCallbackConverter()
      * @covers Plum\Plum\Pipe\Pipe::getConverter()
      * @covers Plum\Plum\Pipe\Pipe::getType()
      */
