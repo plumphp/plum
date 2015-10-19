@@ -40,13 +40,13 @@ class LogConverter implements ConverterInterface
     /**
      * @param LoggerInterface $logger
      * @param string          $level
-     * @param string          $message
+     * @param string|null     $message
      */
     public function __construct(LoggerInterface $logger, $level = 'debug', $message = null)
     {
         $this->logger = $logger;
         $this->level  = $level;
-        if ($message) {
+        if ($message !== null) {
             $this->message = $message;
         }
     }

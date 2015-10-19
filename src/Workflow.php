@@ -359,11 +359,11 @@ class Workflow
      * Applies the given converter to the given field in the given item if no filter is given or if the filters returns
      * `true` for the field.
      *
-     * @param mixed              $item
-     * @param string|array       $field
-     * @param ConverterInterface $converter
-     * @param FilterInterface    $filter
-     * @param string|array|null  $filterField
+     * @param mixed                $item
+     * @param string|array         $field
+     * @param ConverterInterface   $converter
+     * @param FilterInterface|null $filter
+     * @param string|array|null    $filterField
      *
      * @return mixed
      */
@@ -374,8 +374,9 @@ class Workflow
         FilterInterface $filter = null,
         $filterField = null
     ) {
-        $value = Vale::get($item, $field);
+        $value       = Vale::get($item, $field);
         $filterValue = $filterField ? Vale::get($item, $filterField) : $item;
+
         if ($filter === null || $filter->filter($filterValue) === true) {
             $item = Vale::set($item, $field, $converter->convert($value));
         }

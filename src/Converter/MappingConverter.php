@@ -65,17 +65,15 @@ class MappingConverter implements ConverterInterface
     public function convert($item)
     {
         foreach ($this->mappings as $mapping) {
-            if (empty($mapping['from']) && empty($mapping['to'])) {
-                // do nothing if mapping is from item to item
-            } else if (empty($mapping['from'])) {
-                $item = Vale::set([], $mapping['to'], $item);
-            } else if (empty($mapping['to'])) {
-                $item = Vale::get($item, $mapping['from']);
-            } else {
+            if (!empty($mapping['from']) && !empty($mapping['to'])) {
                 $item = Vale::set($item, $mapping['to'], Vale::get($item, $mapping['from']));
                 if ($mapping['remove']) {
                     $item = Vale::remove($item, $mapping['from']);
                 }
+            } else if (!empty($mapping['to'])) {
+                $item = Vale::set([], $mapping['to'], $item);
+            } else if (!empty($mapping['from'])) {
+                $item = Vale::get($item, $mapping['from']);
             }
         }
 
