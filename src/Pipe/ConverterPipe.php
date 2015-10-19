@@ -50,18 +50,8 @@ class ConverterPipe extends Pipe
 
         $pipe            = new self($element);
         $pipe->converter = $converter;
-        if (is_array($element) && isset($element['field'])) {
-            $pipe->setField($element['field']);
-        }
 
-        if (is_array($element) && isset($element['filter']) && is_callable($element['filter'])) {
-            $pipe->setFilter(new CallbackFilter($element['filter']));
-        } else if (is_array($element) && isset($element['filter'])) {
-            $pipe->setFilter($element['filter']);
-        }
-        if (is_array($element) && isset($element['filterField'])) {
-            $pipe->setFilterField($element['filterField']);
-        }
+
 
         return $pipe;
     }

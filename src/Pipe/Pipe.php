@@ -12,6 +12,7 @@
 namespace Plum\Plum\Pipe;
 
 use Plum\Plum\Converter\ConverterInterface;
+use Plum\Plum\Filter\CallbackFilter;
 use Plum\Plum\Filter\FilterInterface;
 use Plum\Plum\Workflow;
 use Plum\Plum\Writer\WriterInterface;
@@ -25,9 +26,9 @@ use Plum\Plum\Writer\WriterInterface;
  */
 abstract class Pipe
 {
-    const TYPE_FILTER          = 1;
-    const TYPE_CONVERTER       = 2;
-    const TYPE_WRITER          = 3;
+    const TYPE_FILTER    = 1;
+    const TYPE_CONVERTER = 2;
+    const TYPE_WRITER    = 3;
 
     /**
      * @var int
@@ -64,10 +65,24 @@ abstract class Pipe
      */
     protected $filterField;
 
+    /**
+     * @param mixed $element
+     */
     public function __construct($element)
     {
         if (is_array($element) && isset($element['position'])) {
             $this->setPosition($element['position']);
+        }
+        if (is_array($element) && isset($element['field'])) {
+            $this->setField($element['field']);
+        }
+        if (is_array($element) && isset($element['filterField'])) {
+            $this->setFilterField($element['filterField']);
+        }
+        if (is_array($element) && isset($element['filter']) && is_callable($element['filter'])) {
+            $this->setFilter(new CallbackFilter($element['filter']));
+        } else if (is_array($element) && isset($element['filter'])) {
+            $this->setFilter($element['filter']);
         }
     }
 

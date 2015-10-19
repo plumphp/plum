@@ -37,8 +37,10 @@ class FilterPipe extends Pipe
             $filter = new CallbackFilter($element);
         } else if (is_array($element) && isset($element['filter']) && is_callable($element['filter'])) {
             $filter = new CallbackFilter($element['filter']);
+            unset($element['filter']);
         } else if (is_array($element) && isset($element['filter']) && $element['filter'] instanceof FilterInterface) {
             $filter = $element['filter'];
+            unset($element['filter']);
         } else if ($element instanceof FilterInterface) {
             $filter = $element;
         } else {
@@ -49,9 +51,6 @@ class FilterPipe extends Pipe
 
         $pipe         = new self($element);
         $pipe->filter = $filter;
-        if (is_array($element) && isset($element['field'])) {
-            $pipe->setField($element['field']);
-        }
 
         return $pipe;
     }

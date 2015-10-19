@@ -45,11 +45,6 @@ class WriterPipe extends Pipe
 
         $pipe         = new self($element);
         $pipe->writer = $writer;
-        if (is_array($element) && isset($element['filter']) && is_callable($element['filter'])) {
-            $pipe->setFilter(new CallbackFilter($element['filter']));
-        } else if (is_array($element) && isset($element['filter'])) {
-            $pipe->setFilter($element['filter']);
-        }
 
         return $pipe;
     }
