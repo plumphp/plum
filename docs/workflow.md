@@ -211,7 +211,7 @@ In addition it is also possible to use callbacks as filters in conditional conve
 Errors and Exceptions
 ---------------------
 
-The default if a reader, filter, converter or writer throws an error or exception the exception will not be handled
+By default if a reader, filter, converter or writer throws an error or exception the exception will not be handled
 by `Plum\Plum\Workflow` and therefore processing will stop. However, by setting the option `resumeOnError` to `true`
 Plum will catch all exceptions and continue processing items. The exceptions are stored in the `Result` object
 returned by the `process()` method and can be retrieved through the `getExceptions()` method. The number of items
