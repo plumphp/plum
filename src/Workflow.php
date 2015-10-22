@@ -34,8 +34,25 @@ class Workflow
     const APPEND  = 1;
     const PREPEND = 2;
 
-    /** @var AbstractPipe[] */
+    /**
+     * @var AbstractPipe[]
+     */
     private $pipeline = [];
+
+    /**
+     * @var array
+     */
+    private $options = [
+        'resumeOnError' => false,
+    ];
+
+    /**
+     * @param array $options
+     */
+    public function __construct(array $options = [])
+    {
+        $this->options = array_merge($this->options, $options);
+    }
 
     /**
      * @param string|null $type
@@ -173,6 +190,9 @@ class Workflow
                 $this->processItem($item, $result);
             } catch (\Exception $e) {
                 $result->addException($e);
+                if (!$this->options['resumeOnError']) {
+                    throw $e;
+                }
             }
         }
     }

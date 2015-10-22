@@ -11,10 +11,8 @@
 
 namespace Plum\Plum;
 
+use Exception;
 use \Mockery as m;
-use Plum\Plum\Pipe\AbstractPipe;
-use Plum\Plum\Reader\ArrayReader;
-use Plum\Plum\Writer\ArrayWriter;
 
 /**
  * WorkflowTest
@@ -26,7 +24,9 @@ use Plum\Plum\Writer\ArrayWriter;
  */
 class WorkflowTest extends \PHPUnit_Framework_TestCase
 {
-    /** @var Workflow */
+    /**
+     * @var Workflow
+     */
     private $workflow;
 
     public function setUp()
@@ -1098,8 +1098,35 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
      * @covers Plum\Plum\Workflow::process()
      * @covers Plum\Plum\Workflow::processReader()
      * @covers Plum\Plum\Workflow::processItem()
+     * @expectedException Exception
      */
-    public function processShouldCollectExceptions()
+    public function processShouldThrowExceptionsIfResumeOnErrorOptionIsFalse()
+    {
+        $iterator = m::mock('\Iterator');
+        $iterator->shouldReceive('rewind');
+        $iterator->shouldReceive('valid')->andReturn(true)->once();
+        $iterator->shouldReceive('current')->andReturn('foobar');
+        $iterator->shouldReceive('next');
+
+        $reader = $this->getMockReader();
+        $reader->shouldReceive('getIterator')->andReturn($iterator);
+
+        $converter = $this->getMockConverter();
+        $converter->shouldReceive('convert')->with('foobar')->once()->andThrow(new Exception());
+
+        $workflow = new Workflow(['resumeOnError' => false]);
+
+        $workflow->addConverter($converter);
+        $workflow->process($reader);
+    }
+
+    /**
+     * @test
+     * @covers Plum\Plum\Workflow::process()
+     * @covers Plum\Plum\Workflow::processReader()
+     * @covers Plum\Plum\Workflow::processItem()
+     */
+    public function processShouldCollectExceptionsIfResumeOnErrorOptionIsTrue()
     {
         $iterator = m::mock('\Iterator');
         $iterator->shouldReceive('rewind');
@@ -1111,13 +1138,15 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
         $reader = $this->getMockReader();
         $reader->shouldReceive('getIterator')->andReturn($iterator);
 
-        $exception = new \Exception();
+        $exception = new Exception();
 
         $converter = $this->getMockConverter();
         $converter->shouldReceive('convert')->with('foobar')->once()->andThrow($exception);
-        $this->workflow->addConverter($converter);
 
-        $result = $this->workflow->process($reader);
+        $workflow = new Workflow(['resumeOnError' => true]);
+
+        $workflow->addConverter($converter);
+        $result = $workflow->process($reader);
 
         $this->assertEquals(1, $result->getReadCount());
         $this->assertEquals(1, $result->getErrorCount());
