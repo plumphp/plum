@@ -34,6 +34,7 @@ Table of Contents
 - [Retrieving Converters, Filters and Writers](#retrieving-converters-filters-and-writers)
 - [Pipeline Order](#pipeline-order)
 - [Callback Converters, and Filters](#callback-converters-and-filter)
+- [Errors and Exceptions](#errors-and-exceptions)
 - [Result](#result)
 - [Concatenating Workflows](#concatenating-workflows)
 - [Merging Data](#merging-data)
@@ -205,6 +206,26 @@ $workflow->addFilter([
 ```
 
 In addition it is also possible to use callbacks as filters in conditional converters.
+
+
+Errors and Exceptions
+---------------------
+
+The default if a reader, filter, converter or writer throws an error or exception the exception will not be handled
+by `Plum\Plum\Workflow` and therefore processing will stop. However, by setting the option `resumeOnError` to `true`
+Plum will catch all exceptions and continue processing items. The exceptions are stored in the `Result` object
+returned by the `process()` method and can be retrieved through the `getExceptions()` method. The number of items
+that produced an exception is returned by the `getErrorCount()` method.
+
+```php
+use Plum\Plum\Workflow;
+
+$workflow = new Workflow(['resumeOnError' => true]);
+// Build workflow
+$result = $workflow->process($reader);
+$result->getErrorCount(); // -> int
+$result->getExceptions(); // -> \Exception[]
+```
 
 
 Result
