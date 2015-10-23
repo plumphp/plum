@@ -39,6 +39,7 @@ packages which give you more functionality out of the box:
 - [Console](#console)
 - [Data Types](#data-types)
 - [Database](#database)
+- [Dates](#dates)
 - [File Formats](#file-formats)
 - [Filesystem](#filesystem)
 - [Templating](#templating)
@@ -54,6 +55,10 @@ packages which give you more functionality out of the box:
 ### Database
 
 - [**plum-pdo**](https://github.com/plumphp/plum-pdo): Integration for PDO.
+
+### Dates
+
+- [**plum-date**](https://github.com/plumphp/plum-date): Converters and filters for working with date and time.
 
 ### File Formats
 
