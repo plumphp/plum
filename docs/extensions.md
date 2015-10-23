@@ -54,6 +54,7 @@ packages which give you more functionality out of the box:
 
 ### Database
 
+- [**plum-doctrine**](https://github.com/plumphp/plum-doctrine): Integration for Doctrine.
 - [**plum-pdo**](https://github.com/plumphp/plum-pdo): Integration for PDO.
 
 ### Dates
