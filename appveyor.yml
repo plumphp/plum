@@ -33,7 +33,7 @@ test_script:
   - vendor\bin\phpunit.bat --verbose
 
 notifications:
-  - provider: Gitter
+  - provider: Webhook
     url: https://webhooks.gitter.im/e/8bfd287c1e8cd5f18f31
     on_build_success: false
     on_build_failure: true
