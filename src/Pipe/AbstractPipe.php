@@ -18,9 +18,8 @@ use Plum\Plum\Workflow;
 use Plum\Plum\Writer\WriterInterface;
 
 /**
- * Pipe
+ * Pipe.
  *
- * @package   Plum\Plum\Pipe
  * @author    Florian Eckerstorfer
  * @copyright 2014-2015 Florian Eckerstorfer
  */
@@ -72,7 +71,7 @@ abstract class AbstractPipe
         }
         if (is_array($element) && isset($element['filter']) && is_callable($element['filter'])) {
             $this->setFilter(new CallbackFilter($element['filter']));
-        } else if (is_array($element) && isset($element['filter'])) {
+        } elseif (is_array($element) && isset($element['filter'])) {
             $this->setFilter($element['filter']);
         }
     }

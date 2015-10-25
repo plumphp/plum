@@ -14,9 +14,8 @@ namespace Plum\Plum\Filter;
 use LogicException;
 
 /**
- * SkipFirstFilter
+ * SkipFirstFilter.
  *
- * @package   Plum\Plum\Filter
  * @author    Sebastian Göttschkes <sebastian.goettschkes@googlemail.com>
  * @copyright 2015 Florian Eckerstorfer
  */
@@ -42,7 +41,7 @@ class SkipFirstFilter implements FilterInterface
     public function filter($item)
     {
         if ($this->counter > 0) {
-            $this->counter--;
+            --$this->counter;
 
             return false;
         }

@@ -12,9 +12,8 @@
 namespace Plum\Plum\Converter;
 
 /**
- * HeaderConverterTest
+ * HeaderConverterTest.
  *
- * @package   Plum\Plum\Converter
  * @author    Sebastian Göttschkes <sebastian.goettschkes@googlemail.com>
  * @copyright 2015-2015 Florian Eckerstorfer
  * @group     unit
@@ -28,7 +27,7 @@ class HeaderConverterTest extends \PHPUnit_Framework_TestCase
     public function convertFirstLine()
     {
         $headerConverter = new HeaderConverter();
-        $header = ['Headline #1', '#2', '3'];
+        $header          = ['Headline #1', '#2', '3'];
 
         $this->assertSame($header, $headerConverter->convert($header));
 

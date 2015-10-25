@@ -12,9 +12,8 @@
 namespace Plum\Plum\Writer;
 
 /**
- * ArrayWriterTest
+ * ArrayWriterTest.
  *
- * @package   Plum\Plum\Writer
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
  * @copyright 2014-2015 Florian Eckerstorfer
  * @group     unit

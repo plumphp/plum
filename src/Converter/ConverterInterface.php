@@ -14,9 +14,8 @@ namespace Plum\Plum\Converter;
 use Plum\Plum\PipelineInterface;
 
 /**
- * ConverterInterface
+ * ConverterInterface.
  *
- * @package   Plum\Plum\Converter
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
  * @copyright 2014-2015 Florian Eckerstorfer
  */

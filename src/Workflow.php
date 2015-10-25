@@ -23,9 +23,8 @@ use Plum\Plum\Reader\ReaderInterface;
 use Plum\Plum\Writer\WriterInterface;
 
 /**
- * Workflow
+ * Workflow.
  *
- * @package   Plum\Plum
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
  * @copyright 2014-2015 Florian Eckerstorfer
  */
@@ -116,7 +115,6 @@ class Workflow
      * @param ConverterInterface|callable|array $element
      *
      * @return Workflow $this
-     *
      */
     public function addConverter($element)
     {
@@ -137,7 +135,6 @@ class Workflow
      * @param WriterInterface|array $element
      *
      * @return Workflow
-     *
      */
     public function addWriter($element)
     {
@@ -199,8 +196,6 @@ class Workflow
 
     /**
      * @param WriterPipe[] $writers
-     *
-     * @return void
      */
     protected function prepareWriters($writers)
     {
@@ -211,8 +206,6 @@ class Workflow
 
     /**
      * @param WriterPipe[] $writers
-     *
-     * @return void
      */
     protected function finishWriters($writers)
     {
@@ -224,8 +217,6 @@ class Workflow
     /**
      * @param mixed  $item
      * @param Result $result
-     *
-     * @return void
      */
     protected function processItem($item, Result $result)
     {
@@ -236,18 +227,18 @@ class Workflow
                 if ($element->getFilter()->filter(Vale::get($item, $element->getField())) === false) {
                     return;
                 }
-            } else if ($element instanceof FilterPipe) {
+            } elseif ($element instanceof FilterPipe) {
                 if ($element->getFilter()->filter($item) === false) {
                     return;
                 }
-            } else if ($element instanceof ConverterPipe && $element->getField()) {
+            } elseif ($element instanceof ConverterPipe && $element->getField()) {
                 $item = $this->convertItemValue($item, $element);
-            } else if ($element instanceof ConverterPipe) {
+            } elseif ($element instanceof ConverterPipe) {
                 $item = $this->convertItem($item, $element);
                 if ($item === null) {
                     return;
                 }
-            } else if ($element instanceof WriterPipe) {
+            } elseif ($element instanceof WriterPipe) {
                 if ($this->writeItem($item, $element) === true) {
                     $result->incWriteCount();
                     $written = true;
@@ -267,7 +258,6 @@ class Workflow
      * @param ConverterPipe $pipe
      *
      * @return mixed
-     *
      */
     protected function convertItem($item, ConverterPipe $pipe)
     {
@@ -287,7 +277,6 @@ class Workflow
      * @param ConverterPipe $pipe
      *
      * @return mixed
-     *
      */
     protected function convertItemValue($item, ConverterPipe $pipe)
     {
@@ -308,7 +297,6 @@ class Workflow
      * @param WriterPipe $pipe
      *
      * @return bool `true` if the item has been written, `false` if not.
-     *
      */
     protected function writeItem($item, WriterPipe $pipe)
     {

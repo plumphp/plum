@@ -11,12 +11,11 @@
 
 namespace Plum\Plum\Converter;
 
-use \Mockery as m;
+use Mockery as m;
 
 /**
- * LogConverterTest
+ * LogConverterTest.
  *
- * @package   Plum\Plum\Converter
  * @author    Sebastian Göttschkes <sebastian.goettschkes@googlemail.com>
  * @copyright 2015-2015 Florian Eckerstorfer
  * @group     unit

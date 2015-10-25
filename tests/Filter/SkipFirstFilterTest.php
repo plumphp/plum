@@ -12,9 +12,8 @@
 namespace Plum\Plum\Filter;
 
 /**
- * SkipFirstFilterTest
+ * SkipFirstFilterTest.
  *
- * @package   Plum\Plum\Filter
  * @author    Sebastian Göttschkes <sebastian.goettschkes@googlemail.com>
  * @copyright 2014-2015 Florian Eckerstorfer
  * @group     unit

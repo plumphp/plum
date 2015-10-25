@@ -14,9 +14,8 @@ namespace Plum\Plum\Filter;
 use Plum\Plum\PipelineInterface;
 
 /**
- * FilterInterface
+ * FilterInterface.
  *
- * @package   Plum\Plum\Filter
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
  * @copyright 2014-2015 Florian Eckerstorfer
  */

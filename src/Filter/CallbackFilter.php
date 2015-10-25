@@ -12,9 +12,8 @@
 namespace Plum\Plum\Filter;
 
 /**
- * CallbackFilter
+ * CallbackFilter.
  *
- * @package   Plum\Plum\Filter
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
  * @copyright 2014-2015 Florian Eckerstorfer
  */

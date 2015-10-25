@@ -1,15 +1,13 @@
 <?php
 
-
 namespace Converter;
 
 use PHPUnit_Framework_TestCase;
 use Plum\Plum\Converter\MappingConverter;
 
 /**
- * MappingConverterTest
+ * MappingConverterTest.
  *
- * @package   Converter
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
  * @copyright 2014-2015 Florian Eckerstorfer
  * @group     unit

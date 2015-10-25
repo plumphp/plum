@@ -12,9 +12,8 @@
 namespace Plum\Plum;
 
 /**
- * Result
+ * Result.
  *
- * @package   Plum\Plum
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
  * @copyright 2014-2015 Florian Eckerstorfer
  */
@@ -37,7 +36,7 @@ class Result
      */
     public function incReadCount()
     {
-        $this->readCount++;
+        ++$this->readCount;
 
         return $this;
     }
@@ -55,7 +54,7 @@ class Result
      */
     public function incWriteCount()
     {
-        $this->writeCount++;
+        ++$this->writeCount;
 
         return $this;
     }
@@ -77,7 +76,7 @@ class Result
      */
     public function incItemWriteCount()
     {
-        $this->itemWriteCount++;
+        ++$this->itemWriteCount;
 
         return $this;
     }

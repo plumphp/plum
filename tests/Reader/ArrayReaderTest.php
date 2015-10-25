@@ -12,9 +12,8 @@
 namespace Plum\Plum\Reader;
 
 /**
- * ArrayReaderTest
+ * ArrayReaderTest.
  *
- * @package   Plum\Plum\Reader
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
  * @copyright 2014-2015 Florian Eckerstorfer
  * @group     unit

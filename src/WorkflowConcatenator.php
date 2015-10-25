@@ -11,14 +11,12 @@
 
 namespace Plum\Plum;
 
-
 use Plum\Plum\Reader\ReaderInterface;
 use Plum\Plum\Writer\WriterInterface;
 
 /**
- * WorkflowConcatenator
+ * WorkflowConcatenator.
  *
- * @package   Plum\Plum
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
  * @copyright 2014-2015 Florian Eckerstorfer
  */
@@ -47,8 +45,6 @@ class WorkflowConcatenator implements ReaderInterface, WriterInterface
      * Write the given item.
      *
      * @param mixed $item
-     *
-     * @return void
      */
     public function writeItem($item)
     {
@@ -57,8 +53,6 @@ class WorkflowConcatenator implements ReaderInterface, WriterInterface
 
     /**
      * Prepare the writer.
-     *
-     * @return void
      */
     public function prepare()
     {
@@ -66,8 +60,6 @@ class WorkflowConcatenator implements ReaderInterface, WriterInterface
 
     /**
      * Finish the writer.
-     *
-     * @return void
      */
     public function finish()
     {

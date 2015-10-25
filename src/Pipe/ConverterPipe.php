@@ -16,9 +16,8 @@ use Plum\Plum\Converter\CallbackConverter;
 use Plum\Plum\Converter\ConverterInterface;
 
 /**
- * ConverterPipe
+ * ConverterPipe.
  *
- * @package   Plum\Plum\Pipe
  * @author    Florian Eckerstorfer
  * @copyright 2014-2015 Florian Eckerstorfer
  */
@@ -33,11 +32,11 @@ class ConverterPipe extends AbstractPipe
     {
         if (is_callable($element)) {
             $converter = new CallbackConverter($element);
-        } else if (self::hasElementCallbackConverter($element)) {
+        } elseif (self::hasElementCallbackConverter($element)) {
             $converter = new CallbackConverter($element['converter']);
-        } else if ($element instanceof ConverterInterface) {
+        } elseif ($element instanceof ConverterInterface) {
             $converter = $element;
-        } else if (self::hasElementConverter($element)) {
+        } elseif (self::hasElementConverter($element)) {
             $converter = $element['converter'];
         } else {
             throw new InvalidArgumentException('Workflow::addConverter() must be called with either an instance of '.
@@ -47,8 +46,6 @@ class ConverterPipe extends AbstractPipe
 
         $pipe            = new self($element);
         $pipe->converter = $converter;
-
-
 
         return $pipe;
     }
