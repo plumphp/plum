@@ -47,6 +47,8 @@ class Workflow
 
     /**
      * @param array $options
+     *
+     * @codeCoverageIgnore
      */
     public function __construct(array $options = [])
     {
