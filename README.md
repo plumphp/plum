@@ -81,7 +81,7 @@ If you need help getting started, run into problems or want to discuss new featu
 either create a new [issue](https://github.com/plumphp/plum/issues), you can join our
 [Gitter chat](https://gitter.im/plumphp/plum) or ping us on Twitter [@cocurco](https://twitter.com/cocurco).
 
-**Just remember to be excellent to each other.**
+**Please be excellent to each other.**
 
 
 Authors
