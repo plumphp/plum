@@ -10,8 +10,8 @@
 [![Code Coverage](https://scrutinizer-ci.com/g/plumphp/plum/badges/coverage.png?b=master&style=flat-square)](https://scrutinizer-ci.com/g/plumphp/plum/?branch=master)
 [![StyleCI](https://styleci.io/repos/30204360/shield)](https://styleci.io/repos/30204360)
 
-[![MIT License](https://img.shields.io/packagist/l/plumphp/plum.svg?style=flat-square)](http://opensource.org/licenses/MIT)
 [![Latest Release](https://img.shields.io/packagist/v/plumphp/plum.svg?style=flat-square)](https://packagist.org/packages/plumphp/plum)
+[![MIT License](https://img.shields.io/packagist/l/plumphp/plum.svg?style=flat-square)](http://opensource.org/licenses/MIT)
 [![Total Downloads](https://img.shields.io/packagist/dt/plumphp/plum.svg?style=flat-square)](https://packagist.org/packages/plumphp/plum)
 
 
