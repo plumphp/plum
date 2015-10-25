@@ -7,4 +7,3 @@ enabled:
 disabled:
     - unalign_double_arrow
     - unalign_equals
-    - elseif
