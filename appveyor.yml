@@ -12,7 +12,6 @@ init:
 environment:
   matrix:
     - COMPOSER_FLAGS: ""
-    - COMPOSER_FLAGS: --prefer-lowest --prefer-stable
 
 install:
   - cinst -y OpenSSL.Light
@@ -32,3 +31,10 @@ install:
 test_script:
   - cd c:\projects\plumphp\plum
   - vendor\bin\phpunit.bat --verbose
+
+notifications:
+  - provider: Gitter
+    url: https://webhooks.gitter.im/e/8bfd287c1e8cd5f18f31
+    on_build_success: false
+    on_build_failure: true
+    on_build_status_changed: true
