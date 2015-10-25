@@ -15,9 +15,8 @@ use IteratorAggregate;
 use Countable;
 
 /**
- * ReaderInterface
+ * ReaderInterface.
  *
- * @package   Plum\Plum\Reader
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
  * @copyright 2014-2015 Florian Eckerstorfer
  */

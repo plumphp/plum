@@ -14,9 +14,8 @@ namespace Plum\Plum\Converter;
 use Psr\Log\LoggerInterface;
 
 /**
- * LogConverter
+ * LogConverter.
  *
- * @package   Plum\Plum\Converter
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
  * @copyright 2015 Florian Eckerstorfer
  */

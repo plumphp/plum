@@ -12,12 +12,10 @@
 namespace Plum\Plum;
 
 use Exception;
-use \Mockery as m;
 
 /**
- * ResultTest
+ * ResultTest.
  *
- * @package   Plum\Plum
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
  * @copyright 2014-2015 Florian Eckerstorfer
  * @group     unit

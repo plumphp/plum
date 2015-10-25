@@ -12,9 +12,8 @@
 namespace Plum\Plum\Converter;
 
 /**
- * HeaderConverter
+ * HeaderConverter.
  *
- * @package   Plum\Plum\Converter
  * @author    Sebastian Göttschkes <sebastian.goettschkes@googlemail.com>
  * @copyright 2015 Florian Eckerstorfer
  */
@@ -24,7 +23,7 @@ class HeaderConverter implements ConverterInterface
     private $header = null;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function convert($item)
     {

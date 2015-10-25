@@ -7,9 +7,8 @@ use PHPUnit_Framework_TestCase;
 use Plum\Plum\Workflow;
 
 /**
- * ConverterPipeTest
+ * ConverterPipeTest.
  *
- * @package   Plum\Plum\Pipe
  * @author    Florian Eckerstorfer
  * @copyright 2015 Florian Eckerstorfer
  * @group     unit
@@ -25,7 +24,7 @@ class ConverterPipeTest extends PHPUnit_Framework_TestCase
     {
         /** @var \Plum\Plum\Converter\ConverterInterface $converter */
         $converter = Mockery::mock('\Plum\Plum\Converter\ConverterInterface');
-        $pipe = ConverterPipe::createConverter($converter);
+        $pipe      = ConverterPipe::createConverter($converter);
 
         $this->assertInstanceOf('Plum\Plum\Pipe\ConverterPipe', $pipe);
         $this->assertEquals($converter, $pipe->getConverter());
@@ -54,7 +53,7 @@ class ConverterPipeTest extends PHPUnit_Framework_TestCase
     public function createConverterTakesConverterInterfaceInArray()
     {
         $converter = Mockery::mock('\Plum\Plum\Converter\ConverterInterface');
-        $pipe = ConverterPipe::createConverter(['converter' => $converter]);
+        $pipe      = ConverterPipe::createConverter(['converter' => $converter]);
 
         $this->assertInstanceOf('Plum\Plum\Pipe\ConverterPipe', $pipe);
         $this->assertEquals($converter, $pipe->getConverter());
@@ -96,7 +95,7 @@ class ConverterPipeTest extends PHPUnit_Framework_TestCase
     public function createConverterCreatesValueConverterIfFieldIsPresent()
     {
         $converter = Mockery::mock('\Plum\Plum\Converter\ConverterInterface');
-        $pipe = ConverterPipe::createConverter(['converter' => $converter, 'field' => 'foo']);
+        $pipe      = ConverterPipe::createConverter(['converter' => $converter, 'field' => 'foo']);
 
         $this->assertInstanceOf('Plum\Plum\Pipe\ConverterPipe', $pipe);
         $this->assertEquals($converter, $pipe->getConverter());

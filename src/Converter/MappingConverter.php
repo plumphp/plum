@@ -10,13 +10,12 @@
  */
 
 namespace Plum\Plum\Converter;
+
 use Cocur\Vale\Vale;
-use InvalidArgumentException;
 
 /**
- * MappingConverter
+ * MappingConverter.
  *
- * @package   Plum\Plum\Converter
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
  * @copyright 2014-2015 Florian Eckerstorfer
  */
@@ -70,9 +69,9 @@ class MappingConverter implements ConverterInterface
                 if ($mapping['remove']) {
                     $item = Vale::remove($item, $mapping['from']);
                 }
-            } else if (!empty($mapping['to'])) {
+            } elseif (!empty($mapping['to'])) {
                 $item = Vale::set([], $mapping['to'], $item);
-            } else if (!empty($mapping['from'])) {
+            } elseif (!empty($mapping['from'])) {
                 $item = Vale::get($item, $mapping['from']);
             }
         }

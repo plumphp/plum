@@ -12,12 +12,11 @@
 namespace Plum\Plum;
 
 use Exception;
-use \Mockery as m;
+use Mockery as m;
 
 /**
- * WorkflowTest
+ * WorkflowTest.
  *
- * @package   Plum\Plum
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
  * @copyright 2014-2015 Florian Eckerstorfer
  * @group     unit
@@ -296,7 +295,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
     {
         $this->workflow->addConverter([
             'converter' => $this->getMockConverter(),
-            'filter'    => function ($item) { return true; }
+            'filter'    => function ($item) { return true; },
         ]);
 
         $this->assertInstanceOf(
@@ -366,7 +365,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
         $this->workflow->addConverter([
             'field'     => ['foo'],
             'converter' => $converter2,
-            'position'  => Workflow::PREPEND
+            'position'  => Workflow::PREPEND,
         ]);
 
         $this->assertSame($converter2, $this->workflow->getConverters()[0]->getConverter());
@@ -396,7 +395,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
         $this->workflow->addConverter([
             'converter' => $this->getMockConverter(),
             'field'     => ['foo'],
-            'filter'    => function ($item) { return true; }
+            'filter'    => function ($item) { return true; },
         ]);
 
         $this->assertInstanceOf(
@@ -461,7 +460,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
     {
         $this->workflow->addWriter([
             'writer' => $this->getMockWriter(),
-            'filter' => function ($item) { return true; }
+            'filter' => function ($item) { return true; },
         ]);
 
         $this->assertInstanceOf(
@@ -857,7 +856,7 @@ class WorkflowTest extends \PHPUnit_Framework_TestCase
             'field'       => 'foo',
             'converter'   => $converter,
             'filter'      => $filter,
-            'filterField' => 'bar'
+            'filterField' => 'bar',
         ]);
 
         $writer = $this->getMockWriter();

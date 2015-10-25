@@ -14,9 +14,8 @@ namespace Plum\Plum\Writer;
 use Plum\Plum\PipelineInterface;
 
 /**
- * WriterInterface
+ * WriterInterface.
  *
- * @package   Plum\Plum\Writer
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
  * @copyright 2014-2015 Florian Eckerstorfer
  */
@@ -26,22 +25,16 @@ interface WriterInterface extends PipelineInterface
      * Write the given item.
      *
      * @param mixed $item
-     *
-     * @return void
      */
     public function writeItem($item);
 
     /**
      * Prepare the writer.
-     *
-     * @return void
      */
     public function prepare();
 
     /**
      * Finish the writer.
-     *
-     * @return void
      */
     public function finish();
 }

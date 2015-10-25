@@ -12,13 +12,11 @@
 namespace Plum\Plum\Pipe;
 
 use InvalidArgumentException;
-use Plum\Plum\Filter\CallbackFilter;
 use Plum\Plum\Writer\WriterInterface;
 
 /**
- * WriterPipe
+ * WriterPipe.
  *
- * @package   Plum\Plum\Pipe
  * @author    Florian Eckerstorfer
  * @copyright 2014-2015 Florian Eckerstorfer
  */
@@ -33,7 +31,7 @@ class WriterPipe extends AbstractPipe
     {
         if ($element instanceof WriterInterface) {
             $writer = $element;
-        } else if (isset($element['writer']) && $element['writer'] instanceof WriterInterface) {
+        } elseif (isset($element['writer']) && $element['writer'] instanceof WriterInterface) {
             $writer = $element['writer'];
         } else {
             throw new InvalidArgumentException('Workflow::addWriter() must be called with either an instance of '.

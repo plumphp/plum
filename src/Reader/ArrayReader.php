@@ -14,9 +14,8 @@ namespace Plum\Plum\Reader;
 use ArrayIterator;
 
 /**
- * ArrayReader
+ * ArrayReader.
  *
- * @package   Plum\Plum\Reader
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
  * @copyright 2014-2015 Florian Eckerstorfer
  */

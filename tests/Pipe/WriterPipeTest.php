@@ -6,9 +6,8 @@ use Mockery;
 use PHPUnit_Framework_TestCase;
 
 /**
- * WriterPipeTest
+ * WriterPipeTest.
  *
- * @package   Plum\Plum\Pipe
  * @author    Florian Eckerstorfer
  * @copyright 2015 Florian Eckerstorfer
  * @group     unit

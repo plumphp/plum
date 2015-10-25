@@ -16,9 +16,8 @@ use Plum\Plum\Filter\CallbackFilter;
 use Plum\Plum\Filter\FilterInterface;
 
 /**
- * FilterPipe
+ * FilterPipe.
  *
- * @package   Plum\Plum\Pipe
  * @author    Florian Eckerstorfer
  * @copyright 2014-2015 Florian Eckerstorfer
  */
@@ -33,13 +32,13 @@ class FilterPipe extends AbstractPipe
     {
         if (is_callable($element)) {
             $filter = new CallbackFilter($element);
-        } else if (is_array($element) && isset($element['filter']) && is_callable($element['filter'])) {
+        } elseif (is_array($element) && isset($element['filter']) && is_callable($element['filter'])) {
             $filter = new CallbackFilter($element['filter']);
             unset($element['filter']);
-        } else if (is_array($element) && isset($element['filter']) && $element['filter'] instanceof FilterInterface) {
+        } elseif (is_array($element) && isset($element['filter']) && $element['filter'] instanceof FilterInterface) {
             $filter = $element['filter'];
             unset($element['filter']);
-        } else if ($element instanceof FilterInterface) {
+        } elseif ($element instanceof FilterInterface) {
             $filter = $element;
         } else {
             throw new InvalidArgumentException('Workflow::addFilter() must be called with either an instance of '.
