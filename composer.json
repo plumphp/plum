@@ -25,7 +25,6 @@
     },
     "support": {
         "docs":   "https://github.com/plumphp/plum/blob/master/docs/index.md",
-        "irc":    "https://gitter.im/plumphp/plum",
         "issues": "https://github.com/plumphp/plum/issues",
         "source": "https://github.com/plumphp/plum"
     }
