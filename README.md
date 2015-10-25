@@ -33,17 +33,6 @@ Plum is a data processing pipeline, that means it reads data, filters and conver
 *Plum has been greatly inspired by [ddeboer/data-import](https://github.com/ddeboer/data-import).*
 
 
-Installation
-------------
-
-You can install Plum using [Composer](http://getcomposer.org) (recommended) or by downloading a
-[release](https://github.com/plumphp/plum/releases).
-
-```shell
-$ composer require plumphp/plum
-```
-
-
 Usage
 -----
 
@@ -61,38 +50,53 @@ $workflow->process(/* reader */);
 ```
 
 
+Installation
+------------
+
+You can install Plum using [Composer](http://getcomposer.org) (recommended) or by downloading a
+[release](https://github.com/plumphp/plum/releases).
+
+```shell
+$ composer require plumphp/plum
+```
+
+
+Contribute
+----------
+
+If you want to help us improve Plum you can contribute in a number of different ways:
+
+- Fix bugs or add additional features (check our [Waffle board](https://waffle.io/plumphp/plum) to see features and bugs that are ready to go)
+- Help others by providing support to others: [Issues](https://github.com/plumphp/plum/issues) and [Chat](https://gitter.im/plumphp/plum)
+- Improve the [documentation](https://github.com/plumphp/plum/blob/master/docs/index.md)
+- Spread the work by tweeting, blogging or talking about Plum at your local user group
+
+When you need help or have any questions feel free to [contact us](#support).
+
+
+Support
+-------
+
+If you need help getting started, run into problems or want to discuss new features you can also contact us. You can
+either create a new [issue](https://github.com/plumphp/plum/issues), you can join our
+[Gitter chat](https://gitter.im/plumphp/plum) or ping us on Twitter [@cocurco](https://twitter.com/cocurco).
+
+**Just remember to be excellent to each other.**
+
+
+Authors
+-------
+
+- [Florian Eckerstorfer](https://florian.ec) ([Twitter](https://twitter.com/florian_), [Donate €5](https://paypal.me/florianec/5))
+- Some [fantastic contributors](https://github.com/plumphp/plum/graphs/contributors)
+
+*Plum is a [Cocur](http://cocur.co) open source project.*
+
+
 Change Log
 ----------
 
-### Version 0.4 (17 October 2015)
-
-- [#8](https://github.com/plumphp/plum/pull/8) Remove `Workflow::addValueConverter()` and `Workflow::addValueFilter()`
-and handle value filters and converter by `::addConverter()` and `::addFilter()`.
-- [#9](https://github.com/plumphp/plum/pull/9) Allowing processing of multiple readers.
-
-### Version 0.3.1 (15 May 2015)
-
-- `MappingConverter` allows to copy instead of move values
-- Conditional converters can now define the field the filter should be applied on
-
-### Version 0.3 (28 April 2015)
-
-- Refactored `Workflow`
-- Improved adding of filters, converters and writers
-- Allow callback to be passed directly to filters and converters
-- Improved `MappingConverter`
-
-### Version 0.2 (21 April 2015)
-
-- Add value converters and value filters
-- Add `MappingConverter`
-- Add `LogConverter`
-- Filter items if converter returns `null`
-
-### Version 0.1 (18 March 2015)
-
-- Initial release
-
+See [CHANGELOG.md](https://github.com/plumphp/plum/blob/master/CHANGELOG.md).
 
 License
 -------
