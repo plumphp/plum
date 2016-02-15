@@ -18,7 +18,7 @@ use Plum\Plum\Writer\WriterInterface;
  * WriterPipe.
  *
  * @author    Florian Eckerstorfer
- * @copyright 2014-2015 Florian Eckerstorfer
+ * @copyright 2014-2016 Florian Eckerstorfer
  */
 class WriterPipe extends AbstractPipe
 {

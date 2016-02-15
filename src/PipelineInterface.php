@@ -15,7 +15,7 @@ namespace Plum\Plum;
  * PipelineInterface.
  *
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
- * @copyright 2014-2015 Florian Eckerstorfer
+ * @copyright 2014-2016 Florian Eckerstorfer
  */
 interface PipelineInterface
 {
