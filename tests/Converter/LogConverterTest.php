@@ -17,7 +17,7 @@ use Mockery as m;
  * LogConverterTest.
  *
  * @author    Sebastian Göttschkes <sebastian.goettschkes@googlemail.com>
- * @copyright 2015-2015 Florian Eckerstorfer
+ * @copyright 2014-2016 Florian Eckerstorfer
  * @group     unit
  */
 class LogConverterTest extends \PHPUnit_Framework_TestCase

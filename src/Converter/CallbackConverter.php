@@ -15,8 +15,7 @@ namespace Plum\Plum\Converter;
  * CallbackConverter.
  *
  * @author    Florian Eckerstorfer <florian@eckerstorfer.co>
- * @copyright
- *  Florian Eckerstorfer
+ * @copyright 2014-2016 Florian Eckerstorfer
  */
 class CallbackConverter implements ConverterInterface
 {

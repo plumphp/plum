@@ -17,7 +17,7 @@ use LogicException;
  * SkipFirstFilter.
  *
  * @author    Sebastian Göttschkes <sebastian.goettschkes@googlemail.com>
- * @copyright 2015 Florian Eckerstorfer
+ * @copyright 2014-2016 Florian Eckerstorfer
  */
 class SkipFirstFilter implements FilterInterface
 {

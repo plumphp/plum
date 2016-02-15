@@ -10,7 +10,7 @@ use Plum\Plum\Workflow;
  * ConverterPipeTest.
  *
  * @author    Florian Eckerstorfer
- * @copyright 2015 Florian Eckerstorfer
+ * @copyright 2014-2016 Florian Eckerstorfer
  * @group     unit
  */
 class ConverterPipeTest extends PHPUnit_Framework_TestCase
