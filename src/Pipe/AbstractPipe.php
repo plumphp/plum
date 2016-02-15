@@ -21,7 +21,7 @@ use Plum\Plum\Writer\WriterInterface;
  * Pipe.
  *
  * @author    Florian Eckerstorfer
- * @copyright 2014-2015 Florian Eckerstorfer
+ * @copyright 2014-2016 Florian Eckerstorfer
  */
 abstract class AbstractPipe
 {

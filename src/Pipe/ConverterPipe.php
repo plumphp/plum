@@ -19,7 +19,7 @@ use Plum\Plum\Converter\ConverterInterface;
  * ConverterPipe.
  *
  * @author    Florian Eckerstorfer
- * @copyright 2014-2015 Florian Eckerstorfer
+ * @copyright 2014-2016 Florian Eckerstorfer
  */
 class ConverterPipe extends AbstractPipe
 {
