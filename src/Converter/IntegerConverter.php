@@ -20,7 +20,7 @@ namespace Plum\Plum\Converter;
 class IntegerConverter implements ConverterInterface
 {
     /**
-     * Converts the item into an integer value
+     * Converts the item into an integer value.
      *
      * @param mixed $item
      *

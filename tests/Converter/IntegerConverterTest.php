@@ -31,6 +31,7 @@ class IntegerConverterTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(42, $converter->convert(42));
         $this->assertSame(42, $converter->convert(42.69));
     }
+
     /**
      * @test
      * @covers Plum\Plum\Converter\NullConverter::convert()
