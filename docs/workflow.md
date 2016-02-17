@@ -130,7 +130,7 @@ $writer = ...; // Instance of WriterInterface
 $filter = ...; // Instance of FilterInterface or function
 $workflow->addWriter([
     'writer' => $writer,
-    'filter  => $filter,
+    'filter'  => $filter,
 ]);
 ```
 
