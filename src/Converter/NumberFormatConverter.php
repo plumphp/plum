@@ -52,7 +52,7 @@ class NumberFormatConverter implements ConverterInterface
     /**
      * @param mixed $item
      *
-     * @return mixed
+     * @return string
      */
     public function convert($item)
     {
